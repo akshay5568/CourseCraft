@@ -1,14 +1,20 @@
-export const signInLogo = "https://frontends.udemycdn.com/components/auth/desktop-illustration-step-2-x2.webp";
 
-export const passwordEmailChecker = (email,password) => {
-     const isEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
-     const isPass = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/.test(password);
+export const signInLogo =
+  "https://frontends.udemycdn.com/components/auth/desktop-illustration-step-2-x2.webp";
 
-     if(!isEmail){
-        return "Please Add @ and Follow proper email convenstion";
-     }
-     else if(!isPass) return "Please add @ and special char in Password";
+export const passwordEmailChecker = (email, password) => {
+  const isEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(
+    email
+  );
+  const isPass = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/.test(
+    password
+  );
 
-     return null;
-}
+  if (!isEmail) {
+    return "Please Add @ and Follow proper email convenstion";
+  } else if (!isPass) return "Please add @ and special char in Password";
+
+  return null;
+};
+
 

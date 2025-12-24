@@ -2,7 +2,7 @@ import {useRef, useState } from "react";
 import Header from "../Header/Header";
 import { passwordEmailChecker, signInLogo } from "../../Constants/Constant";
 import { Link } from "react-router";
-
+import GoogleLogin from '../GoogleLogin/GoogleLogin'
 
 export const SignUp = () => {
     const [errorMsg,setErrorMsg] = useState();
@@ -72,6 +72,13 @@ export const SignUp = () => {
               SignUp
             </button>
           </form>
+
+            <div className="m-3 text-center w-90 ">
+            <span className="mb-9 text-sm text-gray-400">
+              ------------OR--------------
+            </span>
+            <GoogleLogin/>
+          </div>
 
           <div className="m-3 text-1xl bg-[#e5e6ea] w-90 p-3 text-center font-semibold mt-10 rounded">
             <div><span>Do you have an account? 
