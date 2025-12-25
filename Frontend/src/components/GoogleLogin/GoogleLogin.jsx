@@ -2,9 +2,11 @@ import { GoogleLogin } from "@react-oauth/google";
 import { addUserData } from "../../Slice/UserReducer";
 import axios from "axios";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
 function Login() {
   
   const dispatch = useDispatch();
+  const redirect = useNavigate();
   const handleGoogleLogin = async (credentialResponse) => {
       const token = credentialResponse.credential;
       console.log(token);
@@ -13,7 +15,7 @@ function Login() {
       });
       console.log(res.data);
       dispatch(addUserData(res.data.payload));
-      console.log(res.data.jwtToken)
+      redirect('/');
       localStorage.setItem("jwtToken",res.data.jwtToken);
     };
 

@@ -33,4 +33,5 @@ router.post("/auth/google", async (req, res) => {
     res.send(error);
   }
 });
+
 export default router;

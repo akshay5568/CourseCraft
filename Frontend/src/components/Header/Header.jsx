@@ -6,6 +6,7 @@ import { CgProfile } from "react-icons/cg";
 import {useSelector} from 'react-redux';
 const Header = () => {
   const userData = useSelector(state => state.User);
+  console.log(userData.data)
   return (
     <div className="flex w-full items-center justify-between p-3 h-20  border-b border-gray-200">
       <div className="w-[20%] flex items-center gap-10">
@@ -16,15 +17,15 @@ const Header = () => {
       </div>
 
       <SearchBar />
-       {userData.data?.payload?.email ? <div className="flex gap-5 items-center">
+       {userData.data?.email ? <div className="flex gap-5 items-center">
         <Link to={"/cart"}>
-          <div className="hover:bg-[#6d29d253] rounded-md p-3">
+          <div className="hover:bg-purple-300 rounded-md p-3">
             <FaOpencart className="text-xl " />
           </div>
         </Link>
 
         <Link to={"/profile/87"}>
-          <div className="hover:bg-[#6d29d249] rounded-md p-3">
+          <div className="hover:bg-purple-300 rounded-md p-3">
             <CgProfile className="text-xl" />
           </div>
         </Link>
