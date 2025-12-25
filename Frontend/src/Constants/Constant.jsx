@@ -17,4 +17,6 @@ export const passwordEmailChecker = (email, password) => {
   return null;
 };
 
+export const mainURL = "http://localhost:8080";
 
+export const EmptyCartImage = "https://s.udemycdn.com/browse_components/flyout/empty-shopping-cart-v2-2x.jpg";

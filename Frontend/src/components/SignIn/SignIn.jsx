@@ -1,33 +1,17 @@
 import { useRef } from "react";
-import { passwordEmailChecker, signInLogo } from "../../Constants/Constant";
+import { signInLogo } from "../../Constants/Constant";
 import Header from "../Header/Header";
 import { Link } from "react-router-dom";
 import  GoogleLogin  from "../GoogleLogin/GoogleLogin";
 import { useState } from "react";
+import { useSignInBtn } from "../../Hooks/useSignInBtn";
 
 export const SignIn = () => {
   const [errorMsg,setErrorMsg] = useState();
   const email = useRef();
   const password = useRef();
 
-    const buttonHandller = () => {
-          if(email.current?.value == "" || password.current?.value == ""){
-              return setErrorMsg("Please fill form before submit.");
-          }
-          const passAndEmailChecker = passwordEmailChecker(email.current?.value,password.current?.value);
-          if(passAndEmailChecker != null){
-              setErrorMsg(passAndEmailChecker);
-              return;
-          }else if(passAndEmailChecker == null){
-          setErrorMsg("");
-          const user = {
-              email:email.current?.value,
-              password:password.current?.value
-          }
-          console.log(user);
-          }
-      }
-  
+  const {buttonHandller} = useSignInBtn();
 
   return (
     <div>
@@ -59,7 +43,7 @@ export const SignIn = () => {
             {errorMsg && <span className="m-3 w-90 font-semibold text-sm text-red-600">{errorMsg}</span>}<br/>
           
             <button
-              onClick={buttonHandller}
+              onClick={() => buttonHandller(email.current.value,password.current.value,setErrorMsg)}
               className=" m-3 bg-purple-300 w-90 p-3 rounded-md cursor-pointer hover:bg-purple-400"
             >
               SignIn
