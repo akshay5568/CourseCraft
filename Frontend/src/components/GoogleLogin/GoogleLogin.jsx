@@ -3,6 +3,7 @@ import { addUserData } from "../../Slice/UserReducer";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
+import { mainURL } from "../../Constants/Constant";
 function Login() {
   
   const dispatch = useDispatch();
@@ -10,13 +11,14 @@ function Login() {
   const handleGoogleLogin = async (credentialResponse) => {
       const token = credentialResponse.credential;
       console.log(token);
-      const res = await axios.post("http://localhost:8080/auth/google", {
+      const res = await axios.post(`${mainURL}/auth/google`, {
         token,
       });
+      localStorage.setItem("jwtToken",res.data.jwtToken);
       console.log(res.data);
       dispatch(addUserData(res.data.payload));
       redirect('/');
-      localStorage.setItem("jwtToken",res.data.jwtToken);
+      console.log(res.data.jwtToken)
     };
 
   return (

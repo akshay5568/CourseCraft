@@ -2,11 +2,15 @@ import { useDispatch } from "react-redux";
 import { mainURL, passwordEmailChecker } from "../Constants/Constant";
 import { addUserData } from "../Slice/UserReducer";
 import axios from "axios";
+import { useNavigate } from "react-router";
+
 
 
 export const useSignupBtn = () => {
      const dispatch = useDispatch();
+      const redirect = useNavigate();
 
+      
     const buttonHandller = async (email,password,name,setErrorMsg) => {
     if (email == "" || password == "") {
       return setErrorMsg("Please fill form before submit.");
@@ -27,10 +31,10 @@ export const useSignupBtn = () => {
         email: email,
         password: password,
       };
-      console.log(user);
       const res = await axios.post(`${mainURL}/signup`, user);
-      console.log(res);
+      localStorage.setItem("jwtToken",res.data.jwtToken);
       dispatch(addUserData(res.data));
+      redirect('/');
     }
   };
 
