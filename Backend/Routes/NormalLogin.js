@@ -19,9 +19,11 @@ router.post("/signup", async (req, res) => {
     });
     const jwtToken = jwt.sign(
       { email: data.email, name: data.email },
-      process.env.JWT_SEC
+      process.env.JWT_SEC, {expiresIn:"30D"}
     );
-    res.send({ jwtToken, isUser }).status(200);
+
+    const {email,name, _id} = isUser;
+    res.send({ jwtToken, email,name,_id }).status(200);
   } catch (e) {
     res.send(e);
   }
@@ -46,11 +48,11 @@ router.post("/login", async (req, res) => {
 
     const jwtToken = jwt.sign(
       { email: isUser.email, name: isUser.name },
-      process.env.JWT_SEC
+      process.env.JWT_SEC,
+      {expiresIn:"30D"}
     );
-    let email = isUser.email;
-    let name = isUser.name;
-    res.send({ jwtToken, email,name }).status(200);
+    const {email,name, _id} = isUser;
+    res.send({ jwtToken, email,name, _id }).status(200);
   } catch (e) {
     res.send(e);
   }

@@ -27,7 +27,8 @@ router.post("/auth/google", async (req, res) => {
       process.env.JWT_SEC,
       { expiresIn: "30D" }
     );
-    res.send({ jwtToken,payload });
+    const {_id} = isUser;
+    res.send({ jwtToken,payload , _id});
   } catch (error) {
     console.log(error);
     res.send(error);
