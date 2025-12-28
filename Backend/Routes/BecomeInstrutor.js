@@ -15,9 +15,23 @@ router.post('/become-seller', refreshJWTChecker ,async (req,res) => {
             normalAccountID:data._id,
         })
         if(!newSellerUser) return res.send("Something went wrong... try Again.....");
-        res.send("Thanks,from backend" + isUser);
+        res.send(newSellerUser);
     }
     catch(e){
+        res.send(e);
+    }
+})
+
+
+router.post('/refresh-seller',refreshJWTChecker, async (req,res) => {
+    try{
+         const data = req.body;
+         const isUser = await becomeInstructor.findOne({email:data.email});
+         console.log(isUser);
+         if(isUser == null) return res.send("please sign up as a seller account.");
+         res.send(isUser);
+    }
+    catch(e) {
         res.send(e);
     }
 })

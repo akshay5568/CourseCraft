@@ -23,12 +23,9 @@ export const useSignInBtn = () => {
               email:email,
               password:password
           }
-          console.log(user);
           const res = await axios.post(`${mainURL}/login`,user);
-          console.log(res);
           dispatch(addUserData(res.data));
           localStorage.setItem("jwtToken",res.data.jwtToken);
-          console.log("Working")
           redirect('/');
           }
       }

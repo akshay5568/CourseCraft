@@ -24,8 +24,6 @@ export const useSignupBtn = () => {
       return;
     } else if (passAndEmailChecker == null) {
       setErrorMsg("");
-      console.log(email);
-      console.log(password);
       const user = {
         name: name,
         email: email,

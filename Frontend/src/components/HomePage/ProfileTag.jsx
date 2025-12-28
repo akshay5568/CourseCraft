@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux";
 
 export const ProfileTag = ({isProfile}) => {
-  console.log(isProfile)
   const user = useSelector((state) => state.User);
   return (
     <div className="pl-3">
