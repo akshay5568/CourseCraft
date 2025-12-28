@@ -6,7 +6,6 @@ const router = express.Router();
 
 router.post('/refresh/login', refreshJWTChecker ,async  (req,res) => {
      try{
-          console.log(req.user);
           const isUser = await user.findOne({email:req.user.email});
           if(!isUser) return res.send("Please Login......");
           const {email,name, _id} = isUser;

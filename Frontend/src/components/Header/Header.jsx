@@ -4,29 +4,40 @@ import { Link } from "react-router";
 import { FaOpencart } from "react-icons/fa6";
 import { CgProfile } from "react-icons/cg";
 import { useSelector } from "react-redux";
-import useRefreshLoginHandle from "../../Hooks/useRefreshLoginHandle";
+import useRefreshSellerHandle from "../../Hooks/useRefreshSellerHandle";
 const Header = () => {
+  useRefreshSellerHandle();
   const userData = useSelector((state) => state.User);
-  useRefreshLoginHandle();
-
+  const sellerData = useSelector((state) => state.Seller?.sellerData);
   return (
     <div className="flex w-full items-center justify-between p-3 h-20  border-b border-gray-200">
       <div className="w-[20%] flex items-center gap-10">
         <Link to={"/"}>
           <img src={logo} alt="" />
         </Link>
-        <span className="font-light text-gray-600 text-sm cursor-pointer hover:text-purple-600 hover:bg-purple-200 p-2 rounded-md">Explore</span>
+        <span className="font-light text-gray-600 text-sm cursor-pointer hover:text-purple-600 hover:bg-purple-200 p-2 rounded-md">
+          Explore
+        </span>
       </div>
 
       <SearchBar />
       {userData.data?.email ? (
         <div className="flex gap-5 items-center">
-
-           <Link to={"/become-instructor"}>
-            <div className="hover:bg-purple-200 hover:text-purple-600 rounded-md p-2">
-              <span className="text-sm font-extralight">Teach on CourseCraft</span>
-            </div>
-          </Link>
+          {sellerData?._id ? (
+            <Link to={`/seller-home-page/${sellerData?._id}`}>
+              <div className="hover:bg-purple-200 hover:text-purple-600 rounded-md p-2">
+                <span className="text-sm font-extralight">Instructor</span>
+              </div>
+            </Link>
+          ) : (
+            <Link to={"/become-instructor"}>
+              <div className="hover:bg-purple-200 hover:text-purple-600 rounded-md p-2">
+                <span className="text-sm font-extralight">
+                  Teach on CourseCraft
+                </span>
+              </div>
+            </Link>
+          )}
 
           <Link to={"/cart"}>
             <div className="hover:bg-purple-200 rounded-md p-2 hover:text-purple-600">

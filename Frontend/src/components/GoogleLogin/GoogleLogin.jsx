@@ -10,15 +10,12 @@ function Login() {
   const redirect = useNavigate();
   const handleGoogleLogin = async (credentialResponse) => {
       const token = credentialResponse.credential;
-      console.log(token);
       const res = await axios.post(`${mainURL}/auth/google`, {
         token,
       });
       localStorage.setItem("jwtToken",res.data.jwtToken);
-      console.log(res.data);
       dispatch(addUserData(res.data.payload));
       redirect('/');
-      console.log(res.data.jwtToken)
     };
 
   return (

@@ -9,7 +9,6 @@
     "jwt-decode": "^4.0.0",
     "mongodb": "^7.0.0",
     "mongoose": "^9.0.2",
-    "mongosh": "^2.5.10",
-    "nodemon": "^3.1.11"
+    "mongosh": "^2.5.10"
   }
 }

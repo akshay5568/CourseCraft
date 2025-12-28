@@ -1,16 +1,10 @@
 import SellerHeader from "./SellerHeader";
 import NavBar from "./NavBar";
-import useRefreshLoginHandle from "../../Hooks/useRefreshLoginHandle";
 import { Link } from "react-router";
-import { useEffect } from "react";
-import useSellerSignup from "../../Hooks/useSellerSignup";
+
 
 export const SellerHomePage = () => {
-  useRefreshLoginHandle();
-  const { sellerSignUpHandller } = useSellerSignup();
-  useEffect(() => {
-    sellerSignUpHandller();
-  }, []);
+
   return (
     <div className="">
       <SellerHeader />
@@ -20,7 +14,7 @@ export const SellerHomePage = () => {
           <span className="text-3xl font-semibold">Courses</span>
           <br />
           <br />
-          <div className="m-auto text-center shadow-2xl bg-white h-30 p-10">
+          <div className="m-auto text-center shadow-xl bg-white h-30 p-10">
             <div className="flex justify-between items-center">
               <span className="font-extralight">Jump into course creation</span>
               <Link
@@ -37,7 +31,7 @@ export const SellerHomePage = () => {
           <p className="text-center font-extralight">
             Based on your experience, we think these resources will be helpful.
           </p>
-          <div className="shadow-2xl mt-3">
+          <div className="shadow-xl mt-3">
             <div className="flex items-center justify-around p-5 m-auto">
               <img
                 className="w-50"
@@ -56,7 +50,7 @@ export const SellerHomePage = () => {
             </div>
           </div>
 
-          <div className="shadow-2xl p-3 mt-10">
+          <div className="shadow-xl p-3 mt-10">
             <div className="flex justify-around">
               <div className="flex items-center gap-3">
                 <img

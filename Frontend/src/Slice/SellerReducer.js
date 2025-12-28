@@ -9,7 +9,6 @@ const SellerReducer = createSlice({
     reducers:{
         addSellerData:(state,action) => {
             state.sellerData = action.payload;
-            console.log(state.sellerData);
         }
     }
 })

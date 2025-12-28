@@ -14,7 +14,6 @@ router.post("/auth/google", async (req, res) => {
       audience: process.env.VITE_GOOGLE_CLIENT_ID,
     });
     const payload = ticket.getPayload();
-    console.log(payload.email);
     let isUser = await user.findOne({email:payload.email});
     if(!isUser){
          isUser = await user.create({
