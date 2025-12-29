@@ -27,7 +27,6 @@ router.post('/refresh-seller',refreshJWTChecker, async (req,res) => {
     try{
          const data = req.body;
          const isUser = await becomeInstructor.findOne({email:data.email});
-         console.log(isUser);
          if(isUser == null) return res.send("please sign up as a seller account.");
          res.send(isUser);
     }

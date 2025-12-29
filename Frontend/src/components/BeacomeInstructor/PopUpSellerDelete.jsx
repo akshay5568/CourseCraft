@@ -8,20 +8,30 @@ import { useNavigate } from "react-router";
 
 export const PopUpSellerDelete = ({ setPop }) => {
   const password = useRef();
-  const userData = useSelector(state => state.User);
+  const userData = useSelector((state) => state.User);
 
   const redirect = useNavigate();
 
-    const sellerBtn = async ()  => {
-        const token = localStorage.getItem('jwtToken');
-        const pass = password.current.value;
-        const res = await axios.post(`${mainURL}/delete-seller-account-pass`, {userData,pass},{
-            headers:{
-                Authorization: `Bearer ${token}`
-            }
-        })
-        redirect('/');
+  const sellerBtn = async () => {
+    try {
+      const token = localStorage.getItem("jwtToken");
+      const pass = password.current.value;
+      if (pass == "") return alert("Please enter the password");
+      const res = await axios.post(
+        `${mainURL}/delete-seller-account-pass`,
+        { userData, pass },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      alert(res.data);
+      redirect('/');
+    } catch (e) {
+      alert(e);
     }
+  };
 
   return (
     <div className="absolute w-100 left-[35%] rounded-md h-50 top-30 shadow-2xl bg-white p-3">
@@ -31,7 +41,10 @@ export const PopUpSellerDelete = ({ setPop }) => {
       >
         <IoMdClose />
       </button>
-      <div className="mt-7 text-black text-center">
+      <div className="mt-5 text-black text-center">
+        <h1 className="mb-3 font-semibold text-sm">
+          Are you sure to delete this seller account?
+        </h1>
         <form action="" onSubmit={(e) => e.preventDefault()}>
           {" "}
           <input
@@ -41,7 +54,10 @@ export const PopUpSellerDelete = ({ setPop }) => {
             className="bg-gray-300 border-black p-3 rounded-md"
           />
           <br />
-          <button onClick={sellerBtn} className="mt-4 bg-purple-400 hover:text-purple-200 cursor-pointer p-2 px-5 rounded-md text-white">
+          <button
+            onClick={sellerBtn}
+            className="mt-4 bg-purple-400 hover:text-purple-200 cursor-pointer p-2 px-5 rounded-md text-white"
+          >
             Submit
           </button>
         </form>
