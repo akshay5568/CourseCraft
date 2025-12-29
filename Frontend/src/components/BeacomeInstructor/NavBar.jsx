@@ -1,46 +1,44 @@
 import { MdManageAccounts } from "react-icons/md";
-import { Link } from 'react-router';
+import { Link } from "react-router";
 import { MdDelete } from "react-icons/md";
 import { CiLogout } from "react-icons/ci";
 import useLogout from "../../Hooks/useLogout";
 import { useSelector } from "react-redux";
-import axios from "axios";
-import { mainURL } from "../../Constants/Constant";
+import { sellerAccountDelete } from "../../Constants/Constant";
 import { useState } from "react";
 import PopUpSellerDelete from "./PopUpSellerDelete";
 
-
-
 export const NavBar = () => {
-  const {logoutHandle} = useLogout();
-  const sellerData = useSelector(state => state.Seller?.sellerData);
+  const { logoutHandle } = useLogout();
+  const [isPop, setPop] = useState(false);
+  const sellerData = useSelector((state) => state.Seller?.sellerData);
   const token = localStorage.getItem("jwtToken");
 
-  const [isPop,setPop] = useState(false);
-  
-  const sellerAccountDelete = async () => {
-      const res = await axios.post(`${mainURL}/delete-seller-account`, sellerData, {
-        headers:{
-          Authorization : `Brearer ${token}`
-        }
-      })
-      if(res.data == true) {
-         setPop(!isPop);
-      }
-  }
 
   return (
-    <div className='top-0.5 w-15 bg-black text-white'>
-         <div className='text-2xl pl-4 pt-5'>
-               <Link className=''><MdManageAccounts/></Link>
-               <button onClick={sellerAccountDelete}><MdDelete/></button>
-               <button onClick={logoutHandle}><CiLogout/></button>    
-         </div>
+    <div className="w-15 text-center bg-black text-white">
+      <div className="w-15  text-2xl mt-3">
+        <Link>
+          <MdManageAccounts className="m-auto hover:bg-gray-200 w-7 rounded-md hover:text-black" />
+        </Link>
+        <button
+          className="mb-4 mt-4 cursor-pointer p-2 hover:bg-gray-200 hover:text-black rounded-md"
+          onClick={() => sellerAccountDelete(setPop,sellerData,token,isPop)}
+        >
+          <MdDelete />
+        </button>
+        <br />
+        <button
+          className="cursor-pointer hover:bg-gray-200 rounded-md p-2 hover:text-black"
+          onClick={logoutHandle}
+        >
+          <CiLogout />
+        </button>
+      </div>
 
-         {isPop && <PopUpSellerDelete setPop={setPop}/>}
+      {isPop && <PopUpSellerDelete setPop={setPop} />}
     </div>
-  )
-}
-
+  );
+};
 
 export default NavBar;
