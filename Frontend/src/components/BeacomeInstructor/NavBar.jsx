@@ -36,7 +36,7 @@ export const NavBar = () => {
         </button>
       </div>
 
-      {isPop && <PopUpSellerDelete setPop={setPop} />}
+      {isPop && <PopUpSellerDelete setPop={setPop}   />}
     </div>
   );
 };
