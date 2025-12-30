@@ -6,11 +6,13 @@ import { addSellerData } from "../Slice/SellerReducer";
 
 
 export const useRefreshSellerHandle = () => {
+
   const userData = useSelector(state => state.User?.data);
   const token = localStorage.getItem("jwtToken");
   const dispatch = useDispatch();
 
-  async function refreshSeller() {
+  try{
+    async function refreshSeller() {
     const res = await axios.post(`${mainURL}/refresh-seller`, userData, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -18,7 +20,11 @@ export const useRefreshSellerHandle = () => {
     });
     dispatch(addSellerData(res.data));
   }
-
+}
+  catch(e) { 
+     console.log(e);
+  }
+  
   useEffect(() => {
       if(userData?.email){
         refreshSeller();
