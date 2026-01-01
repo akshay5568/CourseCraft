@@ -19,7 +19,7 @@ export const SellerHomePage = () => {
               <span className="font-extralight">Jump into course creation</span>
               <Link
                 className="p-2 px-15 rounded-md text-sm bg-purple-600 text-white font-semibold hover:bg-purple-500"
-                to={"/"}
+                to={"/create-course"}
               >
                 Create Your course
               </Link>

@@ -8,7 +8,7 @@ import NormalLogin from './Routes/NormalLogin.js';
 import refreshLoginHandle from './Routes/refreshLoginHandle.js';
 import BecomeInstructor from './Routes/BecomeInstrutor.js';
 import DeleteSellerRoute from './Routes/DeleteSellerRoute.js';
-
+import CourseUploadRoute from './Routes/CourseUploadRoute.js';
 
 const app = express();
 app.use(cors());
@@ -20,7 +20,8 @@ app.use('/', GoogleAuth);
 app.use('/', NormalLogin);
 app.use('/',refreshLoginHandle);
 app.use('/',BecomeInstructor);
-app.use('/',DeleteSellerRoute)
+app.use('/',DeleteSellerRoute);
+app.use('/',CourseUploadRoute);
 
 
 mongoose.connect(process.env.Mongo_URL).then(() => {
