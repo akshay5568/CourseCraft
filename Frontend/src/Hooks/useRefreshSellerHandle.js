@@ -11,7 +11,7 @@ export const useRefreshSellerHandle = () => {
   const token = localStorage.getItem("jwtToken");
   const dispatch = useDispatch();
 
-  try{
+ 
     async function refreshSeller() {
     const res = await axios.post(`${mainURL}/refresh-seller`, userData, {
       headers: {
@@ -20,11 +20,8 @@ export const useRefreshSellerHandle = () => {
     });
     dispatch(addSellerData(res.data));
   }
-}
-  catch(e) { 
-     console.log(e);
-  }
-  
+
+
   useEffect(() => {
       if(userData?.email){
         refreshSeller();

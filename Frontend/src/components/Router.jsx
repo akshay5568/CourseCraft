@@ -7,6 +7,7 @@ import  SignIn  from './SignIn/SignIn';
 import SignUp from './SignIn/SignUp';
 import SignUpPage from './BeacomeInstructor/SignUpPage';
 import SellerHomePage from './BeacomeInstructor/SellerHomePage';
+import CourseUploadPage from './BeacomeInstructor/CourseUploadPage';
 
 export const Router = () => {
   return (
@@ -19,6 +20,7 @@ export const Router = () => {
             <Route path="/signup" element={<SignUp />} />
             <Route path="/become-instructor" element={<SignUpPage />} />
             <Route path="/seller-home-page/:id" element={<SellerHomePage />} />
+            <Route path="/create-course" element={<CourseUploadPage />} />
        </Routes>
       
      </>

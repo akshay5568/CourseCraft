@@ -9,8 +9,6 @@ const CourseSchema = new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:"user"
     },
-    videos:[{type:String}],
-    likes:[{tpye:mongoose.Schema.Types.ObjectId}],
     description:{
         type:String,
     },
@@ -20,7 +18,7 @@ const CourseSchema = new mongoose.Schema({
     price:{
         type:Number,
     },
-    purchaseBy:[{type:mongoose.Schema.Types.ObjectId, ref:"user"}],
-})
+    purchasedUsers:[{type:mongoose.Schema.Types.ObjectId, ref:"user"}],
+},{ timestamps: true })
 
 export default CourseSchema;
