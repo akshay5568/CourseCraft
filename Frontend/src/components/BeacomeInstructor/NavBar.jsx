@@ -18,7 +18,7 @@ export const NavBar = () => {
   return (
     <div className="w-15 text-center bg-black text-white">
       <div className="w-15  text-2xl mt-3">
-        <Link>
+        <Link to={`/seller-courses/${sellerData._id}`}>
           <MdManageAccounts className="m-auto hover:bg-gray-200 w-7 rounded-md hover:text-black" />
         </Link>
         <button

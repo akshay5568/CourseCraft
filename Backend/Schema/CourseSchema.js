@@ -7,7 +7,7 @@ const CourseSchema = new mongoose.Schema({
     },
     createdBy:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:"user"
+        ref:"becomeInstructor"
     },
     description:{
         type:String,
@@ -15,10 +15,10 @@ const CourseSchema = new mongoose.Schema({
     thubmnail:{
         type:String,
     },
+    enrolledStudents:[{type:mongoose.Schema.Types.ObjectId,ref:"user"}],
     price:{
         type:Number,
     },
-    purchasedUsers:[{type:mongoose.Schema.Types.ObjectId, ref:"user"}],
 },{ timestamps: true })
 
 export default CourseSchema;
