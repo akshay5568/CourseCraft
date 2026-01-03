@@ -11,7 +11,7 @@ const BecomeInstructor = new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId, 
         ref:"user",
      },
-     courses:[{type:mongoose.Schema.Types.ObjectId,ref:"courses"}],
+     courses:[{type:mongoose.Schema.Types.ObjectId,ref:"CourseUpload"}],
 })
 
 export default BecomeInstructor;

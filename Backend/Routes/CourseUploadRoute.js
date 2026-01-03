@@ -1,24 +1,77 @@
-import express from 'express';
-import { refreshJWTChecker } from '../middleware/middleware.js';
-import uploadMulter from '../middleware/uploadMulter.js';
-import imagekit from '../utils/ImageKit.js';
+import express from "express";
+import { refreshJWTChecker } from "../middleware/middleware.js";
+import uploadMulter from "../middleware/uploadMulter.js";
+import imagekit from "../utils/ImageKit.js";
+import CourseUpload from '../models/CourseSchemaModel.js';
+import VideoCourse from '../models/VideoCourseModel.js';
+
 const router = express.Router();
 
+router.post(
+  "/course-create",
+  refreshJWTChecker, 
+  uploadMulter.single("thumbnail"), 
+  async (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({ error: "Thumbnail missing" });
+      }
 
-router.post('/course-create',uploadMulter.single('thumbnail'), refreshJWTChecker ,async (req,res) => {
+      if (!req.body.courseDetails) {
+        return res.status(400).json({ error: "Course details missing" });
+      }
+
+      const courseDetails = JSON.parse(req.body.courseDetails);
+
+      const uploadThumbnail = await imagekit.upload({
+        file: req.file.buffer,
+        fileName: `course-thumbnail-${Date.now()}.jpg`,
+        folder: "/CourseCraftCourseThumbnails",
+      });
+
+      const createdCourse = await CourseUpload.create({
+         courseName:courseDetails.courseName,
+         price:courseDetails.Price,
+         description:courseDetails.Dec,
+         thubmnail:uploadThumbnail.url,
+        createdBy:courseDetails.sellerData._id,
+      });
+
+      return res.status(201).json({
+        message: "Course created successfully",
+        thumbnailUrl: uploadThumbnail.url,
+        courseDetails,
+        createdCourse
+      });
+    } catch (e) {
+      console.error("BACKEND ERROR:", e);
+      return res.status(500).json({ error: e.message });
+    }
+  }
+);
+
+
+router.post('/seller-courses', refreshJWTChecker, async (req,res) => {
     try{
-         const data = req.body;
-         const uploadThumbnail = await imagekit.upload({
-            file:req.file.buffer,
-            fileName:`course-thumbnails-${Date.now()}.jpg`,
-            folder:'/CourseCraftCourseThumbnails'
-         })
-         console.log("dmckdncm" + uploadThumbnail.url)
-         res.send("OK Details recevied")
-    }catch (e) {
-         res.send(e);
+        const {id} = req.body;
+        const data = await CourseUpload.find({createdBy:id});
+        res.send(data);
+    }
+    catch(e) {
+       res.send(e);
     }
 })
 
+
+router.post('/course-full-page', refreshJWTChecker, async (req,res) => {
+   try{
+      const {id} = req.body;
+      const courseDetails = await CourseUpload.findById(id);
+      const videoCourseDetails = await VideoCourse.find({createdBy:id});
+      res.send({courseDetails,videoCourseDetails});
+   }catch(r){
+      res.send("Error", r);
+   }
+})
 
 export default router;
