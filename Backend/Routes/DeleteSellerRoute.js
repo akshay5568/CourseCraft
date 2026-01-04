@@ -26,7 +26,7 @@ router.post('/delete-seller-account-pass',refreshJWTChecker,async (req,res) => {
          const deletedSellerUser = await becomeInstructor.findOneAndDelete({email:data.userData.data.email});
          res.send(deletedSellerUser);
     }catch (e) {
-        res.send(e);
+        res.send("Error", e);
     }
 })
 
