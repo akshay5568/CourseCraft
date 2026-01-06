@@ -18,7 +18,7 @@ router.post(
       }
 
       if (!req.body.courseDetails) {
-        return res.status(400).json({ error: "Course details missing" });
+        return res.status(400).json({ error: "Course details missing" });       
       }
 
       const courseDetails = JSON.parse(req.body.courseDetails);
@@ -74,4 +74,17 @@ router.post('/course-full-page', refreshJWTChecker, async (req,res) => {
    }
 })
 
+router.put('/course-update', refreshJWTChecker, async (req,res) => {        
+   try{
+      const data = req.body;
+      console.log(data);
+   }
+   catch(e) {
+      res.send("Error", e);
+   }
+})
+
 export default router;
+
+
+
