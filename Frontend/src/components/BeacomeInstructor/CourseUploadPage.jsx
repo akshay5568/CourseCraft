@@ -1,7 +1,6 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import SellerHeader from "./SellerHeader";
-import axios from "axios";
-import { mainURL } from "../../Constants/Constant";
+import { courseUploadBTN } from "../../Constants/Constant";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 
@@ -9,39 +8,11 @@ export const CourseUploadPage = () => {
   const sellerData = useSelector((state) => state.Seller.sellerData);
   const courseName = useRef();
   const Price = useRef();
-  
   const Dec = useRef();
   const thumbnail = useRef();
 
   const [progressBar, setProgressBar] = useState();
   const redirect = useNavigate();
-
-  const submitBTN = async () => {
-    const courseDetails = {
-      courseName: courseName.current.value,
-      Price: Price.current.value,
-      Dec: Dec.current.value,
-      sellerData: sellerData,
-    };
-
-    const formData = new FormData();
-    formData.append("courseDetails", JSON.stringify(courseDetails));
-    formData.append("thumbnail", thumbnail.current.files[0]);
-    console.log(formData);
-
-    const token = localStorage.getItem("jwtToken");
-    const res = await axios.post(`${mainURL}/course-create`, formData, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      onUploadProgress: (e) => {
-        const progress = Math.round((e.loaded * 100) / e.total);
-        setProgressBar(progress);
-      },
-    });
-    console.log(res.data);
-    redirect("/course-video-upload");
-  };
 
   return (
     <div className="w-full">
@@ -88,7 +59,17 @@ export const CourseUploadPage = () => {
             />
             <br />
             <button
-              onClick={submitBTN}
+              onClick={() =>
+                courseUploadBTN(
+                  courseName,
+                  Price,
+                  Dec,
+                  sellerData,
+                  thumbnail,
+                  setProgressBar,
+                  redirect
+                )
+              }
               className="w-full text-sm font-bold cursor-pointer p-2 m-3 border-gray-200 rounded-xl hover:bg-gray-300 border-2"
             >
               {progressBar ? `Uploaded ${progressBar}%` : "Upload"}

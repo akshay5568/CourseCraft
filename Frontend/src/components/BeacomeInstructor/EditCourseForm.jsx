@@ -1,34 +1,22 @@
-import axios from "axios";
-import { useRef } from "react";
-import { mainURL } from "../../Constants/Constant";
+import { useRef, useState } from "react";
+import { editFormEtnHandller } from "../../Constants/Constant";
+import { useNavigate } from "react-router";
+import { useSelector } from "react-redux";
 
-export const EditCourseForm = ({ setisEditTrue, isEditTrueValue }) => {
+export const EditCourseForm = ({
+  setisEditTrue,
+  isEditTrueValue,
+  courseId,
+}) => {
   const coursName = useRef();
   const description = useRef();
   const price = useRef();
   const thumbnail = useRef();
 
-  const editFormEtnHandller = async () => {
-    const token = localStorage.getItem("jwtToken");
-    const updatedCourseDetails = {
-      courseName: coursName.current.value,
-      description: description.current.value,
-      price: price.current.value,
-    };
-    const formData = new FormData();
-    formData.append(
-      "updetedCourseDetails",
-      JSON.stringify(updatedCourseDetails)
-    );
-    formData.append("thumbnail", thumbnail.current.files[0]);
+  const sellerId = useSelector(state => state.Seller?.sellerData?._id);
 
-    const res = await axios.put(`${mainURL}/course-update`, formData, {
-      headers: {
-        Authorization: `Bearer: ${token}`,
-      },
-    });
-    console.log(res.data);
-  };
+  const redirect = useNavigate();
+  const [formEmptyError, setFormEmptyError] = useState();
 
   return (
     <div className="absolute w-[50%] top-50 left-80 h-fit bg-gray-300 p-5 rounded-md">
@@ -41,12 +29,13 @@ export const EditCourseForm = ({ setisEditTrue, isEditTrueValue }) => {
         </button>
       </div>
       <div className="">
-        <form onClick={(e) => e.preventDefault()}>
+        <form onSubmit={(e) => e.preventDefault()}>
           <label htmlFor="courseName" className="text-sm font-semibold">
             Enter new course name:
           </label>
           <br />
           <input
+            required
             id="courseName"
             type="text"
             ref={coursName}
@@ -58,6 +47,7 @@ export const EditCourseForm = ({ setisEditTrue, isEditTrueValue }) => {
           </label>
           <br />
           <input
+            required
             id="dec"
             ref={description}
             type="text"
@@ -69,6 +59,7 @@ export const EditCourseForm = ({ setisEditTrue, isEditTrueValue }) => {
           </label>
           <br />
           <input
+            required
             id="price"
             type="number"
             ref={price}
@@ -80,15 +71,31 @@ export const EditCourseForm = ({ setisEditTrue, isEditTrueValue }) => {
           </label>
           <br />
           <input
-            id="thum"
+            required
             type="file"
             ref={thumbnail}
+            placeholder="Thubmnail"
             name="thumbnail"
             className="w-full mb-3 border border-black p-2 rounded-md"
-            placeholder="Enter new course name"
           />
+          {formEmptyError && (
+            <span className="text-red-500 test-xs font-bold">
+              {formEmptyError}
+            </span>
+          )}
           <button
-            onClick={editFormEtnHandller}
+            onClick={() =>
+              editFormEtnHandller(
+                setFormEmptyError,
+                coursName,
+                price,
+                description,
+                courseId,
+                thumbnail,
+                redirect,
+                sellerId
+              )
+            }
             className="m-auto w-full bg-amber-300 p-2 rounded-md text-sm font-semibold"
           >
             Update details

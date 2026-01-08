@@ -16,7 +16,7 @@ export const EnrolledStudents = () => {
           " "
         ) : (
           <div className="text-center mt-8 font-semibold text-sm">
-            No one students enrolled
+            No one student enrolled yet.
           </div>
         )}
       </div>

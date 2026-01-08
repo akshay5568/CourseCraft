@@ -1,40 +1,19 @@
 import SellerHeader from "./SellerHeader";
-import axios from "axios";
-import { mainURL } from "../../Constants/Constant";
 import { Link, useParams } from "react-router";
-import { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addCourseDetails } from "../../Slice/CourseDetailsReducer";
-import { addCourseVideos } from "../../Slice/CourseVideoSlice";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 import EnrolledStudents from "./EnrolledStudents";
 import EditCourseForm from "./EditCourseForm";
+import { useGetCourseData } from "../../Hooks/ForSeller/useGetCourseData";
+import DeleteCourse from "./DeleteCourse";
 
 export const CourseEditPage = () => {
+  useGetCourseData();
   const CourseDetails = useSelector((state) => state.CourseDetails.details);
   const CourseVideos = useSelector((state) => state.CourseVideo.videos);
   const id = useParams();
-  const dispatch = useDispatch();
 
- const [isEditTrue,setIsEditTrue] = useState(false);
-
-  const getCourseData = async () => {
-    const token = localStorage.getItem("jwtToken");
-    try {
-      const res = await axios.post(`${mainURL}/course-full-page`, id, {
-        headers: {
-          Authorization: `Brearer ${token}`,
-        },
-      });
-      dispatch(addCourseDetails(res.data?.courseDetails));
-      dispatch(addCourseVideos(res.data?.videoCourseDetails));
-    } catch (e) {
-      console.log("Error", e);
-    }
-  };
-
-  useEffect(() => {
-    getCourseData();
-  }, []);
+  const [isEditTrue, setIsEditTrue] = useState(false);
 
   return (
     <div>
@@ -50,7 +29,7 @@ export const CourseEditPage = () => {
                 No one video uploaded yet. Start uploading videos click here...
               </h1>
               <Link
-                className="bg-amber-300 p-2 m-3 rounded-xl text-sm font-semibold"   
+                className="bg-amber-300 p-2 m-3 rounded-xl text-sm font-semibold"
                 to={`/upload-course-videos/${id?.id}`}
               >
                 Upload videos
@@ -59,9 +38,12 @@ export const CourseEditPage = () => {
           )}
         </div>
         <div className="w-1/2 border rounded-md p-3">
-          <h1 className="text-xl font-bold text-gray-600">
-            Course Information
-          </h1>
+          <div className="flex items-center justify-between">
+            <h1 className="text-xl font-bold text-gray-600">
+              Course Information
+            </h1>
+            <DeleteCourse courseId={id}/>
+          </div>
           <div className="w-full m-7">
             <label htmlFor="courseName" className="font-semibold text-sm">
               Course Name:
@@ -108,12 +90,15 @@ export const CourseEditPage = () => {
           </div>
           <EnrolledStudents />
         </div>
-
       </div>
-      {isEditTrue && <EditCourseForm setisEditTrue={setIsEditTrue} isEditTrueValue={isEditTrue}/>}
-
+      {isEditTrue && (
+        <EditCourseForm
+          setisEditTrue={setIsEditTrue}
+          isEditTrueValue={isEditTrue}
+          courseId={id}
+        />
+      )}
     </div>
-
   );
 };
 export default CourseEditPage;

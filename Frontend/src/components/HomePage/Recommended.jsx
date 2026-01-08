@@ -8,7 +8,7 @@ export const Recommended = () => {
             <span className='text-xl font-semibold'>Our top pick for you</span>
         </div>
 
-        <div className='border h-80 mt-3 p-5'>
+        <div className='border h-80 mt-3 p-5 rounded-md'>
 
         </div>
     </div>
