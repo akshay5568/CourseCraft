@@ -36,13 +36,18 @@ export const SellerCoursesAll = () => {
           {data?.map((item, index) => {
             return (
               <Link
+                key={index}
                 to={`/course-edit/${data[index]._id}`}
-                className="bg-gray-200 p-3 rounded-md"
+                className="bg-gray-200 w-70 p-3 rounded-md"
               >
-                <img className="w-50" src={item.thubmnail} alt="" />
-                <div>
-                  <h1>{item.courseName}</h1>
-                  <h4 className="font-semibold text-xl">${item.price}</h4>
+                <img
+                  className="w-full object-cover h-40 rounded-md"
+                  src={item.thubmnailUrl ? item.thubmnailUrl : item.thubmnail}
+                  alt=""
+                />
+                <div className="">
+                  <h1 className="font-semibold">{item.courseName}</h1>
+                  <h4 className="font-semibold text-sm">${item.price}</h4>
                 </div>
               </Link>
             );
