@@ -13,7 +13,6 @@ router.post(
   "/course-create",
   refreshJWTChecker,
   uploadMulter.single("thumbnail"),
-  ThumbnailMissing,
   async (req, res) => {
     try {
       if (!req.file) {
@@ -68,7 +67,7 @@ router.post("/course-full-page", refreshJWTChecker, async (req, res) => {
   try {
     const { id } = req.body;
     const courseDetails = await CourseUpload.findById(id);
-    const videoCourseDetails = await VideoCourse.find({ createdBy: id });
+    const videoCourseDetails = await VideoCourse.find({reletedCourse:id});
     res.send({ courseDetails, videoCourseDetails });
   } catch (r) {
     res.send("Error", r);

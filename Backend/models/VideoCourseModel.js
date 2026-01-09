@@ -1,4 +1,4 @@
 import mongoose from "mongoose";
-import CourseSchema from "../Schema/CourseSchema.js";
+import VideoCourseSchema from "../Schema/VideoCourseSchema.js";
 
-export default mongoose.model("VideoCourse",CourseSchema);
+export default mongoose.model("VideoCourse",VideoCourseSchema);

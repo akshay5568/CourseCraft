@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect } from "react";
-import { mainURL } from "../Constants/Constant";
+import { mainURL } from "../Constants/Constant.js";
 import { useDispatch, useSelector } from "react-redux";
 import { addSellerData } from "../Slice/SellerReducer";
 

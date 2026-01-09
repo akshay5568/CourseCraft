@@ -6,6 +6,9 @@ import EnrolledStudents from "./EnrolledStudents";
 import EditCourseForm from "./EditCourseForm";
 import { useGetCourseData } from "../../Hooks/ForSeller/useGetCourseData";
 import DeleteCourse from "./DeleteCourse";
+import VideoView from "./videoView";
+import Loading from "../ShimmerUI/Loading";
+import VideoUploadBTN from "./VideoUploadBTN";
 
 export const CourseEditPage = () => {
   useGetCourseData();
@@ -19,10 +22,10 @@ export const CourseEditPage = () => {
     <div>
       <SellerHeader />
       <div className="h-screen w-full p-3 gap-3 flex">
-        <div className="w-1/2 border rounded-md p-3">
+        <div className="w-1/2 border rounded-md p-3 overflow-scroll">
           <h1 className="text-gray-600 text-xl font-bold">Videos</h1>
           {CourseVideos?.length > 0 ? (
-            ""
+            <VideoView courseVideos={CourseVideos} />
           ) : (
             <div className="mt-5">
               <h1 className="text-sm m-3 font-semibold">
@@ -36,13 +39,17 @@ export const CourseEditPage = () => {
               </Link>
             </div>
           )}
+          <div className="mt-3">
+            {" "}
+            <VideoUploadBTN id={id?.id} />
+          </div>
         </div>
         <div className="w-1/2 border rounded-md p-3">
           <div className="flex items-center justify-between">
             <h1 className="text-xl font-bold text-gray-600">
               Course Information
             </h1>
-            <DeleteCourse courseId={id}/>
+            <DeleteCourse courseId={id} />
           </div>
           <div className="w-full m-7">
             <label htmlFor="courseName" className="font-semibold text-sm">

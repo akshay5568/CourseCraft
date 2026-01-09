@@ -1,5 +1,5 @@
 import React from 'react'
-import { mainURL, passwordEmailChecker } from '../Constants/Constant';
+import { mainURL, passwordEmailChecker } from '../Constants/Constant.js';
 import { addUserData } from '../Slice/UserReducer';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';

@@ -21,6 +21,7 @@ router.post('/delete-seller-account-pass',refreshJWTChecker,async (req,res) => {
          const data = req.body;
          const id = data.userData.data._id;
          const isUser = await user.findById(id);
+         if(!isUser.password) return res.send("You are sign up from google so please use goolge method for to delete you seller account...")
          const hassPass = await bcrypt.compare(data.pass,isUser.password);
          if(!hassPass) return res.send("Invalid password please enter valid password");
          const deletedSellerUser = await becomeInstructor.findOneAndDelete({email:data.userData.data.email});

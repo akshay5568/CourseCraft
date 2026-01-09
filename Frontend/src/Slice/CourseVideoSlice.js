@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const CourseVideoSlice = createSlice({
     name:"CourseVideo",
     initialState:{
-        videos:{}
+        videos:[]
     },
     reducers:{
         addCourseVideos:(state,action) => {
