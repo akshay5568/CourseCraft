@@ -1,7 +1,7 @@
 export const ThumbnailMissing = (req, res, next) => {
   try {
-    if (!req.file) {
-      return res.send("Course Thumbnail is mandetory");
+    if (!req.file || !req.file.video) {
+      return res.send("Data is missing!");
     } else {
       next();
     }

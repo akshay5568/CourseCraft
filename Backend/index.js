@@ -11,6 +11,7 @@ import DeleteSellerRoute from './Routes/DeleteSellerRoute.js';
 import CourseUploadRoute from './Routes/CourseUploadRoute.js';
 import CourseDeleteRoute from './Routes/CourseDeleteRoute.js';
 import GetAllCoursesRoute from './Routes/GetAllCoursesRoute.js';
+import VideoUploaderRoute from './Routes/VideoUploaderRoute.js';
 
 const app = express();
 app.use(cors());
@@ -27,6 +28,7 @@ app.use('/',DeleteSellerRoute);
 app.use('/',CourseUploadRoute);
 app.use('/',CourseDeleteRoute);
 app.use('/',GetAllCoursesRoute)
+app.use('/',VideoUploaderRoute);
 
 
 mongoose.connect(process.env.Mongo_URL).then(() => {

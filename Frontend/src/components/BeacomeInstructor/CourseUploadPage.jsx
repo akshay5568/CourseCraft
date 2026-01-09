@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import SellerHeader from "./SellerHeader";
-import { courseUploadBTN } from "../../Constants/Constant";
+import { courseUploadBTN } from "../../Constants/Constant.js";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 
@@ -17,7 +17,7 @@ export const CourseUploadPage = () => {
   return (
     <div className="w-full">
       <SellerHeader />
-      <div className=" p-3 w-[40%] bg-gray-100 rounded-md m-auto mt-40">
+      <div className="p-3 w-[45%] bg-gray-100 rounded-md m-auto mt-40">
         <h1 className="m-3 text-xl font-bold">
           Start creating course via filling form
         </h1>

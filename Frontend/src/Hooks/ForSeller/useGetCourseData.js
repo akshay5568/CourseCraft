@@ -3,8 +3,9 @@ import { addCourseDetails } from "../../Slice/CourseDetailsReducer";
 import { addCourseVideos } from "../../Slice/CourseVideoSlice";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { mainURL } from "../../Constants/Constant";
+import { mainURL } from "../../Constants/Constant.js";
 import { useParams } from "react-router";
+import { useState } from "react";
 
 export const useGetCourseData = () => {
  const id = useParams();
@@ -12,13 +13,13 @@ export const useGetCourseData = () => {
   const getCourseData = async () => {
     const token = localStorage.getItem("jwtToken");
     try {
-      const res = await axios.post(`${mainURL}/course-full-page`, id, {
+      const courseDetails = await axios.post(`${mainURL}/course-full-page`, id, {
         headers: {
           Authorization: `Brearer ${token}`,
         },
       });
-      dispatch(addCourseDetails(res.data?.courseDetails));
-      dispatch(addCourseVideos(res.data?.videoCourseDetails));
+      dispatch(addCourseDetails(courseDetails.data?.courseDetails));
+      dispatch(addCourseVideos(courseDetails.data?.videoCourseDetails));
     } catch (e) {
       console.log("Error", e);
     }
@@ -27,7 +28,6 @@ export const useGetCourseData = () => {
   useEffect(() => {
     getCourseData();
   }, []);
-
   return null;
 };
 

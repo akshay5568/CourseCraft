@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { addUserData } from "../Slice/UserReducer";
-import { mainURL } from "../Constants/Constant";
+import { mainURL } from "../Constants/Constant.js";
 import axios from "axios";
 
 export const useRefreshLoginHandle = () => {

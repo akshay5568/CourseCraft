@@ -12,11 +12,11 @@ export const AllCourses = () => {
       <div className="w-full p-3 flex flex-wrap gap-5">
         {allCourses.map((course) => {
           return (
-            <Link key={course?._id} className="w-70 h-70 rounded-md">
+            <Link key={course?._id} to={`course/${course._id}`} className="w-70 h-70 rounded-md">
               <div className="w-full">
                 <img
                   className="w-full h-40 rounded-md object-fill"
-                  src={course?.thubmnail}
+                  src={course?.thubmnailUrl ? course?.thubmnailUrl : course?.thubmnail}
                   alt="image"
                 />
               </div>

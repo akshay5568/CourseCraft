@@ -2,7 +2,7 @@ import React from "react";
 import SellerHeader from "./SellerHeader";
 import { useEffect } from "react";
 import axios from "axios";
-import { mainURL } from "../../Constants/Constant";
+import { mainURL } from "../../Constants/Constant.js";
 import { data, Link, useParams } from "react-router";
 import { useState } from "react";
 export const SellerCoursesAll = () => {

@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { editFormEtnHandller } from "../../Constants/Constant";
+import { editFormEtnHandller } from "../../Constants/Constant.js";
 import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
 
@@ -19,7 +19,7 @@ export const EditCourseForm = ({
   const [formEmptyError, setFormEmptyError] = useState();
 
   return (
-    <div className="absolute w-[50%] top-50 left-80 h-fit bg-gray-300 p-5 rounded-md">
+    <div className="absolute z-40 w-[50%] top-50 left-80 h-fit bg-gray-300 p-5 rounded-md">
       <div>
         <button
           onClick={() => setisEditTrue(!isEditTrueValue)}

@@ -4,7 +4,7 @@ import { MdDelete } from "react-icons/md";
 import { CiLogout } from "react-icons/ci";
 import useLogout from "../../Hooks/useLogout";
 import { useSelector } from "react-redux";
-import { sellerAccountDelete } from "../../Constants/Constant";
+import { sellerAccountDelete } from "../../Constants/Constant.js";
 import { useState } from "react";
 import PopUpSellerDelete from "./PopUpSellerDelete";
 

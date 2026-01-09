@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import Header from "../Header/Header";
-import { mainURL, passwordEmailChecker, signInLogo } from "../../Constants/Constant";
+import { mainURL, passwordEmailChecker, signInLogo } from "../../Constants/Constant.js";
 import { Link } from "react-router";
 import GoogleLogin from "../GoogleLogin/GoogleLogin";
 import axios from "axios";

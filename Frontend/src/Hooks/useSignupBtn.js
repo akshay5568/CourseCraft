@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { mainURL, passwordEmailChecker } from "../Constants/Constant";
+import { mainURL, passwordEmailChecker } from "../Constants/Constant.js";
 import { addUserData } from "../Slice/UserReducer";
 import axios from "axios";
 import { useNavigate } from "react-router";

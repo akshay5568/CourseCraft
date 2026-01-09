@@ -3,7 +3,7 @@ import { addUserData } from "../../Slice/UserReducer";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import { mainURL } from "../../Constants/Constant";
+import { mainURL } from "../../Constants/Constant.js";
 function Login() {
   
   const dispatch = useDispatch();

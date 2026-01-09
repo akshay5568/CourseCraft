@@ -1,5 +1,5 @@
 import React from "react";
-import { EmptyCartImage } from "../../Constants/Constant";
+import { EmptyCartImage } from "../../Constants/Constant.js";
 import { Link } from "react-router";
 
 export const EmptyCart = () => {

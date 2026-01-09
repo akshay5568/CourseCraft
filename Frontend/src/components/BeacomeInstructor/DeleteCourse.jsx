@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { DeleteCourseBTN } from "../../Constants/Constant";
+import { DeleteCourseBTN } from "../../Constants/Constant.js";
 
 export const DeleteCourse = ({ courseId, thumbID }) => {
   const [ispop, setPOP] = useState(false);

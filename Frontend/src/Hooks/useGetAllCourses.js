@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { useEffect} from 'react';
 import { allCoursesForHomePage } from "../Slice/CourseDetailsReducer";
 import axios from "axios";
-import { mainURL } from "../Constants/Constant";
+import { mainURL } from "../Constants/Constant.js";
 
 export const useGetAllCourses = () => {
    const dispatch = useDispatch();
