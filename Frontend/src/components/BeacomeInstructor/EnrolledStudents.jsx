@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 
 export const EnrolledStudents = () => {
   const courseDetails = useSelector((state) => state?.CourseDetails?.details);
-  console.log(courseDetails)
   return (
     <div className="m-3 w-full">
       <div>

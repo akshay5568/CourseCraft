@@ -2,8 +2,8 @@ import SellerHeader from "./SellerHeader";
 import { useParams } from "react-router";
 import { useSelector } from "react-redux";
 import useGetCourseData from "../../Hooks/ForSeller/useGetCourseData";
-import VideoView from "./videoView";
 import VideoUploadBTN from "./VideoUploadBTN";
+import VideoView from "./VideoView";
 
 export const UploadVideos = () => {
   const {id} = useParams();

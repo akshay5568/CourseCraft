@@ -6,9 +6,8 @@ import EnrolledStudents from "./EnrolledStudents";
 import EditCourseForm from "./EditCourseForm";
 import { useGetCourseData } from "../../Hooks/ForSeller/useGetCourseData";
 import DeleteCourse from "./DeleteCourse";
-import VideoView from "./videoView";
-import Loading from "../ShimmerUI/Loading";
 import VideoUploadBTN from "./VideoUploadBTN";
+import VideoView from "./VideoView";
 
 export const CourseEditPage = () => {
   useGetCourseData();

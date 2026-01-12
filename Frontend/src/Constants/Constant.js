@@ -86,7 +86,6 @@ export const courseUploadBTN = async (
     sellerData: sellerData,
   };
 
-  console.log(courseDetails)
 
   const formData = new FormData();
   formData.append("courseDetails", JSON.stringify(courseDetails));
@@ -102,7 +101,6 @@ export const courseUploadBTN = async (
       setProgressBar(progress);
     },
   });
-  console.log(res.data)
   redirect("/course-video-upload");
 };
 

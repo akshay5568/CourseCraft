@@ -9,6 +9,7 @@ const CourseVideoSlice = createSlice({
     reducers:{
         addCourseVideos:(state,action) => {
             state.videos = action.payload;
+            console.log(state.videos)
         }
     }
 })

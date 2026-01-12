@@ -7,7 +7,7 @@ import { mainURL } from "../../Constants/Constant.js";
 import { useParams } from "react-router";
 import { useState } from "react";
 
-export const useGetCourseData = () => {
+export const useGetCourseData = (refresh) => {
  const id = useParams();
   const dispatch = useDispatch();
   const getCourseData = async () => {
@@ -27,7 +27,7 @@ export const useGetCourseData = () => {
 
   useEffect(() => {
     getCourseData();
-  }, []);
+  }, [refresh]);
   return null;
 };
 

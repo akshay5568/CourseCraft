@@ -41,18 +41,20 @@ export const FullCoursePage = () => {
           </div>
 
           <div className="mt-15 text-black">
-              <h1 className="text-2xl">Course content</h1>
+            <h1 className="text-2xl">Course content</h1>
 
-              <div className="w-full border h-screen mt-3 rounded-md">
-                  
-              </div>
+            <div className="w-full border h-screen mt-3 rounded-md"></div>
           </div>
         </div>
 
         <div className="w-[25%] h-fit shadow-2xl  mt-10 bg-white rounded-md">
           <div>
             <img
-              src={filterCourses?.thubmnail}
+              src={
+                filterCourses?.thubmnail
+                  ? filterCourses?.thubmnail
+                  : filterCourses?.thubmnailUrl
+              }
               className="w-full rounded-md"
               alt="image"
             />

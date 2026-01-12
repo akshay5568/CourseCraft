@@ -9,6 +9,7 @@ export const VideoUploadBTN = ({id}) => {
   useGetCourseData();
   const video = useRef();
   const [uplodingBar, setUplodingBar] = useState();
+  const [refresh,setRefresh] = useState(0);
   const courseVideos = useSelector((state) => state?.CourseVideo?.videos);
 
   console.log(courseVideos);
@@ -29,10 +30,10 @@ export const VideoUploadBTN = ({id}) => {
         setUplodingBar(progress);
       },
     });
-
+    setRefresh(refresh + 1);
     console.log(res.data);
   };
-
+  useGetCourseData(refresh);
   return (
     <div className="border border-gray-200 p-3 h-fit rounded-md">
       <form onSubmit={(e) => e.preventDefault()}>
