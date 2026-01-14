@@ -10,7 +10,7 @@ export const SellerHeader = () => {
   return (
     <div className='h-15  flex items-center shadow-xl justify-between'>
         <div className='pr-200 p-3'>
-           <img src={logo} alt="logo" className='w-50 cursor-pointer'/>
+           <Link to={''}><img src={logo} alt="logo" className='w-50 cursor-pointer'/></Link>
         </div>
         <div className='p-5 flex gap-8 font-extralight text-sm'>
              <Link className=' hover:bg-purple-200 hover:text-purple-400 px-2 rounded-md ' to={'/'}>Student Panel</Link>

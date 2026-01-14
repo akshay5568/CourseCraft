@@ -3,7 +3,6 @@ import { Link } from "react-router";
 
 export const AllCourses = () => {
   const allCourses = useSelector((state) => state?.CourseDetails?.allCourses);
-
   return (
     <div className="w-full p-3 mt-5 rounded-md">
       <div>
@@ -25,7 +24,7 @@ export const AllCourses = () => {
                   {course.courseName.substring(0, 30) + "..."}
                 </h1>
                 <h4 className="font-semibold mb-1 text-xs text-[#5a5c73]">
-                  {course.createdBy}
+                  {course?.createdBy?.name}
                 </h4>
                 <h4 className="text-xs text-[#5a5c73]">
                   ({course?.enrolledStudents?.length})

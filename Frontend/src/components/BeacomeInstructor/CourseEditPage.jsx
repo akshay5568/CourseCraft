@@ -21,9 +21,10 @@ export const CourseEditPage = () => {
     <div>
       <SellerHeader />
       <div className="h-screen w-full p-3 gap-3 flex">
-        <div className="w-1/2 border rounded-md p-3 overflow-scroll">
+        <div className="w-1/2  border rounded-md p-3 overflow-scroll">
           <h1 className="text-gray-600 text-xl font-bold">Videos</h1>
-          {CourseVideos?.length > 0 ? (
+          <div className="overflow-scroll w-[80%]">
+               {CourseVideos?.length > 0 ? (
             <VideoView courseVideos={CourseVideos} />
           ) : (
             <div className="mt-5">
@@ -38,6 +39,7 @@ export const CourseEditPage = () => {
               </Link>
             </div>
           )}
+          </div>
           <div className="mt-3">
             {" "}
             <VideoUploadBTN id={id?.id} />

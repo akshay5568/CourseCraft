@@ -101,10 +101,10 @@ export const courseUploadBTN = async (
       setProgressBar(progress);
     },
   });
-  redirect("/course-video-upload");
+  redirect(`/seller-courses/${sellerData?._id}`);
 };
 
-export const DeleteCourseBTN = async (id) => {
+export const DeleteCourseBTN = async (id,_,redirect) => {
   try {
     const token = localStorage.getItem("jwtToken");
     const res = await axios.delete(
@@ -116,6 +116,7 @@ export const DeleteCourseBTN = async (id) => {
       },
     );
     console.log(res.data);
+    redirect('/')
   } catch (error) {
     console.log("Error,", error);
   }

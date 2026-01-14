@@ -6,13 +6,13 @@ import VideoDeletePopUp from "./VideoDeletePopUp";
 export const VideoView = ({ courseVideos }) => {
   const [deleteBTNPopUp, setDeleteBTNPopUp] = useState(false);
   return (
-    <div className="w-90">
+    <div className="w-full">
       {courseVideos[0]?.videos?.map((video, index) => {
         return (
-          <div key={courseVideos[0]?.videos[index]} className="mt-3  flex items-end gap-3 w-full rounded-md">
+          <div key={courseVideos[0]?.videos[index]} className="flex mt-2 items-end">
             <video
               src={video}
-              className="rounded-md w-full object-contain h-50"
+              className="rounded-md w-100 object-contain"
               controls
             ></video>
             <button

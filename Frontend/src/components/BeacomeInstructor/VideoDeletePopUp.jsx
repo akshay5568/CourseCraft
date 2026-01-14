@@ -32,7 +32,7 @@ export const VideoDeletePopUp = ({
   useGetCourseData(refresh);
 
   return (
-    <div className="absolute left-95 flex gap-3 bg-gray-200 p-3 rounded-md font-extralight text-xs">
+    <div className="flex gap-3 bg-gray-200 p-3 rounded-md font-extralight text-xs">
       <button onClick={videoDeleteBTN} className="cursor-pointer">
         Delete
       </button>

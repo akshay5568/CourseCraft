@@ -2,12 +2,14 @@ import { useParams } from "react-router";
 import Header from "../Header/Header";
 import { useSelector } from "react-redux";
 import { FaUsers } from "react-icons/fa";
+import CartBtn from "../Cart/CartBtn";
 
 export const FullCoursePage = () => {
   const { id } = useParams();
   const courses = useSelector((state) => state?.CourseDetails?.allCourses);
+  const userData = useSelector(state => state?.User?.data);
   const filterCourses = courses.find((course) => course._id === id);
-  console.log(filterCourses);
+  console.log(filterCourses?._id + " " + userData?._id)
   return (
     <div>
       <div>
@@ -24,7 +26,7 @@ export const FullCoursePage = () => {
             </h1>
             <div className="mt-10">
               <h1 className="font-extralight text-sm">
-                Created by : {filterCourses?.createdBy}
+                Created by : {filterCourses?.createdBy?.name}
               </h1>
               <h1 className="font-extralight text-sm">
                 Last updated : {filterCourses?.updatedAt}
@@ -64,9 +66,7 @@ export const FullCoursePage = () => {
               ${filterCourses?.price}
             </h1>
             <div className="w-full m-auto">
-              <button className="mt-3 bg-[#6d29d1] w-full hover:bg-purple-500 text-white text-sm cursor-pointer font-semibold rounded-md px-7 py-2">
-                Go to cart
-              </button>
+              <CartBtn courseId={filterCourses?._id} userId={userData?._id}/>
 
               <button className="mt-3 bg-white border text-[#6d29d1] hover:bg-purple-200 cursor-pointer border-[#6d29d1] w-full  text-sm font-semibold rounded-md px-7 py-2">
                 Buy now

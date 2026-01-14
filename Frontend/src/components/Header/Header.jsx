@@ -8,6 +8,7 @@ import useRefreshSellerHandle from "../../Hooks/useRefreshSellerHandle";
 const Header = () => {
   useRefreshSellerHandle();
   const userData = useSelector((state) => state.User);
+  const cartLength = useSelector(state => state?.Carts?.carts?.length);
   const sellerData = useSelector((state) => state.Seller?.sellerData);
   return (
     <div className="flex w-full items-center justify-between p-3 h-20  border-b border-gray-200">
@@ -40,7 +41,8 @@ const Header = () => {
           )}
 
           <Link to={"/cart"}>
-            <div className="hover:bg-purple-200 rounded-md p-2 hover:text-purple-600">
+            <div className="hover:bg-purple-200 rounded-md flex p-2 items-center hover:text-purple-600">
+              <span className="bg-purple-500 px-1 text-sm rounded-full text-white">{cartLength ? cartLength : 0}</span>
               <FaOpencart className="text-xl" />
             </div>
           </Link>

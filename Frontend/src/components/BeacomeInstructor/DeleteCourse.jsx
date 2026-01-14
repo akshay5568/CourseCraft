@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { DeleteCourseBTN } from "../../Constants/Constant.js";
+import { useNavigate } from "react-router";
 
 export const DeleteCourse = ({ courseId, thumbID }) => {
   const [ispop, setPOP] = useState(false);
+  const redirect = useNavigate();
   return (
     <div>
       <button
@@ -32,8 +34,8 @@ export const DeleteCourse = ({ courseId, thumbID }) => {
               Cancel
             </button>
             <button
-              onClick={() => DeleteCourseBTN(courseId.id, thumbID)}
-              className="p-2 bg-purple-500 text-white rounded-md"
+              onClick={() => DeleteCourseBTN(courseId.id, thumbID,redirect)}
+              className="p-2 bg-purple-500 text-white rounded-md cursor-pointer"
             >
               Delete
             </button>
