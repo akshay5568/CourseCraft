@@ -14,6 +14,8 @@ import GetAllCoursesRoute from './Routes/GetAllCoursesRoute.js';
 import VideoUploaderRoute from './Routes/VideoUploaderRoute.js';
 import VideoDeleteRoute from './Routes/VideoDeleteRoute.js';
 import CartRoutes from './Routes/CartRoutes.js';
+import RazorPayRoutes from '../Backend/Routes/RazorPayRoutes.js';
+
 
 const app = express();
 app.use(cors());
@@ -22,9 +24,10 @@ app.use(express.urlencoded({ extended: true }));
 
 
 //For Routers
-app.use('/', GoogleAuth);
-app.use('/', NormalLogin);
-app.use('/',refreshLoginHandle);   
+app.use('/',GoogleAuth);
+app.use('/',NormalLogin);
+app.use('/',refreshLoginHandle);      
+
 app.use('/',BecomeInstructor);
 app.use('/',DeleteSellerRoute);
 app.use('/',CourseUploadRoute);
@@ -33,6 +36,7 @@ app.use('/',GetAllCoursesRoute)
 app.use('/',VideoUploaderRoute);
 app.use('/', VideoDeleteRoute)
 app.use('/',CartRoutes)
+app.use('/',RazorPayRoutes);
 
 
 mongoose.connect(process.env.Mongo_URL).then(() => {

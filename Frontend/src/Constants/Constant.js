@@ -86,7 +86,6 @@ export const courseUploadBTN = async (
     sellerData: sellerData,
   };
 
-
   const formData = new FormData();
   formData.append("courseDetails", JSON.stringify(courseDetails));
   formData.append("thumbnail", thumbnail.current.files[0]);
@@ -104,20 +103,48 @@ export const courseUploadBTN = async (
   redirect(`/seller-courses/${sellerData?._id}`);
 };
 
-export const DeleteCourseBTN = async (id,_,redirect) => {
+export const DeleteCourseBTN = async (id, _, redirect) => {
   try {
     const token = localStorage.getItem("jwtToken");
-    const res = await axios.delete(
-      `${mainURL}/delete-course/${id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+    const res = await axios.delete(`${mainURL}/delete-course/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
       },
-    );
+    });
     console.log(res.data);
-    redirect('/')
+    redirect("/");
   } catch (error) {
     console.log("Error,", error);
   }
+};
+
+export const payNow = async (price,id,userID) => {
+  const token = localStorage.getItem("jwtToken");
+  console.log(price);
+  console.log("Razorpay Key:", "rzp_test_S4aQWrN38Sw5ti");
+
+  const res = await axios.get(`${mainURL}/create-order?price=${price}&userID=${userID}`, {
+    headers: {
+      Authorization: `Brearer ${token}`,
+    },
+  });
+  if(res.data == true) return alert("Already Purchased this course you cannot buy it again....");
+  const options = {
+    key: "rzp_test_S4aQWrN38Sw5ti",
+    amount: res.data.amount,
+    currency: "INR",
+    order_id: res.data.id,
+    name: name,
+    handler: async function (response) {
+      const res1 = await axios.post(`${mainURL}/verify`, {response,id,userID}, {            
+        headers: {
+          Authorization: `Bearer ${token}`,   
+        },
+      });
+      console.log(res1);
+      alert("Payment Successful");
+    },
+  };
+  const razor = new window.Razorpay(options);         
+  razor.open();
 };

@@ -15,6 +15,7 @@
     "mongodb": "^7.0.0",
     "mongoose": "^9.0.2",
     "mongosh": "^2.5.10",
-    "multer": "^2.0.2"
+    "multer": "^2.0.2",
+    "razorpay": "^2.9.6"
   }
 }

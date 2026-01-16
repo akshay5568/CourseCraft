@@ -3,13 +3,15 @@ import Header from "../Header/Header";
 import { useSelector } from "react-redux";
 import { FaUsers } from "react-icons/fa";
 import CartBtn from "../Cart/CartBtn";
+import { payNow } from "../../Constants/Constant.js";
 
 export const FullCoursePage = () => {
   const { id } = useParams();
   const courses = useSelector((state) => state?.CourseDetails?.allCourses);
-  const userData = useSelector(state => state?.User?.data);
+  const userData = useSelector((state) => state?.User?.data);
   const filterCourses = courses.find((course) => course._id === id);
-  console.log(filterCourses?._id + " " + userData?._id)
+  console.log(filterCourses?._id + " " + userData?._id);
+
   return (
     <div>
       <div>
@@ -63,13 +65,16 @@ export const FullCoursePage = () => {
           </div>
           <div className="w-full p-5 text-black">
             <h1 className="text-2xl font-extralight">
-              ${filterCourses?.price}
+              ₹{filterCourses?.price}
             </h1>
             <div className="w-full m-auto">
-              <CartBtn courseId={filterCourses?._id} userId={userData?._id}/>
+              <CartBtn courseId={filterCourses?._id} userId={userData?._id} />   
 
-              <button className="mt-3 bg-white border text-[#6d29d1] hover:bg-purple-200 cursor-pointer border-[#6d29d1] w-full  text-sm font-semibold rounded-md px-7 py-2">
-                Buy now
+              <button
+                onClick={() => payNow(filterCourses?.price,id,userData?._id)}
+                className="mt-3 bg-white border text-[#6d29d1] hover:bg-purple-200 cursor-pointer border-[#6d29d1] w-full  text-sm font-semibold rounded-md px-7 py-2"
+              >
+                Buy now ₹{filterCourses?.price}
               </button>
             </div>
           </div>
