@@ -11,7 +11,8 @@ router.get("/create-order", refreshJWTChecker, async (req, res) => {
     const data = req.query;
 
     const isAlreadyPurchased = await RazorPay.findOne({
-        userID:data?.userID
+        userID:data?.userID,
+        courseID:data?.courseID
     })
     if(isAlreadyPurchased) return res.send(true);
     const razorpay = new Razorpay({

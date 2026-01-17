@@ -123,7 +123,7 @@ export const payNow = async (price,id,userID) => {
   console.log(price);
   console.log("Razorpay Key:", "rzp_test_S4aQWrN38Sw5ti");
 
-  const res = await axios.get(`${mainURL}/create-order?price=${price}&userID=${userID}`, {
+  const res = await axios.get(`${mainURL}/create-order?price=${price}&userID=${userID}&courseID=${id}`, {
     headers: {
       Authorization: `Brearer ${token}`,
     },
