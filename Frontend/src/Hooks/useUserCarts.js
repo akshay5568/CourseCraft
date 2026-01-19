@@ -16,7 +16,6 @@ export const useUserCarts = (refresh) => {
             }
          })
          dispatch(addCarts(res.data));
-         console.log(res.data)
      } catch (error) {
         console.log(error)
      }

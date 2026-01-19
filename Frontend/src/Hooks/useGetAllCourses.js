@@ -1,10 +1,12 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect} from 'react';
 import { allCoursesForHomePage } from "../Slice/CourseDetailsReducer";
 import axios from "axios";
 import { mainURL } from "../Constants/Constant.js";
 
 export const useGetAllCourses = () => {
+    const userData = useSelector(state => state.User.data);
+
    const dispatch = useDispatch();
      const getAllCourses = async () => {
       try {
@@ -17,7 +19,7 @@ export const useGetAllCourses = () => {
 
    useEffect(() => {
             getAllCourses();
-   }, [])
+   }, [userData])
 
   return null;
 }

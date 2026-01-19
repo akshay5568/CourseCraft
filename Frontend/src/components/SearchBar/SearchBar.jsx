@@ -4,7 +4,6 @@ import { Link } from "react-router";
 
 const SearchBar = () => {
   const allCourses = useSelector((state) => state.CourseDetails.allCourses);
-  console.log(allCourses);
   const [inputData, setInputData] = useState();
   const [searchBarToggle, setSearchBarToggle] = useState();
 
@@ -13,8 +12,6 @@ const SearchBar = () => {
       ?.toLowerCase()
       ?.includes(inputData?.toLowerCase());
   });
-
-  console.log(filterCourse);
   return (
     <div>
       <div className="relative">

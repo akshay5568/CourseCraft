@@ -24,6 +24,13 @@ const Header = () => {
       <SearchBar />
       {userData.data?.email ? (
         <div className="flex gap-5 items-center">
+          <Link to={"/learning"}>
+            <div className="hover:bg-purple-200 rounded-md flex p-2 items-center hover:text-purple-600">
+              <span className=" px-1 text-sm rounded-full">Continue Learning</span>
+            </div>
+          </Link>
+
+
           {sellerData?._id ? (
             <Link to={`/seller-home-page/${sellerData?._id}`}>
               <div className="hover:bg-purple-200 hover:text-purple-600 rounded-md p-2">

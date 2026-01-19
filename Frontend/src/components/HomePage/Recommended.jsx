@@ -14,7 +14,7 @@ export const Recommended = () => {
         <span className="text-xl font-semibold">Our top pick for you</span>
       </div>
 
-      <div className="border mt-3 p-5 flex gap-3 overflow-x-auto rounded-md">       
+      <div className=" mt-3 p-5 flex gap-3 overflow-x-auto rounded-md">       
         {allCourses.map((course) => {
           return (
             <Link

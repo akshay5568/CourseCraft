@@ -13,6 +13,7 @@ import SellerVideoUpload from './BeacomeInstructor/SellerVideoUpload';
 import CourseEditPage from './BeacomeInstructor/CourseEditPage';
 import UploadVideos from './BeacomeInstructor/UploadVideos';
 import FullCoursePage from './CourseOverview/FullCoursePage';
+import Learning from './ContinueLearning/Learning';
 
 export const Router = () => {
   return (
@@ -31,6 +32,7 @@ export const Router = () => {
             <Route path="/course-edit/:id" element={<CourseEditPage />} />
             <Route path="/upload-course-videos/:id" element={<UploadVideos />} />
             <Route path="/course/:id" element={<FullCoursePage />} />
+            <Route path="/learning" element={<Learning />} />
        </Routes>
       
      </>

@@ -16,11 +16,11 @@ export const Cart = () => {
   const [refresh, setRefresh] = useState(0);
 
   if (userCartData.length == 0) {
-    return <div>knlknlkn</div>;
+    return <EmptyCart/>;
   }
 
-  const total = userCartData?.reduce(
-    (sum, item) => sum + item.courseId.price,
+  const total = userCartData.reduce(
+    (sum, item) => sum + item?.courseId?.price,
     0
   );
 
@@ -110,7 +110,7 @@ export const Cart = () => {
                 <div>
                   <span className="text-[#5a5c72] font-semibold">Total:</span>
                   <br />
-                  <span className="font-medium text-5xl">${total}</span>
+                  {userCartData &&  <span className="font-medium text-5xl">${total}</span>}
                 </div>
               </div>
             </div>

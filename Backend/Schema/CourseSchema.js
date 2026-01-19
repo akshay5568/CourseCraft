@@ -22,6 +22,10 @@ const CourseSchema = new mongoose.Schema({
     price:{
         type:Number,
     },
+    videoDBId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"VideoCourse"
+    }
 },{ timestamps: true })
 
 export default CourseSchema;
