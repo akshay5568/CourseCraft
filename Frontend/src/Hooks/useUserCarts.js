@@ -22,7 +22,9 @@ export const useUserCarts = (refresh) => {
   }
 
   useEffect(() => {
-     getUserCarts();
+       if(userDetails?._id != undefined){
+         getUserCarts();
+       }
   },[userDetails,refresh])
   return null;
 }

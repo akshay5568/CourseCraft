@@ -4,7 +4,7 @@ import CartBtn from "./CartBtn";
 import EmptyCart from "./EmptyCart";
 import { Link } from "react-router";
 import { MdLocalOffer } from "react-icons/md";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { mainURL } from "../../Constants/Constant";
 import useUserCarts from "../../Hooks/useUserCarts";
@@ -39,7 +39,7 @@ export const Cart = () => {
     }
   };
 
-  useUserCarts(refresh);
+
   return (
     <div>
       <Header />

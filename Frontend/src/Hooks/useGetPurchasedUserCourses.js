@@ -10,15 +10,18 @@ export const useGetPurchasedUserCourses = () => {
 
     const getUserCourses = async () => {
         const token = localStorage.getItem('jwtToken');
-         const res = await axios.get(`${mainURL}/users-bought-courses/?userId=${userData?._id}`, {            
+         const res = await axios.get(`${mainURL}/users-bought-courses/?userId=${userData?._id}`, {                 
              headers:{
                  Authorization:`Bearer ${token}`
              }
          });
+         console.log(res.data);
          dispatch(addUserPurchasedCourses(res.data));
     }
     useEffect(() => {
-            getUserCourses();   
+            if(userData?._id != undefined){
+                getUserCourses(); 
+            }  
     }, [userData])
   return null;
 }

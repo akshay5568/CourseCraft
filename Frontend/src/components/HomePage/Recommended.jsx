@@ -4,7 +4,6 @@ import { Link } from "react-router";
 
 export const Recommended = () => {
   const allCourses = useSelector((state) => state.CourseDetails.allCourses);
-  console.log(allCourses);
   return (
     <div className="mt-7">
       <div className="text-[#2a2b40]">
