@@ -45,6 +45,7 @@ mongoose.connect(process.env.Mongo_URL).then(() => {
     console.log("Something went wrong with mongoDB", e);    
 })
 
-app.listen(8080, () => {
+
+app.listen(process.env.port, () => {
     console.log("Port is liteining");
 })

@@ -15,7 +15,7 @@ export const Learning = () => {
     //     setUserCourses(userCourses);
     // },[userCourses]) 
 
-  if(usersCourses?.length == 0){
+  if(!usersCourses){
       return <div><Header/>Loading....</div>
   }  
 
