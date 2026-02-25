@@ -20,4 +20,14 @@ router.delete("/delete-course/:id", refreshJWTChecker, async (req, res) => {
   }
 });
 
+
+
+router.delete("/section/:id", refreshJWTChecker, async (req,res) => {
+   try {
+     
+   } catch (error) {
+      console.log(error);
+   }
+})
+
 export default router;

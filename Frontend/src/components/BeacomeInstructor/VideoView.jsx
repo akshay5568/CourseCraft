@@ -3,13 +3,13 @@ import { useState } from "react";
 import { CiMenuKebab } from "react-icons/ci";
 import VideoDeletePopUp from "./VideoDeletePopUp";
 
-export const VideoView = ({ courseVideos }) => {
+export const VideoView = ({ courseVideos,sectionID }) => {
   const [deleteBTNPopUp, setDeleteBTNPopUp] = useState(false);
   return (
     <div className="w-full">
-      {courseVideos[0]?.videos?.map((video, index) => {
+      {courseVideos?.map((video, index) => {
         return (
-          <div key={courseVideos[0]?.videos[index]} className="flex mt-2 items-end">
+          <div key={index} className="flex mt-2 items-end">
             <video
               src={video}
               className="rounded-md w-100 object-contain"
@@ -26,8 +26,8 @@ export const VideoView = ({ courseVideos }) => {
               <VideoDeletePopUp
                 setDeleteBTNPopUp={setDeleteBTNPopUp}
                 deleteBTNPopUp={deleteBTNPopUp}
-                videoId={courseVideos[0]?._id}
-                videoLink={courseVideos[0]?.videos[index]}
+                sectionID={sectionID}
+                videoLink={video}
               />
             )}
           </div>

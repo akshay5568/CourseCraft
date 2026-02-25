@@ -4,6 +4,7 @@ import cloudinary from "../utils/Cloudnary.js";
 import VideoCourse from "../models/VideoCourseModel.js";
 import fileUpload from "express-fileupload";
 import CourseUpload from '../models/CourseSchemaModel.js';
+import coursesection from '../models/CourseSectionModel.js';
 
 const router = express.Router();
 
@@ -20,7 +21,13 @@ router.post("/video-uploder", refreshJWTChecker, async (req, res) => {
     const result = await cloudinary.uploader.upload(file.tempFilePath, {
       resource_type: "video",
     });
-   
+
+
+    console.log("sectionID", req.body.sectionID);
+    const sections = await coursesection.findByIdAndUpdate(req.body.sectionID, {
+       $push:{videos:result.secure_url}
+    });
+
     const isAlreadyCreated = await VideoCourse.findOne({ reletedCourse: id });
     if (!isAlreadyCreated) {
       const uplodedVideo = await VideoCourse.create({

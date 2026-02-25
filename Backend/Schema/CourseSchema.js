@@ -22,6 +22,7 @@ const CourseSchema = new mongoose.Schema({
     price:{
         type:Number,
     },
+    sectionIds:[{type:mongoose.Schema.Types.ObjectId, ref:"coursesection"}],
     videoDBId:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"VideoCourse"

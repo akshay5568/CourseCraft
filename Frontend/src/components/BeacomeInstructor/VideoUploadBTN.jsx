@@ -5,21 +5,19 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { mainURL } from "../../Constants/Constant.js";
 
-export const VideoUploadBTN = ({id}) => {
+export const VideoUploadBTN = ({id,sectionID}) => {
   useGetCourseData();
   const video = useRef();
   const [uplodingBar, setUplodingBar] = useState();
   const [refresh,setRefresh] = useState(0);
-  const courseVideos = useSelector((state) => state?.CourseVideo?.videos);
 
-  console.log(courseVideos);
 
   const uploadVideoBTN = async () => {
     const token = localStorage.getItem("jwtToken");
     const formData = new FormData();
     formData.append("id", id);
     formData.append("video", video.current.files[0]);
-
+    formData.append("sectionID",sectionID)
     const res = await axios.post(`${mainURL}/video-uploder`, formData, {
       headers: {
         Authorization: `Bearer ${token}`,

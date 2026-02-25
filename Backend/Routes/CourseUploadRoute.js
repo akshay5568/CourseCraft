@@ -6,6 +6,7 @@ import CourseUpload from "../models/CourseSchemaModel.js";
 import VideoCourse from "../models/VideoCourseModel.js";
 import { courseDataChecker } from "../utils/EmptyCourseDataChecker.js";
 import { ThumbnailMissing } from "../middleware/ThumbnailMissing.js";
+import coursesection from "../models/CourseSectionModel.js";
 
 const router = express.Router();
 
@@ -30,13 +31,13 @@ router.post(
         fileName: `course-thumbnail-${Date.now()}.jpg`,
         folder: "/CourseCraftCourseThumbnails",
       });
-      
+
       const createdCourse = await CourseUpload.create({
         courseName: courseDetails.courseName,
         price: courseDetails.Price,
         description: courseDetails.Dec,
-        thubmnailUrl:uploadThumbnail.url,
-        thubmnailId:uploadThumbnail.fileId,
+        thubmnailUrl: uploadThumbnail.url,
+        thubmnailId: uploadThumbnail.fileId,
         createdBy: courseDetails.sellerData._id,
       });
 
@@ -66,8 +67,8 @@ router.post("/seller-courses", refreshJWTChecker, async (req, res) => {
 router.post("/course-full-page", refreshJWTChecker, async (req, res) => {
   try {
     const { id } = req.body;
-    const courseDetails = await CourseUpload.findById(id);
-    const videoCourseDetails = await VideoCourse.find({reletedCourse:id});
+    const courseDetails = await CourseUpload.findById(id).populate('sectionIds');
+    const videoCourseDetails = await VideoCourse.find({ reletedCourse: id });
     res.send({ courseDetails, videoCourseDetails });
   } catch (r) {
     res.send("Error", r);
@@ -85,7 +86,7 @@ router.patch(
         req.body.updetedCourseDetails
       );
       const DataValid = courseDataChecker(updatedCourseDetailsFromFrontend);
-      if(!DataValid) return res.send("Please update all the information...");
+      if (!DataValid) return res.send("Please update all the information...");
 
       const courseId = updatedCourseDetailsFromFrontend.courseId.id;
       const courseDetails = await CourseUpload.findById(courseId);
@@ -97,19 +98,39 @@ router.patch(
         folder: "/CourseCraftCourseThumbnails",
       });
 
-      const updateCourseinfo = await CourseUpload.findByIdAndUpdate(courseId, {   
+      const updateCourseinfo = await CourseUpload.findByIdAndUpdate(courseId, {
         courseName: updatedCourseDetailsFromFrontend.courseName,
         price: updatedCourseDetailsFromFrontend.price,
         description: updatedCourseDetailsFromFrontend.description,
         thubmnailUrl: updatedThumbnail.url,
-        thubmnailId:updatedThumbnail.fileId,
+        thubmnailId: updatedThumbnail.fileId,
       });
       res.send(updateCourseinfo);
-
     } catch (e) {
       res.send("Error", e);
     }
   }
 );
+
+router.post("/section", refreshJWTChecker, async (req, res) => {
+  try {
+    const { sectionData } = req.body;
+    console.log(sectionData);
+    if(sectionData.name == "" && sectionData.desc == "") {
+        return res.send("Please fill the all section fill and blank..").status(501);
+    }
+    const sectionDetails = await coursesection.create({
+      sectionName: sectionData.name,
+      sectionDesc: sectionData.desc,
+      courseId: sectionData.courseID,
+    });
+    const courseDetails = await CourseUpload.findByIdAndUpdate(sectionData.courseID,{
+        $push:{sectionIds:sectionDetails._id}
+    });
+    res.send(sectionDetails).status(201);
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 export default router;

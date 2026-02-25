@@ -12,8 +12,8 @@ import useGetAllCourses from "../../Hooks/useGetAllCourses";
 
 export const Cart = () => {
   const userCartData = useSelector((state) => state?.Carts?.carts);
-
   const [refresh, setRefresh] = useState(0);
+   useUserCarts(refresh);
 
   if (userCartData.length == 0) {
     return <EmptyCart/>;
@@ -32,7 +32,6 @@ export const Cart = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(res.data);
       setRefresh(refresh + 1);
     } catch (error) {
       console.log(error);
@@ -64,7 +63,7 @@ export const Cart = () => {
                       >
                         <div className="w-[30%]">
                           <img
-                            className="w-70 h-20 object-fill rounded-md"
+                            className="w-70 h-20 object-contain rounded-md"
                             src={
                               cart.courseId.thubmnail
                                 ? cart.courseId.thubmnail

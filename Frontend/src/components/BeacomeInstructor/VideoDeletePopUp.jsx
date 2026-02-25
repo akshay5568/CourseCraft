@@ -4,17 +4,19 @@ import { mainURL } from "../../Constants/Constant";
 import useGetCourseData from "../../Hooks/ForSeller/useGetCourseData";
 import { useEffect } from "react";
 import { useState } from "react";
+
+
 export const VideoDeletePopUp = ({
   setDeleteBTNPopUp,
   deleteBTNPopUp,
-  videoId,
+  sectionID,
   videoLink,
 }) => {
    const [refresh,setRefresh] = useState(0);
   const videoDeleteBTN = async () => {
     const token = localStorage.getItem("jwtToken");
     try {
-      const res = await axios.delete(`${mainURL}/delete-video/${videoId}`, {
+      const res = await axios.delete(`${mainURL}/delete-video/${sectionID}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -28,11 +30,10 @@ export const VideoDeletePopUp = ({
       console.log(error);
     }
   };
-
   useGetCourseData(refresh);
 
   return (
-    <div className="flex gap-3 bg-gray-200 p-3 rounded-md font-extralight text-xs">
+    <div className="flex gap-3 bg-gray-200 p-3 rounded-md font-extralight text-xs">     
       <button onClick={videoDeleteBTN} className="cursor-pointer">
         Delete
       </button>

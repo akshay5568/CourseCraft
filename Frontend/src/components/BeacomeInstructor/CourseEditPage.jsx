@@ -8,13 +8,29 @@ import { useGetCourseData } from "../../Hooks/ForSeller/useGetCourseData";
 import DeleteCourse from "./DeleteCourse";
 import VideoUploadBTN from "./VideoUploadBTN";
 import VideoView from "./VideoView";
+import CourseSectionForm from "./CourseSection/CourseSectionForm";
+import { IoMdArrowDropdown } from "react-icons/io";
+import { IoMdArrowDropright } from "react-icons/io";
+import CourseUploadPage from "./CourseUploadPage";
+import DeleteSection from "./CourseSection/DeleteSection";
 
 export const CourseEditPage = () => {
-  useGetCourseData();
+  const [refresh, setRefresh] = useState(0);
+  useGetCourseData(refresh);
   const CourseDetails = useSelector((state) => state.CourseDetails.details);
   const CourseVideos = useSelector((state) => state.CourseVideo.videos);
   const id = useParams();
 
+  const [sectionDiv, setSectionDiv] = useState({
+    sectionId: "l",
+    isTrue: false,
+  });
+
+  const sectionDropDown = (id, sectionID) => {
+    setSectionDiv({ sectionId: sectionID, isTrue: !sectionDiv.isTrue });
+  };
+
+  const [courseSectionForm, setCourseSectionForm] = useState(false);
   const [isEditTrue, setIsEditTrue] = useState(false);
 
   return (
@@ -22,29 +38,69 @@ export const CourseEditPage = () => {
       <SellerHeader />
       <div className="h-screen w-full p-3 gap-3 flex">
         <div className="w-1/2  border rounded-md p-3 overflow-scroll">
-          <h1 className="text-gray-600 text-xl font-bold">Videos</h1>
-          <div className="overflow-scroll w-[80%]">
-               {CourseVideos?.length > 0 ? (
-            <VideoView courseVideos={CourseVideos} />
-          ) : (
-            <div className="mt-5">
-              <h1 className="text-sm m-3 font-semibold">
-                No one video uploaded yet. Start uploading videos click here...
-              </h1>
-              <Link
-                className="bg-amber-300 p-2 m-3 rounded-xl text-sm font-semibold"
-                to={`/upload-course-videos/${id?.id}`}
-              >
-                Upload videos
-              </Link>
-            </div>
-          )}
+          <h1 className="text-gray-600 text-xl font-bold">Videos</h1>  
+
+          <div>
+            {CourseDetails?.sectionIds?.map((section, index) => {
+              return (
+                <div key={section._id} className="mt-3">
+                  <button
+                    onClick={() => sectionDropDown(section._id, section._id)}
+                    className="bg-gray-300 w-full p-3 rounded-md flex justify-between items-center text-xl"
+                  >
+                    <h1 className="font-semibold">{section.sectionName}</h1>
+                    {sectionDiv.sectionId == section._id ? (
+                      sectionDiv.isTrue ? <IoMdArrowDropdown /> :  <IoMdArrowDropright className="text-2xl" />               
+                    ) : (
+                      <IoMdArrowDropright className="text-2xl" />
+                    )}
+                  </button>
+
+                  {section._id == sectionDiv.sectionId
+                    ? sectionDiv.isTrue && (
+                        <div className="p-3 border rounded-md">
+                          <div className="flex justify-between w-full">
+                              <h1 className="w-[80%] text-2xl mb-7 font-semibold">{section.sectionDesc}</h1>
+                              <DeleteSection/>
+                          </div>
+                          <VideoView courseVideos={section.videos} sectionID={section._id}/>
+                          <div className="mt-3"><VideoUploadBTN id={CourseDetails._id} sectionID={section._id}/></div>
+                        </div>
+                      )
+                    : ""}
+                </div>
+              );
+            })}
           </div>
+
           <div className="mt-3">
-            {" "}
-            <VideoUploadBTN id={id?.id} />
+            <div className="flex gap-4 items-center">
+              <h1 className="font-bold">Create section for your course.</h1>
+              <button
+                className="font-semibold bg-amber-400 p-1 rounded-md cursor-pointer"
+                onClick={() => setCourseSectionForm(!courseSectionForm)}
+              >
+                Create section
+              </button>
+
+              {courseSectionForm && (
+                <div>
+                  {
+                    <CourseSectionForm
+                      setCourseSectionForm={setCourseSectionForm}
+                      courseSectionForm={courseSectionForm}
+                      courseID={id}
+                      setRefresh={setRefresh}
+                      refresh={refresh}
+                    />
+                  }
+                </div>
+              )}
+            </div>
           </div>
         </div>
+
+
         <div className="w-1/2 border rounded-md p-3">
           <div className="flex items-center justify-between">
             <h1 className="text-xl font-bold text-gray-600">
