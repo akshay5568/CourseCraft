@@ -67,7 +67,7 @@ router.post("/seller-courses", refreshJWTChecker, async (req, res) => {
 router.post("/course-full-page", refreshJWTChecker, async (req, res) => {
   try {
     const { id } = req.body;
-    const courseDetails = await CourseUpload.findById(id).populate('sectionIds');
+    const courseDetails = await CourseUpload.findById(id).populate('sectionIds').populate('enrolledStudents');
     const videoCourseDetails = await VideoCourse.find({ reletedCourse: id });
     res.send({ courseDetails, videoCourseDetails });
   } catch (r) {

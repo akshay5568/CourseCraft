@@ -6,7 +6,10 @@ const router = express.Router();
 
 router.get('/courses',async (_,res) => {
      try {
-        const allCourse = await CourseUpload.find({}).populate("createdBy");     
+        const allCourse = await CourseUpload.find({}).populate("createdBy").populate({
+            path: "sectionIds",
+            select: "-videos" 
+        });  
         res.send(allCourse);
      } catch (error) {
         res.send("Error", error)

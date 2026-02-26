@@ -14,7 +14,7 @@ export const Learning = () => {
     // useEffect(() => {
     //     setUserCourses(userCourses);
     // },[userCourses]) 
-
+   console.log(usersCourses);
   if(!usersCourses){
       return <div><Header/>Loading....</div>
   }  

@@ -21,6 +21,7 @@ export const CourseEditPage = () => {
   const CourseVideos = useSelector((state) => state.CourseVideo.videos);
   const id = useParams();
 
+  
   const [sectionDiv, setSectionDiv] = useState({
     sectionId: "l",
     isTrue: false,
@@ -61,7 +62,7 @@ export const CourseEditPage = () => {
                         <div className="p-3 border rounded-md">
                           <div className="flex justify-between w-full">
                               <h1 className="w-[80%] text-2xl mb-7 font-semibold">{section.sectionDesc}</h1>
-                              <DeleteSection/>
+                              <DeleteSection sectionID={section._id} courseID={CourseDetails._id}  setRefresh={setRefresh} refresh={refresh}/>
                           </div>
                           <VideoView courseVideos={section.videos} sectionID={section._id}/>
                           <div className="mt-3"><VideoUploadBTN id={CourseDetails._id} sectionID={section._id}/></div>
@@ -152,7 +153,7 @@ export const CourseEditPage = () => {
               Edit
             </button>
           </div>
-          <EnrolledStudents />
+          <EnrolledStudents EnrolledStudents={CourseDetails.enrolledStudents} />
         </div>
       </div>
       {isEditTrue && (

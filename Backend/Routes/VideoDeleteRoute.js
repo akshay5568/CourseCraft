@@ -3,6 +3,7 @@ import { refreshJWTChecker } from "../middleware/middleware.js";
 import VideoCourse from "../models/VideoCourseModel.js";
 import cloudinary from "../utils/Cloudnary.js";
 import coursesection from '../models/CourseSectionModel.js';
+import { deleteVideoByUrlForCloudnary } from "../constants/constants.js";
 
 const router = express.Router();
 
@@ -22,18 +23,12 @@ router.delete("/delete-video/:id", refreshJWTChecker, async (req, res) => {
     sectionVideos.save();
 
 
-
-    const urlObj = new URL(data.videoLink);
-    let path = urlObj.pathname.split("/upload/")[1];
-    // remove version if present
-    path = path.replace(/v[0-9]+\//, "");
-    // remove extension
-    path = path.replace(/\.[^/.]+$/, "");
+    const path = await deleteVideoByUrlForCloudnary(data.videoLink);
 
     await cloudinary.uploader.destroy(`${path}`,{
          resource_type:"video"
     })
-    // videoDetails.save();
+
     res.send(sectionVideos);
   } catch (error) {
     res.send("Error.", error);
