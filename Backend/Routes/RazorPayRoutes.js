@@ -77,8 +77,11 @@ router.get('/users-bought-courses', refreshJWTChecker, async (req,res) => {
          path:"courseID",
          populate:{
            path:"videoDBId",
+         },
+         populate:{
+           path:"sectionIds"
          }
-       });
+       })
        res.send(allPurchasedCourses)
     } catch (error) {
       res.send("Error", error);

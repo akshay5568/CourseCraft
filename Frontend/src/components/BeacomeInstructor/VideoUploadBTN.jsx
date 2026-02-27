@@ -21,7 +21,6 @@ export const VideoUploadBTN = ({id,sectionID}) => {
     const res = await axios.post(`${mainURL}/video-uploder`, formData, {
       headers: {
         Authorization: `Bearer ${token}`,
-        "Content-Type": "multipart/form-data",
       },
       onUploadProgress: (e) => {
         const progress = Math.round((e.loaded * 100) / e.total);

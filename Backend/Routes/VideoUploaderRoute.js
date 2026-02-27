@@ -8,7 +8,15 @@ import coursesection from '../models/CourseSectionModel.js';
 
 const router = express.Router();
 
-router.use(fileUpload({ useTempFiles: true }));
+router.use(
+  fileUpload({
+    useTempFiles: true,
+    tempFileDir: "./temp/",
+    limits: { fileSize: 500 * 1024 * 1024 }, // 500MB
+    abortOnLimit: true,
+  })
+);
+
 
 
 router.post("/video-uploder", refreshJWTChecker, async (req, res) => {
@@ -17,16 +25,24 @@ router.post("/video-uploder", refreshJWTChecker, async (req, res) => {
     if (!req.files || !req.files.video) {
       return res.status(400).json({ message: "Video is required" });
     }
-    const file = req.files.video;
-    const result = await cloudinary.uploader.upload(file.tempFilePath, {
-      resource_type: "video",
-    });
 
+    const file = req.files.video;
+    const result = await new cloudinary.uploader.upload_large(file.tempFilePath,{
+         resource_type:"video",
+         chunk_size:10000000,
+       })
+    
+
+    console.log(result);
 
     console.log("sectionID", req.body.sectionID);
     const sections = await coursesection.findByIdAndUpdate(req.body.sectionID, {
        $push:{videos:result.secure_url}
     });
+
+    if (!sections) {
+  return res.status(404).json({ message: "Section not found" });
+}
 
     const isAlreadyCreated = await VideoCourse.findOne({ reletedCourse: id });
     if (!isAlreadyCreated) {
@@ -41,12 +57,16 @@ router.post("/video-uploder", refreshJWTChecker, async (req, res) => {
       res.send(uplodedVideo);
     } else {
       isAlreadyCreated.videos.push(result.secure_url);
-      isAlreadyCreated.save();
+      await isAlreadyCreated.save();
       res.send(isAlreadyCreated);
     }
-  } catch (error) {
-    res.status(500).json({ message: "Upload failed", error });
-  }
+  }catch (error) {
+  console.error("FULL ERROR:", error);
+  res.status(500).json({ 
+    message: "Upload failed", 
+    error: error.message 
+  });
+}
 });
 
 export default router;

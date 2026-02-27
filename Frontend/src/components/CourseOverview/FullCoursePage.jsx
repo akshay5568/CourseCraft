@@ -6,6 +6,7 @@ import CartBtn from "../Cart/CartBtn";
 import { payNow } from "../../Constants/Constant.js";
 import { FaLock } from "react-icons/fa";
 import { FaLockOpen } from "react-icons/fa";
+import VideoPlayerPage from "../ContinueLearning/VideoPlayerPage.jsx";
 
 export const FullCoursePage = () => {
   const { id } = useParams();
@@ -13,92 +14,105 @@ export const FullCoursePage = () => {
   const userData = useSelector((state) => state?.User?.data);
   const filterCourses = courses.find((course) => course._id === id);
 
-  const purechasedcourse = filterCourses.enrolledStudents.filter(course => course == userData._id);
+  const purechasedcourse = filterCourses?.enrolledStudents.filter(
+    (course) => course == userData._id
+  );
 
   return (
     <div>
-      <div>
-        <Header />
-      </div>
-      <div className=" bg-[linear-gradient(to_bottom,black_0%,black_40%,white_40%,white_100%)] text-white p-3 flex gap-3">
-        <div className="w-[60%] h-screen ml-35 mt-10 bg-transparent p-7">
-          <div className="w-full">
-            <h1 className="w-full text-3xl font-medium">
-              {filterCourses?.courseName}
-            </h1>
-            <h1 className="mt-3 w-full text-xl font-extralight">
-              {filterCourses?.description}
-            </h1>
-            <div className="mt-10">
-              <h1 className="font-extralight text-sm">
-                Created by : {filterCourses?.createdBy?.name}
-              </h1>
-              <h1 className="font-extralight text-sm">
-                Last updated : {filterCourses?.updatedAt}
-              </h1>
-            </div>
-
-            <div className="bg-white w-30 p-2 mt-7 rounded-md text-center">
-              <FaUsers className="text-black text-2xl m-auto" />
-              <h5 className="text-black text-sm">
-                {filterCourses?.enrolledStudents?.length}{" "}
-                <span className="text-sm font-extralight">learners</span>
-              </h5>
-            </div>
-          </div>
-
-          <div className="mt-70 text-black">
-            <h1 className="text-2xl">Course content</h1>
-            <div className="w-full p-1 border h-screen mt-3 rounded-md">
-              {filterCourses?.sectionIds.map((section) => (
-                <div className="w-full bg-[#e7eaee] p-3 rounded-md mt-1 flex items-center justify-between">  
-                  <h1 className="font-semibold text-sm">
-                    {section.sectionName}
-                  </h1>
-                  {purechasedcourse.length > 0 ? (
-                    <h1 className="font-semibold text-xs">
-                      <FaLockOpen />
-                    </h1>
-                  ) : (
-                    <h1 className="font-semibold text-xs">
-                      <FaLock />
-                    </h1>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <div className="w-[25%] h-fit shadow-2xl  mt-10 bg-white rounded-md">
+      {purechasedcourse?.length > 0 ? (
+        <VideoPlayerPage courseID={filterCourses._id}/>
+      ) : (
+        <>
           <div>
-            <img
-              src={
-                filterCourses?.thubmnail
-                  ? filterCourses?.thubmnail
-                  : filterCourses?.thubmnailUrl
-              }
-              className="w-full rounded-md"
-              alt="image"
-            />
+            <Header />
           </div>
-          <div className="w-full p-5 text-black">
-            <h1 className="text-2xl font-extralight">
-              ₹{filterCourses?.price}
-            </h1>
-            <div className="w-full m-auto">
-              <CartBtn courseId={filterCourses?._id} userId={userData?._id} />
+          <div className=" bg-[linear-gradient(to_bottom,black_0%,black_40%,white_40%,white_100%)] text-white p-3 flex gap-3">
+            <div className="w-[60%] h-screen ml-35 mt-10 bg-transparent p-7">
+              <div className="w-full">
+                <h1 className="w-full text-3xl font-medium">
+                  {filterCourses?.courseName}
+                </h1>
+                <h1 className="mt-3 w-full text-xl font-extralight">
+                  {filterCourses?.description}
+                </h1>
+                <div className="mt-10">
+                  <h1 className="font-extralight text-sm">
+                    Created by : {filterCourses?.createdBy?.name}
+                  </h1>
+                  <h1 className="font-extralight text-sm">
+                    Last updated : {filterCourses?.updatedAt}
+                  </h1>
+                </div>
 
-              <button
-                onClick={() => payNow(filterCourses?.price, id, userData?._id)}
-                className="mt-3 bg-white border text-[#6d29d1] hover:bg-purple-200 cursor-pointer border-[#6d29d1] w-full  text-sm font-semibold rounded-md px-7 py-2"
-              >
-                Buy now ₹{filterCourses?.price}
-              </button>
+                <div className="bg-white w-30 p-2 mt-7 rounded-md text-center">
+                  <FaUsers className="text-black text-2xl m-auto" />
+                  <h5 className="text-black text-sm">
+                    {filterCourses?.enrolledStudents?.length}{" "}
+                    <span className="text-sm font-extralight">learners</span>
+                  </h5>
+                </div>
+              </div>
+
+              <div className="mt-70 text-black">
+                <h1 className="text-2xl">Course content</h1>
+                <div className="w-full p-1 border h-screen mt-3 rounded-md">
+                  {filterCourses?.sectionIds.map((section) => (
+                    <div className="w-full bg-[#e7eaee] p-3 rounded-md mt-1 flex items-center justify-between">
+                      <h1 className="font-semibold text-sm">
+                        {section.sectionName}
+                      </h1>
+                      {purechasedcourse.length > 0 ? (
+                        <h1 className="font-semibold text-xs">
+                          <FaLockOpen />
+                        </h1>
+                      ) : (
+                        <h1 className="font-semibold text-xs">
+                          <FaLock />
+                        </h1>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="w-[25%] h-fit shadow-2xl  mt-10 bg-white rounded-md">
+              <div>
+                <img
+                  src={
+                    filterCourses?.thubmnail
+                      ? filterCourses?.thubmnail
+                      : filterCourses?.thubmnailUrl
+                  }
+                  className="w-full rounded-md"
+                  alt="image"
+                />
+              </div>
+              <div className="w-full p-5 text-black">
+                <h1 className="text-2xl font-extralight">
+                  ₹{filterCourses?.price}
+                </h1>
+                <div className="w-full m-auto">
+                  <CartBtn
+                    courseId={filterCourses?._id}
+                    userId={userData?._id}
+                  />
+
+                  <button
+                    onClick={() =>
+                      payNow(filterCourses?.price, id, userData?._id)
+                    }
+                    className="mt-3 bg-white border text-[#6d29d1] hover:bg-purple-200 cursor-pointer border-[#6d29d1] w-full  text-sm font-semibold rounded-md px-7 py-2"
+                  >
+                    Buy now ₹{filterCourses?.price}
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        </>
+      )}
     </div>
   );
 };

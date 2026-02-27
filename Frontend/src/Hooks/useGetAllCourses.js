@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect} from 'react';
-import { allCoursesForHomePage } from "../Slice/CourseDetailsReducer";
+import { allCoursesForHomePage } from "../Slice/CourseDetailsReducer";      
 import axios from "axios";
 import { mainURL } from "../Constants/Constant.js";
 
