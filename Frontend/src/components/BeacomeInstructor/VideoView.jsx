@@ -4,6 +4,7 @@ import { CiMenuKebab } from "react-icons/ci";
 import VideoDeletePopUp from "./VideoDeletePopUp";
 
 export const VideoView = ({ courseVideos,sectionID }) => {
+  console.log(courseVideos)
   const [deleteBTNPopUp, setDeleteBTNPopUp] = useState(false);
   return (
     <div className="w-full">
@@ -11,7 +12,7 @@ export const VideoView = ({ courseVideos,sectionID }) => {
         return (
           <div key={index} className="flex mt-2 items-end">
             <video
-              src={video}
+              src={video.videoUrl}
               className="rounded-md w-100 object-contain"
               controls
             ></video>

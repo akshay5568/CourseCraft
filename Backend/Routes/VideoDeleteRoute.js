@@ -19,20 +19,21 @@ router.delete("/delete-video/:id", refreshJWTChecker, async (req, res) => {
 
     const sectionVideos = await coursesection.findById(id);
     console.log(sectionVideos);
-    sectionVideos.videos = sectionVideos.videos.filter(video => video != data.videoLink); 
-    sectionVideos.save();
+    sectionVideos.videos = sectionVideos.videos.filter(video => video.videoUrl != data.videoLink.videoUrl); 
+    await sectionVideos.save();
 
 
     const path = await deleteVideoByUrlForCloudnary(data.videoLink);
-
+    console.log(path);
     await cloudinary.uploader.destroy(`${path}`,{
-         resource_type:"video"
+         resource_type:"video",
+         folder:"course-videos"
     })
-
+    
     res.send(sectionVideos);
   } catch (error) {
     res.send("Error.", error);
-  }
+  }    
 });
 
 
