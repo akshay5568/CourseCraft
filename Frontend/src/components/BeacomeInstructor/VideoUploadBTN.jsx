@@ -68,7 +68,7 @@ export const VideoUploadBTN = ({ id, sectionID }) => {
           Authorization: `Bearer ${token}`
       }
   })
-
+  setRefresh(refresh+1);
   console.log(uploadRes);
 
   };

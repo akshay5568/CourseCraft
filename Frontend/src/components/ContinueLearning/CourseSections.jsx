@@ -4,28 +4,47 @@ import VideoPopUpSection from "./VideoPopUpSection";
 import { FaChevronDown } from "react-icons/fa";
 
 export const CourseSections = ({ purechasedcourse }) => {
-    console.log(purechasedcourse);
+  console.log(purechasedcourse);
 
-    const [sectionPopUp,setSectionPopUp] = useState({
-        id:null,
-        isValid:false
-    });
+  const [sectionPopUp, setSectionPopUp] = useState({
+    id: null,
+    isValid: false,
+  });
 
 
-    const popHandller = (sectionId) => {
-         setSectionPopUp({id:sectionId,isValid:!sectionPopUp.isValid});
-    }
+
+  const popHandller = (sectionId) => {
+    setSectionPopUp({ id: sectionId, isValid: !sectionPopUp.isValid });
+  };
 
   return (
     <div className="w-full">
       {purechasedcourse.map((section, index) => {
         return (
-          <div>
-            <button onClick={() => popHandller(section._id)} key={index} className="flex w-full text-sm font-semibold  bg-gray-300 p-2 rounded-md mt-2 items-center justify-between">
-            <h1>{section.sectionName}</h1>    
-            <h1>{sectionPopUp.isValid ? <FaChevronDown/> : <FaChevronRight/>}</h1>
+          <div className="w-full border mt-3 border-gray-300 bg-gray-200" key={index}>
+            <button
+              onClick={() => popHandller(section._id)}
+              key={index}
+              className="flex w-full text-sm font-semibold p-2 rounded-md  items-center gap-3"   
+            > 
+              <h1>{index+1}</h1>
+              <div className="w-full justify-between flex items-center">
+                 <h1>{section.sectionName}</h1>
+              <div className="flex items-center gap-2">
+                 <span className="block text-[#5b5d73] font-extralight text-xs">{section.videos.length} lectures</span>
+                {sectionPopUp.isValid ? <FaChevronDown className="font-extralight text-xs text-[#5b5d73]" /> : <FaChevronRight className="font-extralight text-xs text-[#5b5d73]" />}
+              </div>
+              </div>
             </button>
-             {sectionPopUp.id == section._id ?  sectionPopUp.isValid ? <VideoPopUpSection courseVideos={section?.videos}/> : "" : ""}
+            {sectionPopUp.id == section._id ? (
+              sectionPopUp.isValid ? (
+                <VideoPopUpSection courseVideos={section?.videos} />
+              ) : (
+                ""
+              )
+            ) : (
+              ""
+            )}
           </div>
         );
       })}

@@ -39,13 +39,9 @@ router.get("/get-sinature", async (req, res) => {
 
 router.post("/video-uploder", refreshJWTChecker, async (req, res) => {
   try {
-    console.log(req.body);
-    console.log("Section ID:", req.body.sectionID);
-
-
+  
     if(!req.body.cloudRes) return res.send("data not recived").status(401);
-
-
+     
     const videoObject = {
       videoName:req.body.cloudRes.data.original_filename,
       public_id:req.body.cloudRes.data.public_id,
@@ -54,7 +50,6 @@ router.post("/video-uploder", refreshJWTChecker, async (req, res) => {
       signature:req.body.cloudRes.data.signature,
       videoUrl:req.body.cloudRes.data.url,
     }
-    console.log(videoObject)
     const courseSection = await coursesection.findById(req.body.sectionID);  
      
     courseSection.videos.push(videoObject);

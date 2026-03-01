@@ -11,26 +11,20 @@ router.delete("/delete-video/:id", refreshJWTChecker, async (req, res) => {
   try {
     const { id } = req.params;
     const data = req.body;
-    console.log(data, id);
-    // const videoDetails = await VideoCourse.findById(id);
-    // videoDetails.videos = videoDetails.videos.filter(
-    //   (video) => video !== data.videoLink
-    // );
-
     const sectionVideos = await coursesection.findById(id);
-    console.log(sectionVideos);
     sectionVideos.videos = sectionVideos.videos.filter(video => video.videoUrl != data.videoLink.videoUrl); 
     await sectionVideos.save();
 
+    const path = await deleteVideoByUrlForCloudnary(data.videoLink.videoUrl);
 
-    const path = await deleteVideoByUrlForCloudnary(data.videoLink);
-    console.log(path);
-    await cloudinary.uploader.destroy(`${path}`,{
+
+    const result  = await cloudinary.uploader.destroy(`${path}`,{
          resource_type:"video",
          folder:"course-videos"
     })
-    
-    res.send(sectionVideos);
+
+    if(result.result == 'ok') return res.send("Video Deleted...").status(200);
+    res.send("Something went wrong....");
   } catch (error) {
     res.send("Error.", error);
   }    

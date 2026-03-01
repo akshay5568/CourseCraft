@@ -9,10 +9,14 @@ export const VideoPlayerPage = ({ courseID }) => {
     (course) => course.courseID._id == courseID
   );
 
+  const videoUrl = useSelector(state => state.videoPlayerVideo.videoLink);
+
+  console.log(videoUrl);
+
   return (
     <div>
       <Header />
-      <div className="w-full flex p-3">
+      <div className="w-full gap-2 flex p-3">
         <div className="w-[40%] border rounded-md border-gray-300 p-2">
           <h1>Sections</h1>
 
@@ -23,7 +27,9 @@ export const VideoPlayerPage = ({ courseID }) => {
           />
         </div>
 
-        <div className="w-[60%]"></div>
+        <div className="w-[60%] p-3 border border-gray-300 rounded-md">
+             {videoUrl != null &&  <video className="w-full rounded-md" controls muted src={videoUrl}></video>}
+        </div>
       </div>
     </div>
   );

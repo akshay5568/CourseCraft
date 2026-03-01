@@ -21,7 +21,6 @@ export const CourseEditPage = () => {
   const CourseVideos = useSelector((state) => state.CourseVideo.videos);
   const id = useParams();
 
-  
   const [sectionDiv, setSectionDiv] = useState({
     sectionId: "l",
     isTrue: false,
@@ -39,19 +38,25 @@ export const CourseEditPage = () => {
       <SellerHeader />
       <div className="h-screen w-full p-3 gap-3 flex">
         <div className="w-1/2  border rounded-md p-3 overflow-scroll">
-          <h1 className="text-gray-600 text-xl font-bold">Videos</h1>  
+          <h1 className="text-gray-600 text-xl font-bold">Videos</h1>
 
-          <div>
+          <div className="">
             {CourseDetails?.sectionIds?.map((section, index) => {
               return (
-                <div key={section._id} className="mt-3">
+                <div key={section._id} className="mt-3 border border-gray-300 bg-gray-200">
                   <button
                     onClick={() => sectionDropDown(section._id, section._id)}
-                    className="bg-gray-300 w-full p-3 rounded-md flex justify-between items-center text-xl"
+                    className=" w-full p-3 rounded-md flex items-center text-xl"
                   >
-                    <h1 className="font-semibold">{section.sectionName}</h1>
+                    <span className="w-[5%] text-xs">{index+1}</span>
+                    <h1 className="w-[60%] font-semibold text-sm">{section.sectionName}</h1>
+                    <span className="block text-xs font-extralight">{section.videos.length} lectures</span>
                     {sectionDiv.sectionId == section._id ? (
-                      sectionDiv.isTrue ? <IoMdArrowDropdown /> :  <IoMdArrowDropright className="text-2xl" />               
+                      sectionDiv.isTrue ? (
+                        <IoMdArrowDropdown />
+                      ) : (
+                        <IoMdArrowDropright className="text-2xl" />
+                      )
                     ) : (
                       <IoMdArrowDropright className="text-2xl" />
                     )}
@@ -59,13 +64,28 @@ export const CourseEditPage = () => {
 
                   {section._id == sectionDiv.sectionId
                     ? sectionDiv.isTrue && (
-                        <div className="p-3 border rounded-md">
+                        <div className="p-3 border-t border-gray-300 rounded-md">
                           <div className="flex justify-between w-full">
-                              <h1 className="w-[80%] text-2xl mb-7 font-semibold">{section.sectionDesc}</h1>
-                              <DeleteSection sectionID={section._id} courseID={CourseDetails._id}  setRefresh={setRefresh} refresh={refresh}/>
+                            <h1 className="w-[80%] text-2xl mb-7 font-semibold">
+                              {section.sectionDesc}
+                            </h1>
+                            <DeleteSection
+                              sectionID={section._id}
+                              courseID={CourseDetails._id}
+                              setRefresh={setRefresh}
+                              refresh={refresh}
+                            />
                           </div>
-                          <VideoView courseVideos={section.videos} sectionID={section._id}/>
-                          <div className="mt-3"><VideoUploadBTN id={CourseDetails._id} sectionID={section._id}/></div>
+                          <VideoView
+                            courseVideos={section.videos}
+                            sectionID={section._id}
+                          />
+                          <div className="mt-3 border border-gray-500 rounded-md">
+                            <VideoUploadBTN
+                              id={CourseDetails._id}
+                              sectionID={section._id}
+                            />
+                          </div>
                         </div>
                       )
                     : ""}
@@ -100,7 +120,6 @@ export const CourseEditPage = () => {
             </div>
           </div>
         </div>
-
 
         <div className="w-1/2 border rounded-md p-3">
           <div className="flex items-center justify-between">

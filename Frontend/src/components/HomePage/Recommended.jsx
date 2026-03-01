@@ -1,9 +1,13 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router";
+import { addVideo } from "../../Slice/VideoPlayerVideo";
+import useVideoDeleteForVideoPlayer from "../../Hooks/useVideoDeleteForVideoPlayer";
 
 export const Recommended = () => {
   const allCourses = useSelector((state) => state.CourseDetails.allCourses);
+    const {deleteVideoForVideoPlayer} = useVideoDeleteForVideoPlayer();
+  
   return (
     <div className="mt-7">
       <div className="text-[#2a2b40]">
@@ -13,10 +17,11 @@ export const Recommended = () => {
         <span className="text-xl font-semibold">Our top pick for you</span>
       </div>
 
-      <div className=" mt-3 p-5 flex gap-3 overflow-x-auto rounded-md">       
+      <div className=" mt-3 p-5 flex gap-3 overflow-scroll rounded-md">       
         {allCourses.map((course) => {
           return (
             <Link
+              onClick={deleteVideoForVideoPlayer}
               key={course?._id}      
               to={`course/${course._id}`}
               className="w-70 h-70 rounded-md"

@@ -148,3 +148,4 @@ export const payNow = async (price,id,userID) => {
   const razor = new window.Razorpay(options);         
   razor.open();
 };
+
