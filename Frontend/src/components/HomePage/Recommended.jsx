@@ -17,18 +17,18 @@ export const Recommended = () => {
         <span className="text-xl font-semibold">Our top pick for you</span>
       </div>
 
-      <div className=" mt-3 p-5 flex gap-3 overflow-scroll rounded-md">       
+      <div className="border-t border-gray-200 overflow-scroll w-full flex-wrap mt-3 p-5 flex gap-3 rounded-md">       
         {allCourses.map((course) => {
           return (
+            <div key={course?._id}  className="w-[23%] p-4 rounded-md border border-gray-200">
             <Link
-              onClick={deleteVideoForVideoPlayer}
-              key={course?._id}      
+              onClick={deleteVideoForVideoPlayer}   
               to={`course/${course._id}`}
-              className="w-70 h-70 rounded-md"
+               className="w-[15%] rounded-md"
             >
               <div className="w-full">
                 <img
-                  className="w-full h-40 rounded-md object-fill"
+                  className="w-full h-50 rounded-md object-fill"
                   src={
                     course?.thubmnailUrl
                       ? course?.thubmnailUrl
@@ -38,18 +38,19 @@ export const Recommended = () => {
                 />
               </div>
               <div className="p-1">
-                <h1 className="mt-1 font-semibold text-[#2a2b40]">
-                  {course.courseName.substring(0, 30) + "..."}
+                <h1 className="mt-1 font-semibold break-all text-[#2a2b40]">
+                  {course.courseName.substring(0,50)}
                 </h1>
-                <h4 className="font-semibold mb-1 text-xs text-[#5a5c73]">
+                <h4 className="font-extralight mb-1 text-xs text-[#5a5c73]">
                   {course?.createdBy?.name}
                 </h4>
-                <h4 className="text-xs text-[#5a5c73]">
-                  ({course?.enrolledStudents?.length})
-                </h4>
-                <h2 className="text-sm font-semibold">${course.price}</h2>
+                <span className="text-xs border w-10 text-center rounded p-1 font-extralight border-gray-300 text-[#5a5c73]">
+                  {course?.enrolledStudents?.length} ratings
+                </span><br />
+                <span className="text-sm text-[#2a2b40] font-semibold">₹{course.price}</span>
               </div>
             </Link>
+            </div>
           );
         })}
       </div>

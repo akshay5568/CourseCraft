@@ -13,10 +13,10 @@ import useGetAllCourses from "../../Hooks/useGetAllCourses";
 export const Cart = () => {
   const userCartData = useSelector((state) => state?.Carts?.carts);
   const [refresh, setRefresh] = useState(0);
-   useUserCarts(refresh);
+  useUserCarts(refresh);
 
   if (userCartData.length == 0) {
-    return <EmptyCart/>;
+    return <EmptyCart />;
   }
 
   const total = userCartData.reduce(
@@ -37,7 +37,6 @@ export const Cart = () => {
       console.log(error);
     }
   };
-
 
   return (
     <div>
@@ -72,8 +71,8 @@ export const Cart = () => {
                             alt=""
                           />
                         </div>
-                        <div className="text-sm w-[70%] font-semibold ">
-                          <h3>{cart.courseId?.courseName}</h3>
+                        <div className="text-sm w-[70%] font-semibold break-all">
+                          <h3>{cart.courseId?.courseName.substring(0,50) + "..."}</h3>
                           <h3 className="text-xs font-extralight pt-1">
                             By {cart.courseId?.createdBy?.name}
                           </h3>
@@ -109,7 +108,9 @@ export const Cart = () => {
                 <div>
                   <span className="text-[#5a5c72] font-semibold">Total:</span>
                   <br />
-                  {userCartData &&  <span className="font-medium text-5xl">${total}</span>}
+                  {userCartData && (
+                    <span className="font-medium text-5xl">${total}</span>
+                  )}
                 </div>
               </div>
             </div>
