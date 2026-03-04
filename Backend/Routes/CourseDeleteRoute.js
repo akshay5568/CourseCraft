@@ -6,18 +6,25 @@ import VideoCourse from '../models/VideoCourseModel.js';
 import coursesection from '../models/CourseSectionModel.js';
 import { deleteVideoByUrlForCloudnary } from "../constants/constants.js";
 import cloudinary from "../utils/Cloudnary.js";
+import { DeleteAllCourseVideosUsingDeleteCourseButton } from "../constants/constants.js";
 
 const router = express.Router();
 router.delete("/delete-course/:id", refreshJWTChecker, async (req, res) => {
   try {
     const { id } = req.params;
     const courseDetails = await CourseUpload.findById(id);
-    if (courseDetails?.thubmnailId) {
-      await imagekit.deleteFile(courseDetails?.thubmnailId);
-    }
-    const videosAboutCourse = await VideoCourse.findOneAndDelete({reletedCourse:id});
-    const deltedCourse = await CourseUpload.findByIdAndDelete(id);   
-    res.send({deltedCourse,videosAboutCourse});
+    // if (courseDetails?.thubmnailId) {
+    //   await imagekit.deleteFile(courseDetails?.thubmnailId);
+    // }
+
+    const courseSectionDeatilas = await coursesection.find({courseId:id});
+
+    const result = await DeleteAllCourseVideosUsingDeleteCourseButton(courseSectionDeatilas);               
+    console.log(result);
+    // const videosAboutCourse = await VideoCourse.findOneAndDelete({reletedCourse:id});
+    // const deltedCourse = await CourseUpload.findByIdAndDelete(id);   
+    // res.send({deltedCourse,videosAboutCourse,courseSectionDeatilas});
+    res.send("Done");
   } catch (error) {
     res.send("Error", error);
   }
@@ -42,7 +49,7 @@ router.delete("/section/:id", refreshJWTChecker, async (req,res) => {
           console.log("public id:", publicId);
           await cloudinary.uploader.destroy(publicId,{
               resource_type:"video",
-               invalidate: true
+              invalidate: true
           }).then(res => console.log(res));
       }
       await sectionDetails.save();

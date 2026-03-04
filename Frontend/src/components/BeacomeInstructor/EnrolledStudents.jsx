@@ -16,7 +16,7 @@ export const EnrolledStudents = ({EnrolledStudents}) => {
         {courseDetails?.enrolledStudents?.length > 0 ? (
            <div className="p-1">
               {EnrolledStudents.map(students => (
-                 <div className="p-1 w-full border mt-2 rounded-md ">
+                 <div key={students._id} className="p-1 w-full border mt-2 rounded-md ">
                      <h1>{students.name}</h1>
                      <h1>{students.email}</h1>
                  </div>

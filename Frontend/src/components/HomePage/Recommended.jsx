@@ -17,10 +17,10 @@ export const Recommended = () => {
         <span className="text-xl font-semibold">Our top pick for you</span>
       </div>
 
-      <div className="border-t border-gray-200 overflow-scroll w-full flex-wrap mt-3 p-5 flex gap-3 rounded-md">       
+      <div className="border-t border-gray-200 flex-nowrap mt-3 p-5 overflow-x-auto custom-scrollbar flex gap-3 rounded-md">       
         {allCourses.map((course) => {
           return (
-            <div key={course?._id}  className="w-[23%] p-4 rounded-md border border-gray-200">
+            <div key={course?._id}  className="w-[23%] p-4 shrink-0 rounded-md border border-gray-200">
             <Link
               onClick={deleteVideoForVideoPlayer}   
               to={`course/${course._id}`}

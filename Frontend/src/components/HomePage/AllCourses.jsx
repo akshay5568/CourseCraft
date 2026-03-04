@@ -11,9 +11,8 @@ export const AllCourses = () => {
       <div className="w-full p-3 flex flex-wrap gap-5">
         {allCourses.map((course) => {
           return (
-            <div className="w-[23%] h-80 border p-4 rounded-md border-gray-300">
+            <div key={course?._id} className="w-[23%] h-80 border p-4 rounded-md border-gray-300">
             <Link
-              key={course?._id}
               to={`course/${course._id}`}
               className="w-full"
             >

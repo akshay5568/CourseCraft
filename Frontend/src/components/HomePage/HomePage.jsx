@@ -10,10 +10,9 @@ const HomePage = () => {
     <div className="">
       {/* <h1>Hello This will be our Home page for CourseCraft.</h1> */}
       <Header />
-      <div className="ml-20 mr-20 mt-10">
+      <div className="ml-23 mr-20 mt-10">
         <ProfileTag />
         <PosterAnimated/>
-        {/* <ForContuineLearning/> */}
         <Recommended/>
         <AllCourses/>
       </div>

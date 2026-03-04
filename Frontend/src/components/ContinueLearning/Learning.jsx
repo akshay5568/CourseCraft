@@ -11,7 +11,7 @@ export const Learning = () => {
   const usersCourses = useSelector((state) => state?.User.courses || []);
 
   const { deleteVideoForVideoPlayer } = useVideoDeleteForVideoPlayer();
-  
+
   console.log(usersCourses);
   if (!usersCourses) {
     return (
@@ -28,7 +28,9 @@ export const Learning = () => {
       <div>
         {usersCourses?.length != 0 ? (
           <div className="p-3">
-            <span className="font-extralight text-xl">Your all purchased courses</span>
+            <span className="font-extralight text-xl">
+              Your all purchased courses
+            </span>
             <div className="flex gap-3 h-fit flex-wrap mt-3">
               {usersCourses?.map((course) => (
                 <Link
@@ -44,12 +46,15 @@ export const Learning = () => {
                       alt=""
                     />
                     <div className="mt-1 h-13">
-                      <h1 className="font-extralight break-all"> 
-                        {course.courseID.courseName.substring(0,50) + "..."}
+                      <h1 className="font-extralight break-all">
+                        {course.courseID.courseName.substring(0, 50) + "..."}
                       </h1>
                     </div>
-                    <span className="">₹{course.courseID.price}</span><br />
-                    <span className="text-sm font-extralight">{course.courseID.enrolledStudents.length} students</span>
+                    <span className="">₹{course.courseID.price}</span>
+                    <br />
+                    <span className="text-sm font-extralight">
+                      {course.courseID.enrolledStudents.length} students
+                    </span>
                   </div>
                 </Link>
               ))}

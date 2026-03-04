@@ -28,17 +28,17 @@ export const SellerCoursesAll = () => {
   }, []);
 
   return (
-    <div>
+    <div className="w-full">
       <SellerHeader />
-      <div>
-        <h1>All Courses</h1>
-        <div className="flex flex-wrap gap-3 p-3 rounded-md">
-          {data?.map((item, index) => {
+      <div className="p-3 w-full">
+        <h1 className="font-extralight text-2xl">All Courses</h1>
+      <div className="w-full flex flex-wrap">
+           {data?.map((item, index) => {
             return (
+            <div key={index} className="w-[20%] flex gap-3 p-3 rounded-md">
               <Link
-                key={index}
                 to={`/course-edit/${data[index]._id}`}
-                className="bg-gray-200 w-70 p-3 rounded-md"
+                className="border border-gray-300 w-70 p-3 rounded-md"
               >
                 <img
                   className="w-full object-cover h-40 rounded-md"
@@ -46,10 +46,11 @@ export const SellerCoursesAll = () => {
                   alt=""
                 />
                 <div className="">
-                  <h1 className="font-semibold">{item.courseName}</h1>
-                  <h4 className="font-semibold text-sm">${item.price}</h4>
+                  <h1 className="font-semibold break-all">{item.courseName.substring(0,50)}</h1>
+                  <h4 className="font-extralight text-sm">₹{item.price}</h4>
                 </div>
               </Link>
+             </div>
             );
           })}
         </div>

@@ -84,6 +84,7 @@ export const CourseEditPage = () => {
                             <VideoUploadBTN
                               id={CourseDetails._id}
                               sectionID={section._id}
+
                             />
                           </div>
                         </div>
