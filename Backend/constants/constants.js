@@ -12,7 +12,7 @@ export const deleteVideoByUrlForCloudnary = async (videoUrl) => {
   //   };
 
   //   const publicId = extractPublicId(videoUrl);
-
+  console.log(videoUrl);
   const urlObj = new URL(videoUrl);
   let path = urlObj.pathname.split("/upload/")[1];
   // remove version if present
@@ -23,25 +23,28 @@ export const deleteVideoByUrlForCloudnary = async (videoUrl) => {
 };
 
 export const DeleteAllCourseVideosUsingDeleteCourseButton = async (
-  sectionData
+  sectionData,courseID
 ) => {
   const result = [];
   for (let i = 0; i < sectionData.length; i++) {
+    const section = await coursesection.findById(sectionData[i]._id);
+    console.log(section);
     for (let j = 0; j < sectionData[i].videos.length; j++) {
-      console.log("PUBlic id: ", sectionData[i].videos[j].public_id);
       if (sectionData[i].videos[j].public_id) {
         const resultStatus = await cloudinary.uploader
           .destroy(sectionData[i].videos[j].public_id, {
             resource_type: "video",
             invalidate: true,
-          })
-          .then((res) => console.log(res));
-          const section =  await coursesection.findById(sectionData[i]._id);
-          section.videos = section.videos.filter(video => video.public_id != sectionData[i].videos[j].public_id);          
-          await section.save();
+          });
+        section.videos = section.videos.filter(
+          (video) => video.public_id != sectionData[i].videos[j].public_id        
+        );
         result.push(resultStatus.result);
       }
+      
     }
+     await section.save();
   }
+  await coursesection.deleteMany({courseId:courseID})
   return result;
 };

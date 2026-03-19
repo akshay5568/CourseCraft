@@ -37,23 +37,23 @@ export const Learning = () => {
                   onClick={deleteVideoForVideoPlayer}
                   key={course?._id}
                   className="border h-70 border-gray-300 rounded-md "
-                  to={`/course/${course?.courseID._id}`}
+                  to={`/course/${course?.courseID?._id}`}
                 >
                   <div className="w-75 h-50 p-1">
                     <img
                       className="w-full h-40 rounded-md"
-                      src={course.courseID.thubmnailUrl}
+                      src={course.courseID?.thubmnailUrl}
                       alt=""
                     />
                     <div className="mt-1 h-13">
                       <h1 className="font-extralight break-all">
-                        {course.courseID.courseName.substring(0, 50) + "..."}
+                        {course.courseID?.courseName.substring(0, 50) + "..."}
                       </h1>
                     </div>
-                    <span className="">₹{course.courseID.price}</span>
+                    <span className="">₹{course.courseID?.price}</span>
                     <br />
                     <span className="text-sm font-extralight">
-                      {course.courseID.enrolledStudents.length} students
+                      {course.courseID?.enrolledStudents.length} students
                     </span>
                   </div>
                 </Link>

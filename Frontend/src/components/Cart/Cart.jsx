@@ -52,9 +52,9 @@ export const Cart = () => {
             </div>
             <div className="flex">
               <div className="w-[80%]">
-                {userCartData?.map((cart) => {
+                {userCartData?.map((cart,index) => {
                   return (
-                    <div className="gap-20 w-[80%] flex border-t p-3  border-gray-200 ]">
+                    <div key={index} className="gap-20 w-[80%] flex border-t p-3  border-gray-200 ]">
                       <Link
                         className="gap-15 w-[50%] flex"
                         to={`/course/${cart?.courseId?._id}`}
@@ -64,9 +64,9 @@ export const Cart = () => {
                           <img
                             className="w-70 h-20 object-contain rounded-md"
                             src={
-                              cart.courseId.thubmnail
-                                ? cart.courseId.thubmnail
-                                : cart.courseId.thubmnailUrl
+                              cart.courseId?.thubmnail
+                                ? cart.courseId?.thubmnail
+                                : cart.courseId?.thubmnailUrl
                             }
                             alt=""
                           />

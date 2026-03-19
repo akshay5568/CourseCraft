@@ -111,7 +111,7 @@ export const DeleteCourseBTN = async (id, _, redirect) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(res.data);
+    console.log(res);
     redirect("/");
   } catch (error) {
     console.log("Error,", error);

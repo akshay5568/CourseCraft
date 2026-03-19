@@ -6,7 +6,7 @@ import CourseSections from "./CourseSections";
 export const VideoPlayerPage = ({ courseID }) => {
   const purechasedcourse = useSelector((user) => user.User.courses);
   const filterCourses = purechasedcourse.filter(
-    (course) => course.courseID._id == courseID
+    (course) => course?.courseID?._id == courseID
   );
 
   const videoUrl = useSelector(state => state.videoPlayerVideo.videoLink);
