@@ -5,27 +5,16 @@ import axios from "axios";
 import { mainURL } from "../../Constants/Constant.js";
 import { data, Link, useParams } from "react-router";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addSellerCourses } from "../../Slice/SellerAllCourses.js";
+import useGetAllSellerCourses from "../../Hooks/ForSeller/useGetAllSellerCourses.js";
 export const SellerCoursesAll = () => {
-  const [data, setData] = useState();
+
   const { id } = useParams();
 
-  const getCourses = async () => {
-    const token = localStorage.getItem("jwtToken");
-    const res = await axios.post(
-      `${mainURL}/seller-courses`,
-      { id },
-      {
-        headers: {
-          Authorization: `Breare ${token}`,
-        },
-      }
-    );
-    setData(res.data);
-  };
+  const data = useSelector(state => state.SellerAllCourses.course);
+  useGetAllSellerCourses(id);
 
-  useEffect(() => {
-    getCourses();
-  }, []);
 
   return (
     <div className="w-full">

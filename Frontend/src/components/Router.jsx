@@ -15,6 +15,7 @@ import UploadVideos from './BeacomeInstructor/UploadVideos';
 import FullCoursePage from './CourseOverview/FullCoursePage';
 import Learning from './ContinueLearning/Learning';
 import WatchingVideosPage from './ContinueLearning/WatchingVideosPage';
+import DashBoard from './BeacomeInstructor/Deshboard/DashBoard';
 
 export const Router = () => {
   return (
@@ -35,6 +36,7 @@ export const Router = () => {
             <Route path="/course/:id" element={<FullCoursePage />} />
             <Route path="/learning" element={<Learning />} />
             <Route path="/watching-videos/:id" element={<WatchingVideosPage />} />
+            <Route path='/dashboard/:sellerID' element={<DashBoard/>} />
        </Routes>
       
      </>

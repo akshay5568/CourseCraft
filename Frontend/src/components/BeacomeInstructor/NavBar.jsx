@@ -20,7 +20,7 @@ export const NavBar = () => {
     <div className="w-15 text-center bg-black flex text-white">
       <div className="w-full text-2xl mt-3">
 
-        <Link className="text-xl flex justify-center mb-4 hover:bg-white p-1 rounded-md hover:text-black w-full">
+        <Link to={`/dashboard/${sellerData._id}`} className="text-xl flex justify-center mb-4 hover:bg-white p-1 rounded-md hover:text-black w-full">
           <FaMoneyBillTrendUp/>
         </Link>
 
