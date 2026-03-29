@@ -13,6 +13,7 @@ import { IoMdArrowDropdown } from "react-icons/io";
 import { IoMdArrowDropright } from "react-icons/io";
 import CourseUploadPage from "./CourseUploadPage";
 import DeleteSection from "./CourseSection/DeleteSection";
+import Loading from "../ShimmerUI/Loading";
 
 export const CourseEditPage = () => {
   const [refresh, setRefresh] = useState(0);
@@ -43,14 +44,22 @@ export const CourseEditPage = () => {
           <div className="">
             {CourseDetails?.sectionIds?.map((section, index) => {
               return (
-                <div key={section._id} className="mt-3 border border-gray-300 bg-gray-200">
+                <div
+                  key={section._id}
+                  className="mt-3 border border-gray-300 bg-gray-200"
+                >
                   <button
                     onClick={() => sectionDropDown(section._id, section._id)}
                     className=" w-full p-3 rounded-md flex items-center text-xl"
                   >
-                    <span className="w-[5%] text-xs">{index+1}</span>
-                    <h1 className="w-[60%] font-semibold text-sm">{section.sectionName}</h1>
-                    <span className="block text-xs font-extralight">{section.videos.length} lectures</span>
+                    <span className="w-[5%] text-xs">{index + 1}</span>
+                    <h1 className="w-[70%] text-left font-semibold text-sm">
+                      {section.sectionName}
+                    </h1>
+                   <div className="flex w-[30%] items-center justify-end">
+                    <span className="block text-xs font-extralight">
+                      {section.videos.length} lectures
+                    </span>
                     {sectionDiv.sectionId == section._id ? (
                       sectionDiv.isTrue ? (
                         <IoMdArrowDropdown />
@@ -60,6 +69,7 @@ export const CourseEditPage = () => {
                     ) : (
                       <IoMdArrowDropright className="text-2xl" />
                     )}
+                   </div>
                   </button>
 
                   {section._id == sectionDiv.sectionId
@@ -84,7 +94,6 @@ export const CourseEditPage = () => {
                             <VideoUploadBTN
                               id={CourseDetails._id}
                               sectionID={section._id}
-
                             />
                           </div>
                         </div>
@@ -173,7 +182,9 @@ export const CourseEditPage = () => {
               Edit
             </button>
           </div>
-          <EnrolledStudents EnrolledStudents={CourseDetails.enrolledStudents} />
+          <EnrolledStudents
+            EnrolledStudents={CourseDetails?.enrolledStudents}
+          />
         </div>
       </div>
       {isEditTrue && (

@@ -94,7 +94,7 @@ export const BarChartForCourseRevenue = ({ sellerID }) => {
 
   return (
     <div>
-      <div className="mt-5 w-full flex p-3 justify-around gap-3 text-sm text-gray-700 font-extralight">
+      <div className="mt-5 w-full flex p-3 justify-around gap-3 text-sm text-gray-700 font-extralight">   
         <div className="bg-[#6ecce1] p-3 rounded-md">
           <SiCoursera className="m-auto" />
           <h1>

@@ -1,8 +1,10 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router";
+import Loading from "../ShimmerUI/Loading";
 
 export const AllCourses = () => {
   const allCourses = useSelector((state) => state?.CourseDetails?.allCourses);
+  if(allCourses.length == 0) return <Loading/>
   return (
     <div className="w-full p-3 mt-5 rounded-md">
       <div>

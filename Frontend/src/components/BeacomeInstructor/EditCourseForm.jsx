@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { editFormEtnHandller } from "../../Constants/Constant.js";
 import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
+import Loading from "../ShimmerUI/Loading.jsx";
 
 export const EditCourseForm = ({
   setisEditTrue,
@@ -12,14 +13,19 @@ export const EditCourseForm = ({
   const description = useRef();
   const price = useRef();
   const thumbnail = useRef();
-
+  const [loading,setLoading] = useState(false);
   const sellerId = useSelector(state => state.Seller?.sellerData?._id);
 
   const redirect = useNavigate();
   const [formEmptyError, setFormEmptyError] = useState();
 
   return (
-    <div className="absolute z-40 w-[50%] top-50 left-80 h-fit bg-gray-300 p-5 rounded-md">
+    <div className="absolute z-40 w-[50%] top-50 left-80 h-fit bg-gray-300 p-5 rounded-md">    
+      {loading && (
+          <div className="absolute inset-0 bg-white/70 flex items-center justify-center">
+              <Loading/>
+          </div>
+      )}
       <div>
         <button
           onClick={() => setisEditTrue(!isEditTrueValue)}
@@ -92,6 +98,7 @@ export const EditCourseForm = ({
                 description,
                 courseId,
                 thumbnail,
+                setLoading,
                 redirect,
                 sellerId
               )

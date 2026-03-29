@@ -3,12 +3,13 @@ import Header from '../../Header/Header';
 import BarChartForCourseRevenue from './BarChartForCourseRevenue';
 import ChartForStudents from './ChartForStudents';
 import { useParams } from 'react-router';
+import SellerHeader from '../SellerHeader';
 
 export const DashBoard = () => {
     const {sellerID} = useParams();
   return (
-    <div className='p-3'>
-        <Header/>
+    <div className=''>
+        <SellerHeader/>
         <div className='mt-7'> 
         <div className='w-[50%] m-auto'>
             <BarChartForCourseRevenue sellerID={sellerID}/>

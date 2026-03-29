@@ -1,5 +1,5 @@
 import React from "react";
-import { Bar, Line, PolarArea } from "react-chartjs-2";
+import { Bar, Doughnut, Line, Pie, PolarArea } from "react-chartjs-2";
 import {
   Chart,
   BarElement,
@@ -16,6 +16,7 @@ import {
 
 import { useSelector } from "react-redux";
 import useGetAllSellerCourses from "../../../Hooks/ForSeller/useGetAllSellerCourses";
+import { Link } from "react-router";
 
 Chart.register(
   LineElement,
@@ -59,7 +60,7 @@ export const ChartForStudents = ({ sellerID }) => {
     ],
   };
 
-  return <PolarArea data={chartData} />;
+  return <Doughnut data={chartData} />;
 };
 
 export default ChartForStudents;

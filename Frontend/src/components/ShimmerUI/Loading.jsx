@@ -1,8 +1,13 @@
-import React from 'react'
-
+import React from "react";
+import { FallingLines } from "react-loader-spinner";
 export const Loading = () => {
   return (
-    <div>Loading</div>
-  )
-}
+    <FallingLines
+      color="#4fa94d"
+      width="100"
+      visible={true}
+      ariaLabel="falling-circles-loading"
+    />
+  );
+};
 export default Loading;

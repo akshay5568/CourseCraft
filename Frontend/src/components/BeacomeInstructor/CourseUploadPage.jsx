@@ -3,6 +3,7 @@ import SellerHeader from "./SellerHeader";
 import { courseUploadBTN } from "../../Constants/Constant.js";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
+import Loading from "../ShimmerUI/Loading.jsx";
 
 export const CourseUploadPage = () => {
   const sellerData = useSelector((state) => state.Seller.sellerData);
@@ -11,11 +12,20 @@ export const CourseUploadPage = () => {
   const Dec = useRef();
   const thumbnail = useRef();
 
+  const [loading,setLoading] = useState(false);
+
   const [progressBar, setProgressBar] = useState();
   const redirect = useNavigate();
 
   return (
     <div className="w-full">
+
+      {loading && (
+          <div className="absolute inset-0 bg-white/70 flex items-center justify-center">
+              <Loading/>
+          </div>
+      )}
+
       <SellerHeader />
       <div className="p-3 w-[45%] bg-gray-100 rounded-md m-auto mt-40">
         <h1 className="m-3 text-xl font-bold">
@@ -29,6 +39,7 @@ export const CourseUploadPage = () => {
               className="w-full rounded-md p-2 m-3 border-red-200 border-2"
               type="text"
               placeholder="Course Name"
+              required
             />
             <br />
             <label className="m-3 text-sm font-semibold">Price: </label>
@@ -37,6 +48,7 @@ export const CourseUploadPage = () => {
               className="w-full rounded-md p-2 m-3 border-red-200 border-2"
               type="Number"
               placeholder="Price"
+              required
             />
             <br />
             <label className="m-3 text-sm font-semibold">Description: </label>
@@ -45,6 +57,7 @@ export const CourseUploadPage = () => {
               ref={Dec}
               type="text"
               placeholder="Description"
+              required
             />
             <br />
             <label className="m-3 font-semibold text-sm">
@@ -56,6 +69,7 @@ export const CourseUploadPage = () => {
               placeholder="Thubmnail"
               name="thumbnail"
               className="w-full p-2 m-3 border-red-200 rounded-md border-2"
+              required
             />
             <br />
             <button
@@ -67,7 +81,8 @@ export const CourseUploadPage = () => {
                   sellerData,
                   thumbnail,
                   setProgressBar,
-                  redirect
+                  redirect,
+                  setLoading
                 )
               }
               className="w-full text-sm font-bold cursor-pointer p-2 m-3 border-gray-200 rounded-xl hover:bg-gray-300 border-2"

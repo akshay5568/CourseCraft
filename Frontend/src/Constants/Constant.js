@@ -42,31 +42,41 @@ export const editFormEtnHandller = async (
   description,
   courseId,
   thumbnail,
+  setLoading,
   redirect,
   sellerId
 ) => {
-  const token = localStorage.getItem("jwtToken");
-
-  const updatedCourseDetails = {
-    courseName: courseName.current.value,
-    description: description.current.value,
-    price: price.current.value,
-    courseId: courseId,
-  };
-  const isValid = courseDataChecker(updatedCourseDetails);
-  if (!isValid) {
-    return setFormEmptyError("Please fill all the details...");
-  }
-  const formData = new FormData();
-  formData.append("updetedCourseDetails", JSON.stringify(updatedCourseDetails));
-  formData.append("thumbnail", thumbnail.current.files[0]);
-  const res = await axios.patch(`${mainURL}/course-update`, formData, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  if (res.data) {
-    redirect(`/seller-courses/${sellerId}`);
+  try {
+    setLoading(true);
+    const token = localStorage.getItem("jwtToken");
+    const updatedCourseDetails = {
+      courseName: courseName.current.value,
+      description: description.current.value,
+      price: price.current.value,
+      courseId: courseId,
+    };
+    const isValid = courseDataChecker(updatedCourseDetails);
+    if (!isValid) {
+      return setFormEmptyError("Please fill all the details...");
+    }
+    const formData = new FormData();
+    formData.append(
+      "updetedCourseDetails",
+      JSON.stringify(updatedCourseDetails)
+    );
+    formData.append("thumbnail", thumbnail.current.files[0]);
+    const res = await axios.patch(`${mainURL}/course-update`, formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (res.data) {
+      redirect(`/seller-courses/${sellerId}`);
+    }
+  } catch (error) {
+    console.log(error);
+  } finally {
+    setLoading(false);
   }
 };
 
@@ -77,34 +87,55 @@ export const courseUploadBTN = async (
   sellerData,
   thumbnail,
   setProgressBar,
-  redirect
+  redirect,
+  setLoading
 ) => {
-  const courseDetails = {
-    courseName: courseName.current.value,
-    Price: Price.current.value,
-    Dec: Dec.current.value,
-    sellerData: sellerData,
-  };
+  try {
 
-  const formData = new FormData();
-  formData.append("courseDetails", JSON.stringify(courseDetails));
-  formData.append("thumbnail", thumbnail.current.files[0]);
+    if (courseName.current.value == "" || Price.current.value == "" || Dec.current.value == "" || sellerData == "" || !thumbnail.current.files[0]) {
+      return alert("please provide course details");
+    }
 
-  const token = localStorage.getItem("jwtToken");
-  const res = await axios.post(`${mainURL}/course-create`, formData, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-    onUploadProgress: (e) => {
-      const progress = Math.round((e.loaded * 100) / e.total);
-      setProgressBar(progress);
-    },
-  });
-  redirect(`/seller-courses/${sellerData?._id}`);
+    setLoading(true);
+    const courseDetails = {
+      courseName: courseName.current.value,
+      Price: Price.current.value,
+      Dec: Dec.current.value,
+      sellerData: sellerData,
+    };
+    console.log(courseDetails);
+    const formData = new FormData();
+    formData.append("courseDetails", JSON.stringify(courseDetails));
+    formData.append("thumbnail", thumbnail.current.files[0]);
+
+    const token = localStorage.getItem("jwtToken");
+    const res = await axios.post(`${mainURL}/course-create`, formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      onUploadProgress: (e) => {
+        const progress = Math.round((e.loaded * 100) / e.total);
+        setProgressBar(progress);
+      },
+    });
+    redirect(`/seller-courses/${sellerData?._id}`);
+  } catch (error) {
+    console.log(error);
+  } finally {
+    setLoading(false);
+  }
 };
 
-export const DeleteCourseBTN = async (id, _, redirect) => {
+export const DeleteCourseBTN = async (
+  id,
+  _,
+  redirect,
+  setVideoDeleteLoading,
+  setPOP
+) => {
   try {
+    setVideoDeleteLoading(true);
+    setPOP(false);
     const token = localStorage.getItem("jwtToken");
     const res = await axios.delete(`${mainURL}/delete-course/${id}`, {
       headers: {
@@ -115,20 +146,26 @@ export const DeleteCourseBTN = async (id, _, redirect) => {
     redirect("/");
   } catch (error) {
     console.log("Error,", error);
+  } finally {
+    setVideoDeleteLoading(false);
   }
 };
 
-export const payNow = async (price,id,userID) => {
+export const payNow = async (price, id, userID) => {
   const token = localStorage.getItem("jwtToken");
   console.log(price);
   console.log("Razorpay Key:", "rzp_test_S4aQWrN38Sw5ti");
 
-  const res = await axios.get(`${mainURL}/create-order?price=${price}&userID=${userID}&courseID=${id}`, {
-    headers: {
-      Authorization: `Brearer ${token}`,
-    },
-  });
-  if(res.data == true) return alert("Already Purchased this course you cannot buy it again....");
+  const res = await axios.get(
+    `${mainURL}/create-order?price=${price}&userID=${userID}&courseID=${id}`,
+    {
+      headers: {
+        Authorization: `Brearer ${token}`,
+      },
+    }
+  );
+  if (res.data == true)
+    return alert("Already Purchased this course you cannot buy it again....");
   const options = {
     key: "rzp_test_S4aQWrN38Sw5ti",
     amount: res.data.amount,
@@ -136,16 +173,19 @@ export const payNow = async (price,id,userID) => {
     order_id: res.data.id,
     name: name,
     handler: async function (response) {
-      const res1 = await axios.post(`${mainURL}/verify`, {response,id,userID}, {            
-        headers: {
-          Authorization: `Bearer ${token}`,   
-        },
-      });
+      const res1 = await axios.post(
+        `${mainURL}/verify`,
+        { response, id, userID },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       console.log(res1);
       alert("Payment Successful");
     },
   };
-  const razor = new window.Razorpay(options);         
+  const razor = new window.Razorpay(options);
   razor.open();
 };
-

@@ -1,9 +1,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import Loading from "../ShimmerUI/Loading";
 
 export const EnrolledStudents = ({EnrolledStudents}) => {
-  console.log(EnrolledStudents)
   const courseDetails = useSelector((state) => state?.CourseDetails?.details);
+  if (EnrolledStudents == undefined) return <Loading/>
   return (
     <div className="m-3 w-full">
       <div>

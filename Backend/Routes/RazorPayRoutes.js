@@ -56,7 +56,7 @@ router.post("/verify", refreshJWTChecker, async (req, res) => {
      const course = await CourseUpload.findById(req.body.id);
      course.updateOne({enrolledStudents:course.enrolledStudents.push(req.body.userID)});
      course.save();
-      res.json({ success: true , purchasedCourse:purchasedCourse});
+    res.json({ success: true , purchasedCourse:purchasedCourse});
     } else {
       res.status(400).json({ success: false });
     }
