@@ -15,7 +15,7 @@ import VideoUploaderRoute from './Routes/VideoUploaderRoute.js';
 import VideoDeleteRoute from './Routes/VideoDeleteRoute.js';
 import CartRoutes from './Routes/CartRoutes.js';
 import RazorPayRoutes from '../Backend/Routes/RazorPayRoutes.js';
-
+import GenrateAIMEQ from '../Backend/Routes/GenrateAIMEQ.js';
 
 const app = express();
 app.use(cors());
@@ -37,6 +37,7 @@ app.use('/',VideoUploaderRoute);
 app.use('/', VideoDeleteRoute)
 app.use('/',CartRoutes)
 app.use('/',RazorPayRoutes);
+app.use('/',GenrateAIMEQ);
 
 
 mongoose.connect(process.env.Mongo_URL).then(() => {

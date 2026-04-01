@@ -1,13 +1,14 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router";
-import { addVideo } from "../../Slice/VideoPlayerVideo";
+import { addVideo, addVideoDescription } from "../../Slice/VideoPlayerVideo";
 
 export const VideoPopUpSection = ({ courseVideos }) => {
   const dispatch = useDispatch();
 
-  const videoUploadInVideoPlayer = (videoUrl) => {
+  const videoUploadInVideoPlayer = (videoUrl, videoDescription) => {
     dispatch(addVideo(videoUrl));
+    dispatch(addVideoDescription(videoDescription));
   };
 
   console.log(courseVideos);
@@ -22,7 +23,12 @@ export const VideoPopUpSection = ({ courseVideos }) => {
           <div className="flex gap-3 ">
             <h1>{index + 1}</h1>
             <button
-              onClick={() => videoUploadInVideoPlayer(video.videoUrl)}    
+              onClick={() =>
+                videoUploadInVideoPlayer(
+                  video.videoUrl,
+                  video?.videoDescription
+                )
+              }
               className="text-xs cursor-pointer font-extralight text-[#5a5c72] break-all"
             >
               {video.videoName}

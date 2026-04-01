@@ -52,9 +52,12 @@ export const Cart = () => {
             </div>
             <div className="flex">
               <div className="w-[80%]">
-                {userCartData?.map((cart,index) => {
+                {userCartData?.map((cart, index) => {
                   return (
-                    <div key={index} className="gap-20 w-[80%] flex border-t p-3  border-gray-200 ]">
+                    <div
+                      key={index}
+                      className="gap-20 w-[80%] flex border-t p-3  border-gray-200 ]"
+                    >
                       <Link
                         className="gap-15 w-[50%] flex"
                         to={`/course/${cart?.courseId?._id}`}
@@ -72,7 +75,9 @@ export const Cart = () => {
                           />
                         </div>
                         <div className="text-sm w-[70%] font-semibold break-all">
-                          <h3>{cart.courseId?.courseName.substring(0,50) + "..."}</h3>
+                          <h3>
+                            {cart.courseId?.courseName.substring(0, 50) + "..."}
+                          </h3>
                           <h3 className="text-xs font-extralight pt-1">
                             By {cart.courseId?.createdBy?.name}
                           </h3>

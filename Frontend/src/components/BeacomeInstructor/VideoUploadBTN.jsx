@@ -10,11 +10,14 @@ export const VideoUploadBTN = ({ id, sectionID }) => {
   useGetCourseData();
   const video = useRef();
   const [uplodingBar, setUplodingBar] = useState(false);
+  const [videoDescription, setVideoDescription] = useState("");
   const [refresh, setRefresh] = useState(0);
-
+  console.log(videoDescription);
   const uploadVideoBTN = async () => {
     try {
       setUplodingBar(true);
+      if (!video.current.files[0]) return alert("Please select video");
+      if(videoDescription == "") return alert("Please provide video description");
       const token = localStorage.getItem("jwtToken");
       const res = await axios.get(`${mainURL}/get-sinature`, {
         headers: {
@@ -39,6 +42,7 @@ export const VideoUploadBTN = ({ id, sectionID }) => {
       );
       const uploadingData = {
         cloudRes: cloudRes,
+        videoDescription: videoDescription,
         sectionID: sectionID,
         courseID: id,
       };
@@ -51,6 +55,7 @@ export const VideoUploadBTN = ({ id, sectionID }) => {
           },
         }
       );
+      setVideoDescription("");
       setRefresh(refresh + 1);
     } catch (error) {
       console.log(error);
@@ -70,7 +75,18 @@ export const VideoUploadBTN = ({ id, sectionID }) => {
       )}
 
       <form onSubmit={(e) => e.preventDefault()}>
-        <input type="file" accept="video/*" ref={video} /> <br />
+        <input type="file" accept="video/*" className="border" ref={video} />{" "}
+        <br />
+        <br />
+        <textarea
+          required
+          value={videoDescription}
+          onChange={(e) => setVideoDescription(e.target.value)}
+          className="border w-full"
+          id=""
+          placeholder="Description about video"
+        ></textarea>
+        <br />
         <button
           className="p-2 bg-amber-300 rounded-md cursor-pointer mt-3"
           onClick={uploadVideoBTN}

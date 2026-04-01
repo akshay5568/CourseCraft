@@ -10,9 +10,12 @@ const VideoPlayerVideo = createSlice({
     reducers:{
         addVideo:(state,action) => {
              state.videoLink = action.payload
+        },
+        addVideoDescription:(state,action) => {
+            state.videoDescription = action.payload;
         }
     }
 })
 
-export const {addVideo} = VideoPlayerVideo.actions;
+export const {addVideo,addVideoDescription} = VideoPlayerVideo.actions;
 export default VideoPlayerVideo.reducer;

@@ -41,7 +41,8 @@ router.post("/video-uploder", refreshJWTChecker, async (req, res) => {
   try {
   
     if(!req.body.cloudRes) return res.send("data not recived").status(401);
-     
+    if(!req.body.videoDescription) return res.send("Video description does not provided").status(401);
+    
     const videoObject = {
       videoName:req.body.cloudRes.data.original_filename,
       public_id:req.body.cloudRes.data.public_id,
@@ -49,9 +50,9 @@ router.post("/video-uploder", refreshJWTChecker, async (req, res) => {
       format:req.body.cloudRes.data.format,
       signature:req.body.cloudRes.data.signature,
       videoUrl:req.body.cloudRes.data.url,
+      videoDescription:req.body.videoDescription
     }
     const courseSection = await coursesection.findById(req.body.sectionID);  
-     
     courseSection.videos.push(videoObject);
     await courseSection.save();
 
