@@ -47,11 +47,12 @@ router.post("/ai/mcq-answer",refreshJWTChecker, async (req,res) => {
 
 
 
-router.get("/users-mcq/:userID", refreshJWTChecker, async (req,res) => {
+router.get("/users-mcq", refreshJWTChecker, async (req,res) => {
     try {
-        if(!req.params.userID) return res.send("Something went wrong...").status(401);
-        const allMcq = await AIMcqsSchema.find({userID:req.params.userID});
-        // const allMcq = await temp.find({courseID:courseID});
+        const {userID,courseID} = req.query;
+        if(!userID && !courseID) return res.send("Something went wrong...").status(401);
+        const temp = await AIMcqsSchema.find({userID});
+        const allMcq = temp.filter(mcq => mcq.courseID == courseID);
         res.send(allMcq).status(201);
     } catch (error) {
         res.send(error).status(401);

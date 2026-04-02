@@ -7,18 +7,21 @@ export const useGetAllUsersMcqs = (
   setAllUsersMcqs,
   refresh,
   userID,
-  courseID,
+  courseID
 ) => {
   const getAllUsersMcq = async () => {
     try {
       setLoading(true);
-
+      console.log(courseID);
       const token = localStorage.getItem("jwtToken");
-      const getData = await axios.get(`${mainURL}/users-mcq/${userID}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const getData = await axios.get(
+        `${mainURL}/users-mcq/?userID=${userID}&courseID=${courseID}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       setAllUsersMcqs(getData.data);
       console.log(getData.data);
     } catch (error) {
@@ -30,6 +33,6 @@ export const useGetAllUsersMcqs = (
 
   useEffect(() => {
     getAllUsersMcq();
-  }, [refresh, userID]);
+  }, [refresh, userID, courseID]);
 };
 export default useGetAllUsersMcqs;

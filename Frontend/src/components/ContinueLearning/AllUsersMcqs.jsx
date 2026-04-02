@@ -13,6 +13,9 @@ export const AllUsersMcqs = ({ courseDetails, refresh }) => {
 
   useGetAllUsersMcqs(setLoading, setAllUsersMcqs, refresh, userID, courseID);
 
+  if (allUserMcqs.length == 0) {
+    return <div>You have not appeared in any test yet....</div>;
+  }
   return (
     <div className=" w-full p-2 flex">
       {loading && (
@@ -68,7 +71,7 @@ export const AllUsersMcqs = ({ courseDetails, refresh }) => {
             </div>
           ))} */}
 
-          <div className="bg-gray-200 rounded-md p-3 mt-1.5">
+          <div className="bg-gray-200 h-145 rounded-md p-3 mt-1.5">
             {/* <span>Test : {Bindex + 1}</span> */}
             {allUserMcqs[page]?.AIQuesAns.map((mcq, index) => (
               <div key={index} className="p-2">
@@ -112,16 +115,18 @@ export const AllUsersMcqs = ({ courseDetails, refresh }) => {
         </div>
 
         <div className="flex gap-2">
-          {page > 0 && <button
-            onClick={() => setPage(page - 1)}
-            className="font-bold text-sm cursor-pointer"
-          >
-            Prev
-          </button>}
+          {page > 0 && (
+            <button
+              onClick={() => setPage(page - 1)}
+              className="font-bold text-sm cursor-pointer"
+            >
+              Prev
+            </button>
+          )}
           <span>
             Page : {page + 1}/{allUserMcqs.length}
           </span>
-          {page+1 < allUserMcqs?.length && (
+          {page + 1 < allUserMcqs?.length && (
             <button
               onClick={() => setPage(page + 1)}
               className="font-bold text-sm cursor-pointer"
