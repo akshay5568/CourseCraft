@@ -5,16 +5,20 @@ import Loading from "../ShimmerUI/Loading";
 import useGetAllUsersMcqs from "../../Hooks/useGetAllUsersMcqs";
 import useGetPurchasedUserCourses from "../../Hooks/useGetPurchasedUserCourses";
 
-export const AIMcqs = ({ transcript, courseDetails,setRefresh,refresh }) => {
-  const [AiMcqs, setAIMcqs] = useState([]);
+export const AIMcqs = ({
+  courseDetails,
+  setRefresh,
+  refresh,
+  videoUrl,
+}) => {
 
-  const userID  = courseDetails[0]?.userID;
+  const [AiMcqs, setAIMcqs] = useState([]);
+  const userID = courseDetails[0]?.userID;
   const courseID = courseDetails[0]?.courseID?._id;
   const [ansSubmited, setAnsSubmited] = useState(false);
-  
 
   const [userAnswer, setUserAnswers] = useState({});
-  console.log(userID, courseID);
+
   const handleOptionSelection = (qIndex, option) => {
     setUserAnswers((prev) => ({
       ...prev,
@@ -22,18 +26,61 @@ export const AIMcqs = ({ transcript, courseDetails,setRefresh,refresh }) => {
     }));
   };
 
-  console.log(userAnswer);
 
   const [loading, setLoading] = useState(false);
 
-  console.log(AiMcqs);
+
+  const uploadUrl = async (videoUrl) => {
+    const response = await axios.post(
+      "https://api.assemblyai.com/v2/transcript",
+      {
+        audio_url: videoUrl,
+        speech_models: ["universal-2"],
+      },
+      {
+        headers: {
+          authorization:import.meta.env.VITE_ASSEMBLY_AI_KEY,
+          "content-type": "application/json",
+        },
+      }
+    );
+    return response.data.id;
+  };
+
+
+
+  const getTranscript = async (id) => {
+    while (true) {
+      const res = await axios.get(
+        `https://api.assemblyai.com/v2/transcript/${id}`,
+        {
+          headers: { authorization: import.meta.VITE_ASSEMBLY_AI_KEY},
+        }
+      );
+
+      if (res.data.status === "completed") {
+        return res.data.text;
+      }
+
+      if (res.data.status === "error") {
+        throw new Error("Transcription failed");
+      }
+
+      console.log("Processing...");
+      await new Promise((r) => setTimeout(r, 3000));
+    }
+  };
+
   const genrateAImcqs = async () => {
     try {
       setLoading(true);
-      const mcqs = await axios.post(`${mainURL}/genrate-mcq`, { transcript });
+      const id = await uploadUrl(videoUrl);
+      const transcript = await getTranscript(id);
+      console.log(transcript);
+      console.log(id);
+      const mcqs = await axios.post(`${mainURL}/genrate-mcq`, { transcript });  
       const data = mcqs.data;
       setAIMcqs(data);
-      //   console.log(data);
     } catch (error) {
       console.log(error);
     } finally {
@@ -58,6 +105,7 @@ export const AIMcqs = ({ transcript, courseDetails,setRefresh,refresh }) => {
     } catch (error) {
       console.log(error);
     } finally {
+      setAIMcqs([]);
       setAnsSubmited(true);
       setLoading(false);
       setRefresh(refresh + 1);
@@ -73,16 +121,16 @@ export const AIMcqs = ({ transcript, courseDetails,setRefresh,refresh }) => {
       )}
 
       {AiMcqs.length > 0 && (
-        <div>
+        <div className="border border-gray-200 p-3 rounded-md ">
           {AiMcqs.map((mcq, qindex) => (
-            <div key={mcq.question} name={mcq.question}>
+            <div className="p-2" key={mcq.question} name={mcq.question}>
               <div>
                 <h1>
                   {qindex + 1}. {mcq?.question}
                 </h1>
-                <div>
+                <div className="">
                   {mcq?.options.map((option, oindex) => (
-                    <span key={oindex}>
+                    <span className="flex gap-2" key={oindex}>
                       <input
                         name={qindex}
                         value={option}
@@ -109,7 +157,7 @@ export const AIMcqs = ({ transcript, courseDetails,setRefresh,refresh }) => {
         className="bg-amber-300 p-2 mt-3 rounded-md"
         onClick={genrateAImcqs}
       >
-        Genrate Mcqs
+        Genrate AI Mcq's
       </button>
     </div>
   );

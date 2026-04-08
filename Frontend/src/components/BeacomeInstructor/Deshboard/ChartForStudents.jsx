@@ -16,7 +16,6 @@ import {
 
 import { useSelector } from "react-redux";
 import useGetAllSellerCourses from "../../../Hooks/ForSeller/useGetAllSellerCourses";
-import { Link } from "react-router";
 
 Chart.register(
   LineElement,

@@ -14,7 +14,7 @@ export const genrateMCQ = async (transcript) => {
           {
             role: "user",
             content: `
-Generate 5 MCQs from the content below.
+Generate 5 MCQs from the content below, I can be send hindi transcript but you only have to send questions in English.
 Return ONLY JSON in this format:
 
 [

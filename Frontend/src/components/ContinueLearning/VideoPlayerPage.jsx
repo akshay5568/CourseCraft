@@ -40,10 +40,10 @@ export const VideoPlayerPage = ({ courseID }) => {
             <div>
               <h1>Des : {videoUrl?.videoDescription}</h1>
               <AIMcqs
-                transcript={videoUrl?.videoDescription}
                 courseDetails={filterCourses}
                 setRefresh={setRefresh}
                 refresh={refresh}
+                videoUrl={videoUrl?.videoLink}
               />
             </div>
           </div>
