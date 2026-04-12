@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router";
 import { addVideo, addVideoDescription } from "../../Slice/VideoPlayerVideo";
@@ -11,16 +11,35 @@ export const VideoPopUpSection = ({ courseVideos }) => {
     dispatch(addVideoDescription(videoDescription));
   };
 
-  console.log(courseVideos);
+  const [id,setId]  = useState(["69a2bdf53ffff8d9b4fc2dcc"]);
+
+
+  const addVideo = (v2) =>{
+      const isAdded = id.find(i => i == v2);
+      if(isAdded) {
+           setId(id.filter(i => i != v2));
+      }else{
+           setId([v2]);
+      }
+  }
+  console.log(id)
+  console.log("courseVideos,", courseVideos);
   return (
     <div className="w-full border-t border-gray-300  p-2">
       {courseVideos.map((video, index) => (
         //  <video src={video.videoUrl} muted controls></video>
         <div
           key={index}
-          className="flex gap-3 justify-between items-center mt-2"
+          className="flex gap-3 justify-between items-center mt-2"   
         >
-          <div className="flex gap-3 ">
+          <div className="flex gap-3 items-center">
+              <input
+              name={video?._id}
+              id={video?._id}
+              type="checkbox" 
+              checked={id?.find(i => i == video._id)}
+              onClick={() => addVideo(video._id)}
+            />
             <h1>{index + 1}</h1>
             <button
               onClick={() =>
@@ -29,7 +48,7 @@ export const VideoPopUpSection = ({ courseVideos }) => {
                   video?.videoDescription
                 )
               }
-              className="text-xs cursor-pointer font-extralight text-[#5a5c72] break-all"
+              className="text-xs cursor-pointer font-extralight text-[#5a5c72] break-all"    
             >
               {video.videoName}
             </button>

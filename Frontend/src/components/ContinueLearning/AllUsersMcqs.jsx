@@ -2,19 +2,19 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { mainURL } from "../../Constants/Constant";
 import Loading from "../ShimmerUI/Loading";
-import useGetAllUsersMcqs from "../../Hooks/useGetAllUsersMcqs";
+import useGetAllUsersMcqs from "../../Hooks/useGetAllUsersMcqs";  
 import MCQsChart from "./MCQsChart";
 
-export const AllUsersMcqs = ({ courseDetails, refresh }) => {
+export const AllUsersMcqs = ({ courseDetails, refresh }) => {  
   const [allUserMcqs, setAllUsersMcqs] = useState([]);
   const [loading, setLoading] = useState(false);
   const userID = courseDetails[0]?.userID;
   const courseID = courseDetails[0]?.courseID?._id;
   const [page, setPage] = useState(0);
 
-  useGetAllUsersMcqs(setLoading, setAllUsersMcqs, refresh, userID, courseID);
+  useGetAllUsersMcqs(setLoading, setAllUsersMcqs, refresh, userID, courseID);               
 
-  if (allUserMcqs.length == 0) {
+  if (allUserMcqs?.length == 0) {
     return <div>You have not appeared in any test yet....</div>;
   }
   return (

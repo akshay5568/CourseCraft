@@ -48,13 +48,12 @@ export const AIMcqs = ({
   };
 
 
-
   const getTranscript = async (id) => {
     while (true) {
       const res = await axios.get(
         `https://api.assemblyai.com/v2/transcript/${id}`,
         {
-          headers: { authorization: import.meta.VITE_ASSEMBLY_AI_KEY},
+          headers: { authorization: import.meta.env.VITE_ASSEMBLY_AI_KEY},
         }
       );
 
