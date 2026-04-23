@@ -2,23 +2,23 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { mainURL } from "../../Constants/Constant";
 import Loading from "../ShimmerUI/Loading";
-import useGetAllUsersMcqs from "../../Hooks/useGetAllUsersMcqs";  
+import useGetAllUsersMcqs from "../../Hooks/useGetAllUsersMcqs";
 import MCQsChart from "./MCQsChart";
 
-export const AllUsersMcqs = ({ courseDetails, refresh }) => {  
+export const AllUsersMcqs = ({ courseDetails, refresh }) => {
   const [allUserMcqs, setAllUsersMcqs] = useState([]);
   const [loading, setLoading] = useState(false);
   const userID = courseDetails[0]?.userID;
   const courseID = courseDetails[0]?.courseID?._id;
   const [page, setPage] = useState(0);
 
-  useGetAllUsersMcqs(setLoading, setAllUsersMcqs, refresh, userID, courseID);               
+  useGetAllUsersMcqs(setLoading, setAllUsersMcqs, refresh, userID, courseID);
 
   if (allUserMcqs?.length == 0) {
     return <div>You have not appeared in any test yet....</div>;
   }
   return (
-    <div className=" w-full p-2 flex">
+    <div className="w-full p-2 flex">
       {loading && (
         <div>
           <Loading />
@@ -94,11 +94,13 @@ export const AllUsersMcqs = ({ courseDetails, refresh }) => {
         </div>
       </div>
 
-      <div className="p-2 w-[35%]">
-        <h1>Summary of All tests</h1>
-        <div className="bg-gray-200 rounded-md p-3">
-                <MCQsChart allMcqsData={allUserMcqs}/>
-        </div>  
+      <div className="p-2 flex justify-center  m-auto text-center">
+        <div>
+          <h1>Summary of All tests</h1>
+          <div className="bg-gray-200 rounded-md p-2">
+            <MCQsChart allMcqsData={allUserMcqs} />
+          </div>
+        </div>
       </div>
     </div>
   );

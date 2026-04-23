@@ -4,7 +4,9 @@ import { useEffect } from 'react';
 import { mainURL } from '../Constants/Constant';
 import { useDispatch, useSelector } from 'react-redux';
 import { addUserPurchasedCourses } from '../Slice/UserReducer';
-export const useGetPurchasedUserCourses = () => {
+import useRefreshLoginHandle from './useRefreshLoginHandle';
+export const useGetPurchasedUserCourses = (ids) => {
+    console.log("knknk")
     const userData = useSelector(state => state.User.data);
     const dispatch = useDispatch();
 
@@ -22,7 +24,7 @@ export const useGetPurchasedUserCourses = () => {
             if(userData?._id != undefined){
                 getUserCourses(); 
             }  
-    }, [userData])
+    }, [userData,ids])
   return null;
 }
 

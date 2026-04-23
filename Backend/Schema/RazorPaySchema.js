@@ -6,7 +6,8 @@ const RazorPaySchema = mongoose.Schema({
     userID:{type:mongoose.Schema.Types.ObjectId, ref:"user"},
     razorpay_order_id:{
         type:String,
-    }
+    },
+    watchedVideosId:[{type:String}]
 })
 
 export default RazorPaySchema;

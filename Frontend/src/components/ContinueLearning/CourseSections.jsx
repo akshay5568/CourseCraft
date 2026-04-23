@@ -46,7 +46,7 @@ export const CourseSections = ({ purechasedcourse }) => {
             </button>
             {sectionPopUp?.id == section?._id ? (
               sectionPopUp.isValid ? (
-                <VideoPopUpSection courseVideos={section?.videos} />
+                <VideoPopUpSection courseVideos={section?.videos} courseId={section?.courseId} />
               ) : (
                 ""
               )

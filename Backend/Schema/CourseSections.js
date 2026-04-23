@@ -23,9 +23,6 @@ const videoSchema = new mongoose.Schema({
     videoDescription:{
         type:String
     },
-    isVideoWatched:{
-        type:Boolean
-    }
 })
 
 
