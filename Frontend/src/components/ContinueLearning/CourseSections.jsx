@@ -4,8 +4,8 @@ import VideoPopUpSection from "./VideoPopUpSection";
 import { FaChevronDown } from "react-icons/fa";
 
 export const CourseSections = ({ purechasedcourse }) => {
-  console.log(purechasedcourse);
 
+  
   const [sectionPopUp, setSectionPopUp] = useState({
     id: null,
     isValid: false,

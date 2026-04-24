@@ -41,8 +41,6 @@ export const Learning = () => {
       set((prev) => [...prev, totalWatchedVideos]);
     }
   }, [courseDetails]);
-  console.log(totalCourseVideos);
-  console.log(totalVideoWatchedByUser);
 
   return (
     <div>

@@ -90,14 +90,12 @@ router.get("/users-bought-courses", refreshJWTChecker, async (req, res) => {
 router.post("/track-video", refreshJWTChecker, async (req, res) => {
   try {
     const { videoID, userID, courseId } = req.body;
-    console.log(req.body);
 
     const videoData = await RazorPay.findOne({
       courseID: new mongoose.Types.ObjectId(courseId),
       userID: new mongoose.Types.ObjectId(userID),
     });
 
-    console.log("FOUND:", videoData);
 
     if (!videoData) {
       return res.status(404).send("No video data found");

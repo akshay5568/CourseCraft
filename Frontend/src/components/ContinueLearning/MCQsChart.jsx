@@ -2,7 +2,6 @@ import React from 'react'
 import MCQBarChart from './MCQBarChart';
 
 export const MCQsChart = ({allMcqsData}) => {
-    console.log(allMcqsData);
 
     const rightAnswers = allMcqsData?.reduce((acc,curr) => acc + curr.rightAnswers?.length,0)
 

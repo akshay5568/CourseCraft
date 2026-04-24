@@ -75,8 +75,7 @@ export const AIMcqs = ({
       setLoading(true);
       const id = await uploadUrl(videoUrl);
       const transcript = await getTranscript(id);
-      console.log(transcript);
-      console.log(id);
+    
       const mcqs = await axios.post(`${mainURL}/genrate-mcq`, { transcript });  
       const data = mcqs.data;
       setAIMcqs(data);
@@ -100,7 +99,6 @@ export const AIMcqs = ({
           },
         }
       );
-      console.log(res.data);
     } catch (error) {
       console.log(error);
     } finally {

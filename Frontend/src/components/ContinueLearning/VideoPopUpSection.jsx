@@ -8,31 +8,24 @@ import useGetPurchasedUserCourses from "../../Hooks/useGetPurchasedUserCourses";
 import useRefreshLoginHandle from "../../Hooks/useRefreshLoginHandle";
 
 export const VideoPopUpSection = ({ courseVideos, courseId }) => {
-  
   const dispatch = useDispatch();
   const videoUploadInVideoPlayer = (videoUrl, videoDescription) => {
     dispatch(addVideo(videoUrl));
     dispatch(addVideoDescription(videoDescription));
   };
 
+  const [refResh, setRef] = useState(false);
   const [ids, setIDs] = useState([]);
-  useRefreshLoginHandle();
-  useGetPurchasedUserCourses(ids);
-  console.log(ids);   
+  useGetPurchasedUserCourses(refResh);
 
   const courseDetails = useSelector((state) => state?.User?.courses).filter(
     (course) => course.courseID._id == courseId
   );
 
-  console.log("course,", courseDetails);
-
   useEffect(() => {
-    for (let j = 0; j < courseDetails[0].watchedVideosId.length; j++) {
-      setIDs((prev) => [...prev, courseDetails[0].watchedVideosId[j]]);
-    }
-  }, []);
+    setIDs(courseDetails[0].watchedVideosId);
+  }, [courseDetails]);
 
-  console.log(ids);
   const userID = useSelector((state) => state.User.data._id);
 
   const trackVideoApi = async (videoID) => {
@@ -47,25 +40,20 @@ export const VideoPopUpSection = ({ courseVideos, courseId }) => {
           },
         }
       );
-      console.log(res.data);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const watchedVideo = (videoID) => {
-    trackVideoApi(videoID);
-    if (ids?.includes(videoID)){
-      let index = 0;
-      for(let i=0; i<ids.length; i++){
-          if(videoID == ids[i]) index = i;
-      }
-      console.log(index);
-      console.log(ids.splice(index-1,index));
-      setIDs([...ids,ids.splice(index-1,index).flat()]);
-    }
-    else setIDs((prev) => [...prev, videoID]);
-  }
+  const watchedVideo = async (videoID) => {
+    setIDs((prev) =>
+      prev.includes(videoID)
+        ? prev.filter((i) => i !== videoID)
+        : [...prev, videoID]
+    );
+    await trackVideoApi(videoID);
+    setRef((prev) => !prev);
+  };
 
   return (
     <div className="w-full border-t border-gray-300  p-2">
@@ -73,14 +61,14 @@ export const VideoPopUpSection = ({ courseVideos, courseId }) => {
         //  <video src={video.videoUrl} muted controls></video>
         <div
           key={index}
-          className="flex gap-3 justify-between items-center mt-2"
+          className="flex gap-3 justify-between items-center mt-2"   
         >
           {console.log(video._id)}
           <div className="flex gap-3 items-center">
             <input
               type="checkbox"
-              checked={ids?.find?.((i) => i == video._id)}
-              onChange={() => watchedVideo(video._id)}
+              checked={ids?.includes(video._id)}
+              onChange={() => watchedVideo(video._id)}     
             />
             <h1>{index + 1}</h1>
             <button

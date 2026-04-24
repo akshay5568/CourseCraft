@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import CourseSections from "./CourseSections";
 import AIMcqs from "./AIMcqs";
 import AllUsersMcqs from "./AllUsersMcqs";
+import useGetPurchasedUserCourses from "../../Hooks/useGetPurchasedUserCourses";
 
 export const VideoPlayerPage = ({ courseID }) => {
   const purechasedcourse = useSelector((user) => user.User.courses);
@@ -11,9 +12,7 @@ export const VideoPlayerPage = ({ courseID }) => {
     (course) => course?.courseID?._id == courseID
   );
   const [refresh, setRefresh] = useState(0);
-
   const videoUrl = useSelector((state) => state.videoPlayerVideo);
-  console.log(videoUrl);
   return (
     <div className="">
       <Header />
