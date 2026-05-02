@@ -11,7 +11,7 @@ export const AIMcqs = ({
   refresh,
   videoUrl,
 }) => {
-
+  console.log(videoUrl)
   const [AiMcqs, setAIMcqs] = useState([]);
   const userID = courseDetails[0]?.userID;
   const courseID = courseDetails[0]?.courseID?._id;
@@ -31,6 +31,7 @@ export const AIMcqs = ({
 
 
   const uploadUrl = async (videoUrl) => {
+    console.log(videoUrl)
     const response = await axios.post(
       "https://api.assemblyai.com/v2/transcript",
       {
@@ -74,6 +75,7 @@ export const AIMcqs = ({
     try {
       setLoading(true);
       const id = await uploadUrl(videoUrl);
+      console.log(id)
       const transcript = await getTranscript(id);
     
       const mcqs = await axios.post(`${mainURL}/genrate-mcq`, { transcript });  
@@ -153,6 +155,7 @@ export const AIMcqs = ({
       <button
         className="bg-amber-300 p-2 mt-3 rounded-md"
         onClick={genrateAImcqs}
+        
       >
         Genrate AI Mcq's
       </button>

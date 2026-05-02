@@ -5,8 +5,7 @@ import { mainURL } from '../Constants/Constant';
 import { useDispatch, useSelector } from 'react-redux';
 import { addUserPurchasedCourses } from '../Slice/UserReducer';
 import useRefreshLoginHandle from './useRefreshLoginHandle';
-export const useGetPurchasedUserCourses = (refResh) => {
-    console.log(refResh);
+export const useGetPurchasedUserCourses =  (refResh) => {
     const userData = useSelector(state => state.User.data);
     const dispatch = useDispatch();
 
@@ -17,7 +16,7 @@ export const useGetPurchasedUserCourses = (refResh) => {
                  Authorization:`Bearer ${token}`
              }
          });
-         dispatch(addUserPurchasedCourses(res.data));
+        dispatch(addUserPurchasedCourses(res.data));
     }
     useEffect(() => {
             if(userData?._id != undefined){

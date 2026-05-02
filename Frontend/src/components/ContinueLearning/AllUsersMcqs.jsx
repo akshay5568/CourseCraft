@@ -5,14 +5,14 @@ import Loading from "../ShimmerUI/Loading";
 import useGetAllUsersMcqs from "../../Hooks/useGetAllUsersMcqs";
 import MCQsChart from "./MCQsChart";
 
-export const AllUsersMcqs = ({ courseDetails, refresh }) => {
+export const AllUsersMcqs =  ({ courseDetails, refresh }) => {
   const [allUserMcqs, setAllUsersMcqs] = useState([]);
   const [loading, setLoading] = useState(false);
   const userID = courseDetails[0]?.userID;
   const courseID = courseDetails[0]?.courseID?._id;
+  useGetAllUsersMcqs(setLoading, setAllUsersMcqs, refresh, userID, courseID);      
   const [page, setPage] = useState(0);
 
-  useGetAllUsersMcqs(setLoading, setAllUsersMcqs, refresh, userID, courseID);
 
   if (allUserMcqs?.length == 0) {
     return <div>You have not appeared in any test yet....</div>;
@@ -29,7 +29,6 @@ export const AllUsersMcqs = ({ courseDetails, refresh }) => {
         <h1>All tests scoreboard</h1>
         <div className="rounded-md flex flex-wrap gap-3">
           <div className="bg-gray-200 h-145 rounded-md p-3 mt-1.5">
-            {/* <span>Test : {Bindex + 1}</span> */}
             {allUserMcqs[page]?.AIQuesAns.map((mcq, index) => (
               <div key={index} className="p-2">
                 <h1 className="font-semibold">

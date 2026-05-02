@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router";
 import { addVideo, addVideoDescription } from "../../Slice/VideoPlayerVideo";
 import axios from "axios";
 import { mainURL } from "../../Constants/Constant";
 import useGetPurchasedUserCourses from "../../Hooks/useGetPurchasedUserCourses";
-import useRefreshLoginHandle from "../../Hooks/useRefreshLoginHandle";
 
 export const VideoPopUpSection = ({ courseVideos, courseId }) => {
   const dispatch = useDispatch();
@@ -58,12 +56,10 @@ export const VideoPopUpSection = ({ courseVideos, courseId }) => {
   return (
     <div className="w-full border-t border-gray-300  p-2">
       {courseVideos.map((video, index) => (
-        //  <video src={video.videoUrl} muted controls></video>
         <div
           key={index}
           className="flex gap-3 justify-between items-center mt-2"   
         >
-          {console.log(video._id)}
           <div className="flex gap-3 items-center">
             <input
               type="checkbox"

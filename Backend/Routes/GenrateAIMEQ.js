@@ -2,6 +2,7 @@ import { refreshJWTChecker } from '../middleware/middleware.js';
 import {genrateMCQ} from './AI/aiService.js';
 import express from 'express';
 import AIMcqsSchema from "../models/AIMCQSModel.js";
+import { ObjectId } from 'mongodb';
 
 const router = express.Router();
 
@@ -51,7 +52,7 @@ router.get("/users-mcq", refreshJWTChecker, async (req,res) => {
     try {
         const {userID,courseID} = req.query;
         if(!userID && !courseID) return res.send("Something went wrong...").status(401);
-        const temp = await AIMcqsSchema.find({userID});
+        const temp = await AIMcqsSchema.find({userID:userID});
         const allMcq = temp.filter(mcq => mcq.courseID == courseID);
         res.send(allMcq).status(201);
     } catch (error) {

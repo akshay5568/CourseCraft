@@ -13,7 +13,7 @@ export const WatchingVideosPage = () => {
       <div className="flex h-screen p-2 gap-2">
         <div className="bg-gray-200 w-1/2 rounded-md p-3">
           <h1 className="text-2xl font-extrabold">Videos</h1>
-          <div className="w-ful">
+          <div className="w-ful ">
             {filteredCourse[0]?.courseID?.videoDBId?.videos.map(
               (video, index) => (
                 <video

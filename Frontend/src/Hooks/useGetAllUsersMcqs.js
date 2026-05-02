@@ -12,10 +12,9 @@ export const useGetAllUsersMcqs = (
   const getAllUsersMcq = async () => {
     try {
       setLoading(true);
-      console.log(courseID);
       const token = localStorage.getItem("jwtToken");
       const getData = await axios.get(
-        `${mainURL}/users-mcq/?userID=${userID}&courseID=${courseID}`,
+        `${mainURL}/users-mcq/?userID=${userID}&courseID=${courseID}`,    
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -23,7 +22,6 @@ export const useGetAllUsersMcqs = (
         }
       );
       setAllUsersMcqs(getData.data);
-      console.log(getData.data);
     } catch (error) {
       console.log(error);
     } finally {
@@ -32,6 +30,7 @@ export const useGetAllUsersMcqs = (
   };
 
   useEffect(() => {
+    if(!userID || !courseID) return;
     getAllUsersMcq();
   }, [refresh, userID, courseID]);
 };

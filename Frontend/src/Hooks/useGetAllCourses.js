@@ -11,7 +11,6 @@ export const useGetAllCourses = () => {
      const getAllCourses = async () => {
       try {
         const res = await axios.get(`${mainURL}/courses`);
-        console.log("all", res.data);
         dispatch(allCoursesForHomePage(res.data));   
       } catch (error) {
           console.log(error)
