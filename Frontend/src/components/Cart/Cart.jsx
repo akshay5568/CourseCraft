@@ -39,91 +39,269 @@ export const Cart = () => {
   };
 
   return (
-    <div>
+   <div className="min-h-screen bg-white">
       <Header />
-      {userCartData?.length != 0 ? (
-        <div className="ml-25 mr-25">
-          <div className="mt-5">
-            <div>
-              <h1 className="text-5xl font-semibold mb-5">Shppping Cart</h1>
-              <span className="text-sm font-semibold">
-                {userCartData?.length} Courses in Cart
-              </span>
-            </div>
-            <div className="flex">
-              <div className="w-[80%]">
-                {userCartData?.map((cart, index) => {
-                  return (
-                    <div
-                      key={index}
-                      className="gap-20 w-[80%] flex border-t p-3  border-gray-200 ]"
+
+      <div
+        className="
+          max-w-[1400px]
+          mx-auto
+          px-4
+          md:px-8
+          py-8
+        "
+      >
+        {/* HEADING */}
+        <div className="mb-8">
+          <h1
+            className="
+              text-3xl
+              md:text-5xl
+              font-bold
+              text-[#1c1d1f]
+            "
+          >
+            Shopping Cart
+          </h1>
+
+          <p
+            className="
+              mt-2
+              text-sm
+              text-[#6a6f73]
+            "
+          >
+            {userCartData?.length} Courses in Cart
+          </p>
+        </div>
+
+        {/* LAYOUT */}
+        <div
+          className="
+            flex
+            flex-col
+            lg:flex-row
+            gap-10
+          "
+        >
+          {/* LEFT SIDE */}
+          <div className="flex-1">
+            {userCartData?.map((cart) => (
+              <div
+                key={cart?._id}
+                className="
+                  border-t
+                  border-gray-200
+                  py-5
+                  flex
+                  flex-col
+                  sm:flex-row
+                  gap-5
+                "
+              >
+                {/* COURSE */}
+                <Link
+                  to={`/course/${cart?.courseId?._id}`}
+                  className="
+                    flex
+                    flex-col
+                    sm:flex-row
+                    gap-4
+                    flex-1
+                  "
+                >
+                  {/* IMAGE */}
+                  <div
+                    className="
+                      w-full
+                      sm:w-[240px]
+                      shrink-0
+                    "
+                  >
+                    <img
+                      className="
+                        w-full
+                        h-[140px]
+                        object-cover
+                        rounded-md
+                      "
+                      src={
+                        cart.courseId?.thubmnail
+                          ? cart.courseId?.thubmnail
+                          : cart.courseId?.thubmnailUrl
+                      }
+                      alt="course"
+                    />
+                  </div>
+
+                  {/* INFO */}
+                  <div className="flex-1">
+                    <h3
+                      className="
+                        text-lg
+                        font-bold
+                        text-[#1c1d1f]
+                        line-clamp-2
+                      "
                     >
-                      <Link
-                        className="gap-15 w-[50%] flex"
-                        to={`/course/${cart?.courseId?._id}`}
-                        key={cart?._id}
+                      {cart.courseId?.courseName}
+                    </h3>
+
+                    <p
+                      className="
+                        text-sm
+                        text-[#6a6f73]
+                        mt-2
+                      "
+                    >
+                      By {cart.courseId?.createdBy?.name}
+                    </p>
+
+                    {/* RATINGS */}
+                    <div
+                      className="
+                        flex
+                        items-center
+                        gap-2
+                        mt-2
+                      "
+                    >
+                      <span
+                        className="
+                          text-[#b4690e]
+                          font-bold
+                          text-sm
+                        "
                       >
-                        <div className="w-[30%]">
-                          <img
-                            className="w-70 h-20 object-contain rounded-md"
-                            src={
-                              cart.courseId?.thubmnail
-                                ? cart.courseId?.thubmnail
-                                : cart.courseId?.thubmnailUrl
-                            }
-                            alt=""
-                          />
-                        </div>
-                        <div className="text-sm w-[70%] font-semibold break-all">
-                          <h3>
-                            {cart.courseId?.courseName.substring(0, 50) + "..."}
-                          </h3>
-                          <h3 className="text-xs font-extralight pt-1">
-                            By {cart.courseId?.createdBy?.name}
-                          </h3>
-                          <h3 className="text-xs font-extralight pt-1">
-                            ({cart.courseId?.enrolledStudents.length} Ratings)
-                          </h3>
-                        </div>
-                      </Link>
+                        4.7
+                      </span>
 
-                      <div className="">
-                        <button
-                          onClick={() => removeCartBTN(cart?._id)}
-                          className="text-[#7432d5] p-1 hover:bg-purple-100 font-extralight rounded-md cursor-pointer text-sm"
-                        >
-                          Remove
-                        </button>
+                      <div className="text-yellow-500 text-sm">
+                        ★★★★★
                       </div>
 
-                      <div>
-                        <div className="flex items-center gap-0.5 text-[#a535f1]">
-                          <span>${cart.courseId?.price}</span>
-                          <br />
-                          <span>
-                            <MdLocalOffer />
-                          </span>
-                        </div>
-                      </div>
+                      <span
+                        className="
+                          text-xs
+                          text-[#6a6f73]
+                        "
+                      >
+                        (
+                        {
+                          cart.courseId
+                            ?.enrolledStudents
+                            ?.length
+                        }
+                        )
+                      </span>
                     </div>
-                  );
-                })}
-              </div>
-              <div>
-                <div>
-                  <span className="text-[#5a5c72] font-semibold">Total:</span>
-                  <br />
-                  {userCartData && (
-                    <span className="font-medium text-5xl">${total}</span>
-                  )}
+
+                    {/* BESTSELLER */}
+                    <div className="mt-3">
+                      <span
+                        className="
+                          bg-[#eceb98]
+                          text-[#3d3c0a]
+                          text-xs
+                          font-bold
+                          px-2
+                          py-1
+                        "
+                      >
+                        Bestseller
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+
+                {/* ACTIONS */}
+                <div
+                  className="
+                    flex
+                    lg:flex-col
+                    justify-between
+                    gap-4
+                  "
+                >
+                  {/* REMOVE */}
+                  <button
+                    onClick={() =>
+                      removeCartBTN(cart?._id)
+                    }
+                    className="
+                      text-sm
+                      text-purple-700
+                      hover:text-purple-900
+                      font-medium
+                    "
+                  >
+                    Remove
+                  </button>
+
+                  {/* PRICE */}
+                  <div
+                    className="
+                      flex
+                      items-center
+                      gap-1
+                      text-xl
+                      font-bold
+                      text-[#a435f0]
+                    "
+                  >
+                    ₹{cart.courseId?.price}
+
+                    <MdLocalOffer />
+                  </div>
                 </div>
               </div>
+            ))}
+          </div>
+
+          {/* RIGHT SIDE */}
+          <div
+            className="
+              lg:w-[320px]
+              h-fit
+              lg:sticky
+              lg:top-24
+            "
+          >
+            <div
+              className="
+                border
+                border-gray-200
+                p-6
+                rounded-lg
+                shadow-sm
+              "
+            >
+              <p
+                className="
+                  text-[#6a6f73]
+                  text-lg
+                  font-medium
+                "
+              >
+                Total:
+              </p>
+
+              <h2
+                className="
+                  text-4xl
+                  font-bold
+                  text-[#1c1d1f]
+                  mt-2
+                "
+              >
+                ₹{total}
+              </h2>
+
+            
             </div>
           </div>
         </div>
-      ) : (
-        <EmptyCart />
-      )}
+      </div>
     </div>
   );
 };

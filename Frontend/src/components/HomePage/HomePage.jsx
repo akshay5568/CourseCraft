@@ -7,14 +7,30 @@ import Recommended from "./Recommended";
 
 const HomePage = () => {
   return (
-    <div className="">
-      {/* <h1>Hello This will be our Home page for CourseCraft.</h1> */}
+    <div className="w-full min-h-screen overflow-x-hidden">
       <Header />
-      <div className="ml-23 mr-20 mt-10">
-        <ProfileTag />
-        <PosterAnimated/>
-        <Recommended/>
-        <AllCourses/>
+
+      <div
+        className="
+          w-full
+          px-4
+          sm:px-6
+          md:px-10
+          lg:px-16
+          xl:px-20
+          mt-5
+          md:mt-10
+        "
+      >
+        <div className="space-y-6 md:space-y-8">
+          <ProfileTag />
+
+          <PosterAnimated />
+
+          <Recommended />
+
+          <AllCourses />
+        </div>
       </div>
     </div>
   );

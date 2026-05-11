@@ -35,162 +35,580 @@ export const CourseEditPage = () => {
   const [isEditTrue, setIsEditTrue] = useState(false);
 
   return (
-    <div>
+    <div className="min-h-screen bg-[#f7f9fa]">
       <SellerHeader />
-      <div className="h-screen w-full p-3 gap-3 flex">
-        <div className="w-1/2  border rounded-md p-3 overflow-scroll">
-          <h1 className="text-gray-600 text-xl font-bold">Videos</h1>
 
-          <div className="">
-            {CourseDetails?.sectionIds?.map((section, index) => {
-              return (
-                <div
-                  key={section._id}
-                  className="mt-3 border border-gray-300 bg-gray-200"
-                >
-                  <button
-                    onClick={() => sectionDropDown(section._id, section._id)}
-                    className=" w-full p-3 rounded-md flex items-center text-xl"
+      <div
+        className="
+          w-full
+
+          flex
+          flex-col
+          xl:flex-row
+
+          gap-5
+
+          p-3
+          md:p-5
+        "
+      >
+        {/* LEFT SIDE */}
+        <div
+          className="
+            w-full
+            xl:w-1/2
+
+            bg-white
+
+            border
+            border-gray-200
+
+            rounded-3xl
+
+            shadow-sm
+
+            p-4
+            md:p-6
+          "
+        >
+          <h1
+            className="
+              text-2xl
+
+              font-bold
+
+              text-[#1c1d1f]
+
+              mb-5
+            "
+          >
+            Course Sections
+          </h1>
+
+          <div className="space-y-4">
+            {CourseDetails?.sectionIds?.map(
+              (section, index) => {
+                return (
+                  <div
+                    key={section._id}
+                    className="
+                      border
+                      border-gray-200
+
+                      rounded-2xl
+
+                      overflow-hidden
+
+                      bg-[#f9fafb]
+                    "
                   >
-                    <span className="w-[5%] text-xs">{index + 1}</span>
-                    <h1 className="w-[70%] text-left font-semibold text-sm">
-                      {section.sectionName}
-                    </h1>
-                   <div className="flex w-[30%] items-center justify-end">
-                    <span className="block text-xs font-extralight">
-                      {section.videos.length} lectures
-                    </span>
-                    {sectionDiv.sectionId == section._id ? (
-                      sectionDiv.isTrue ? (
-                        <IoMdArrowDropdown />
-                      ) : (
-                        <IoMdArrowDropright className="text-2xl" />
-                      )
-                    ) : (
-                      <IoMdArrowDropright className="text-2xl" />
-                    )}
-                   </div>
-                  </button>
+                    <button
+                      onClick={() =>
+                        sectionDropDown(
+                          section._id,
+                          section._id
+                        )
+                      }
+                      className="
+                        w-full
 
-                  {section._id == sectionDiv.sectionId
-                    ? sectionDiv.isTrue && (
-                        <div className="p-3 border-t border-gray-300 rounded-md">
-                          <div className="flex justify-between w-full">
-                            <h1 className="w-[80%] text-2xl mb-7 font-semibold">
-                              {section.sectionDesc}
+                        flex
+                        items-center
+                        justify-between
+
+                        gap-3
+
+                        p-4
+
+                        cursor-pointer
+                      "
+                    >
+                      <div
+                        className="
+                          flex
+                          items-center
+                          gap-3
+
+                          text-left
+                        "
+                      >
+                        <span
+                          className="
+                            text-xs
+                            font-semibold
+
+                            bg-purple-100
+                            text-purple-700
+
+                            w-7
+                            h-7
+
+                            rounded-full
+
+                            flex
+                            items-center
+                            justify-center
+                          "
+                        >
+                          {index + 1}
+                        </span>
+
+                        <div>
+                          <h1
+                            className="
+                              text-sm
+                              md:text-base
+
+                              font-semibold
+
+                              text-[#1c1d1f]
+                            "
+                          >
+                            {
+                              section.sectionName
+                            }
+                          </h1>
+
+                          <p
+                            className="
+                              text-xs
+
+                              text-gray-500
+
+                              mt-1
+                            "
+                          >
+                            {
+                              section.videos
+                                .length
+                            }{" "}
+                            lectures
+                          </p>
+                        </div>
+                      </div>
+
+                      <div>
+                        {sectionDiv.sectionId ==
+                        section._id ? (
+                          sectionDiv.isTrue ? (
+                            <IoMdArrowDropdown className="text-xl text-gray-600" />
+                          ) : (
+                            <IoMdArrowDropright className="text-xl text-gray-600" />
+                          )
+                        ) : (
+                          <IoMdArrowDropright className="text-xl text-gray-600" />
+                        )}
+                      </div>
+                    </button>
+
+                    {section._id ==
+                      sectionDiv.sectionId &&
+                      sectionDiv.isTrue && (
+                        <div
+                          className="
+                            border-t
+                            border-gray-200
+
+                            bg-white
+
+                            p-4
+                          "
+                        >
+                          <div
+                            className="
+                              flex
+                              flex-col
+                              md:flex-row
+
+                              md:items-center
+                              md:justify-between
+
+                              gap-3
+                            "
+                          >
+                            <h1
+                              className="
+                                text-lg
+                                md:text-xl
+
+                                font-semibold
+
+                                text-[#1c1d1f]
+                              "
+                            >
+                              {
+                                section.sectionDesc
+                              }
                             </h1>
+
                             <DeleteSection
-                              sectionID={section._id}
-                              courseID={CourseDetails._id}
-                              setRefresh={setRefresh}
-                              refresh={refresh}
+                              sectionID={
+                                section._id
+                              }
+                              courseID={
+                                CourseDetails._id
+                              }
+                              setRefresh={
+                                setRefresh
+                              }
+                              refresh={
+                                refresh
+                              }
                             />
                           </div>
-                          <VideoView
-                            courseVideos={section.videos}
-                            sectionID={section._id}
-                          />
-                          <div className="mt-3 border border-gray-500 rounded-md">
+
+                          <div className="mt-5">
+                            <VideoView
+                              courseVideos={
+                                section.videos
+                              }
+                              sectionID={
+                                section._id
+                              }
+                            />
+                          </div>
+
+                          <div
+                            className="
+                              mt-5
+
+                              border
+                              border-dashed
+                              border-gray-300
+
+                              rounded-2xl
+
+                              p-3
+                            "
+                          >
                             <VideoUploadBTN
-                              id={CourseDetails._id}
-                              sectionID={section._id}
+                              id={
+                                CourseDetails._id
+                              }
+                              sectionID={
+                                section._id
+                              }
                             />
                           </div>
                         </div>
-                      )
-                    : ""}
-                </div>
-              );
-            })}
+                      )}
+                  </div>
+                );
+              }
+            )}
           </div>
 
-          <div className="mt-3">
-            <div className="flex gap-4 items-center">
-              <h1 className="font-bold">Create section for your course.</h1>
-              <button
-                className="font-semibold bg-amber-400 p-1 rounded-md cursor-pointer"
-                onClick={() => setCourseSectionForm(!courseSectionForm)}
-              >
-                Create section
-              </button>
+          {/* CREATE SECTION */}
+          <div
+            className="
+              mt-8
 
-              {courseSectionForm && (
-                <div>
-                  {
-                    <CourseSectionForm
-                      setCourseSectionForm={setCourseSectionForm}
-                      courseSectionForm={courseSectionForm}
-                      courseID={id}
-                      setRefresh={setRefresh}
-                      refresh={refresh}
-                    />
-                  }
-                </div>
-              )}
+              border-t
+              border-gray-200
+
+              pt-6
+            "
+          >
+            <div
+              className="
+                flex
+                flex-col
+                sm:flex-row
+
+                sm:items-center
+
+                gap-4
+              "
+            >
+              <h1
+                className="
+                  font-semibold
+
+                  text-[#1c1d1f]
+                "
+              >
+                Create section for
+                your course
+              </h1>
+
+              <button
+                className="
+                  bg-purple-600
+
+                  hover:bg-purple-500
+
+                  text-white
+
+                  text-sm
+                  font-semibold
+
+                  px-5
+                  py-2
+
+                  rounded-xl
+
+                  cursor-pointer
+
+                  transition-all
+                "
+                onClick={() =>
+                  setCourseSectionForm(
+                    !courseSectionForm
+                  )
+                }
+              >
+                Create Section
+              </button>
             </div>
+
+            {courseSectionForm && (
+              <div className="mt-5">
+                <CourseSectionForm
+                  setCourseSectionForm={
+                    setCourseSectionForm
+                  }
+                  courseSectionForm={
+                    courseSectionForm
+                  }
+                  courseID={id}
+                  setRefresh={
+                    setRefresh
+                  }
+                  refresh={refresh}
+                />
+              </div>
+            )}
           </div>
         </div>
 
-        <div className="w-1/2 border rounded-md p-3">
-          <div className="flex items-center justify-between">
-            <h1 className="text-xl font-bold text-gray-600">
+        {/* RIGHT SIDE */}
+        <div
+          className="
+            w-full
+            xl:w-1/2
+
+            bg-white
+
+            border
+            border-gray-200
+
+            rounded-3xl
+
+            shadow-sm
+
+            p-4
+            md:p-6
+          "
+        >
+          <div
+            className="
+              flex
+              flex-col
+              sm:flex-row
+
+              sm:items-center
+              sm:justify-between
+
+              gap-4
+            "
+          >
+            <h1
+              className="
+                text-2xl
+
+                font-bold
+
+                text-[#1c1d1f]
+              "
+            >
               Course Information
             </h1>
-            <DeleteCourse courseId={id} />
+
+            <DeleteCourse
+              courseId={id}
+            />
           </div>
-          <div className="w-full m-7">
-            <label htmlFor="courseName" className="font-semibold text-sm">
-              Course Name:
-            </label>
-            <br />
-            <input
-              className="p-3 border-gray-200 text-gray-400 cursor-pointer w-[50%] border rounded-md"
-              type="text"
-              id="courseName"
-              value={CourseDetails?.courseName}
-              disabled
-            />
-            <br />
-            <br />
-            <label htmlFor="courseName" className="font-semibold text-sm">
-              Description:
-            </label>
-            <br />
-            <input
-              type="text"
-              value={CourseDetails?.description}
-              disabled
-              className="rounded-md  border-gray-200 cursor-pointer text-gray-400 w-[50%] border p-3"
-            />
-            <br />
-            <br />
-            <label htmlFor="courseName" className=" font-semibold text-sm">
-              Price:
-            </label>
-            <br />
-            <input
-              className="border border-gray-200 text-gray-400 cursor-pointer w-[50%] rounded-md p-3"
-              type="text"
-              value={CourseDetails?.price}
-              disabled
-            />{" "}
-            <br />
+
+          <div
+            className="
+              mt-8
+
+              space-y-5
+            "
+          >
+            {/* COURSE NAME */}
+            <div>
+              <label
+                htmlFor="courseName"
+                className="
+                  text-sm
+                  font-semibold
+
+                  text-gray-700
+                "
+              >
+                Course Name
+              </label>
+
+              <input
+                className="
+                  w-full
+
+                  mt-2
+
+                  p-4
+
+                  rounded-2xl
+
+                  border
+                  border-gray-200
+
+                  bg-gray-50
+
+                  text-gray-500
+
+                  cursor-not-allowed
+                "
+                type="text"
+                id="courseName"
+                value={
+                  CourseDetails?.courseName
+                }
+                disabled
+              />
+            </div>
+
+            {/* DESCRIPTION */}
+            <div>
+              <label
+                className="
+                  text-sm
+                  font-semibold
+
+                  text-gray-700
+                "
+              >
+                Description
+              </label>
+
+              <textarea
+                value={
+                  CourseDetails?.description
+                }
+                disabled
+                className="
+                  w-full
+
+                  mt-2
+
+                  p-4
+
+                  min-h-[120px]
+
+                  rounded-2xl
+
+                  border
+                  border-gray-200
+
+                  bg-gray-50
+
+                  text-gray-500
+
+                  resize-none
+
+                  cursor-not-allowed
+                "
+              />
+            </div>
+
+            {/* PRICE */}
+            <div>
+              <label
+                className="
+                  text-sm
+                  font-semibold
+
+                  text-gray-700
+                "
+              >
+                Price
+              </label>
+
+              <input
+                className="
+                  w-full
+
+                  mt-2
+
+                  p-4
+
+                  rounded-2xl
+
+                  border
+                  border-gray-200
+
+                  bg-gray-50
+
+                  text-gray-500
+
+                  cursor-not-allowed
+                "
+                type="text"
+                value={`₹${CourseDetails?.price}`}
+                disabled
+              />
+            </div>
+
+            {/* EDIT BUTTON */}
             <button
-              onClick={() => setIsEditTrue(!isEditTrue)}
-              className="mt-3 cursor-pointer px-5 text-sm font-semibold bg-amber-300 p-2 rounded-xl"
+              onClick={() =>
+                setIsEditTrue(
+                  !isEditTrue
+                )
+              }
+              className="
+                mt-3
+
+                bg-amber-400
+                hover:bg-amber-300
+
+                px-6
+                py-3
+
+                rounded-2xl
+
+                text-sm
+                font-semibold
+
+                cursor-pointer
+
+                transition-all
+              "
             >
-              Edit
+              Edit Course
             </button>
           </div>
-          <EnrolledStudents
-            EnrolledStudents={CourseDetails?.enrolledStudents}
-          />
+
+          {/* STUDENTS */}
+          <div className="mt-10">
+            <EnrolledStudents
+              EnrolledStudents={
+                CourseDetails?.enrolledStudents
+              }
+            />
+          </div>
         </div>
       </div>
+
+      {/* EDIT FORM */}
       {isEditTrue && (
         <EditCourseForm
-          setisEditTrue={setIsEditTrue}
-          isEditTrueValue={isEditTrue}
+          setisEditTrue={
+            setIsEditTrue
+          }
+          isEditTrueValue={
+            isEditTrue
+          }
           courseId={id}
         />
       )}

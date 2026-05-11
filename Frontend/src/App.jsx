@@ -1,5 +1,6 @@
 
 import './App.css'
+import HomePage from './components/HomePage/HomePage.jsx';
 import Router from './components/Router'
 import useGetCourseData from './Hooks/ForSeller/useGetCourseData';
 import useGetAllCourses from './Hooks/useGetAllCourses';
@@ -15,7 +16,7 @@ function App() {
     useUserCarts();
     useGetPurchasedUserCourses();
   return (
-      <div>
+      <div className='w-full'>
           <Router/>
       </div>
   )

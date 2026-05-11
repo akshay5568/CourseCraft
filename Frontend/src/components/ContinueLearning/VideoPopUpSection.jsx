@@ -54,36 +54,117 @@ export const VideoPopUpSection = ({ courseVideos, courseId }) => {
   };
 
   return (
-    <div className="w-full border-t border-gray-300  p-2">
-      {courseVideos.map((video, index) => (
-        <div
-          key={index}
-          className="flex gap-3 justify-between items-center mt-2"   
-        >
-          <div className="flex gap-3 items-center">
-            <input
-              type="checkbox"
-              checked={ids?.includes(video._id)}
-              onChange={() => watchedVideo(video._id)}     
-            />
-            <h1>{index + 1}</h1>
-            <button
-              onClick={() =>
-                videoUploadInVideoPlayer(
-                  video.videoUrl,
-                  video?.videoDescription
-                )
-              }
-              className="text-xs cursor-pointer font-extralight text-[#5a5c72] break-all"
+     <div
+      className="
+        w-full
+        border-t
+        border-gray-200
+        pt-3
+        mt-3
+      "
+    >
+      {courseVideos.map(
+        (video, index) => (
+          <div
+            key={index}
+            className="
+              flex
+              items-center
+              justify-between
+              gap-3
+              p-3
+              rounded-lg
+              hover:bg-gray-100
+              transition
+              cursor-pointer
+            "
+          >
+            {/* LEFT SIDE */}
+            <div
+              className="
+                flex
+                items-center
+                gap-3
+                min-w-0
+                flex-1
+              "
             >
-              {video.videoName}
-            </button>
+              {/* CHECKBOX */}
+              <input
+                type="checkbox"
+                checked={ids?.includes(
+                  video._id
+                )}
+                onChange={() =>
+                  watchedVideo(
+                    video._id
+                  )
+                }
+                className="
+                  w-4
+                  h-4
+                  accent-purple-600
+                  cursor-pointer
+                  shrink-0
+                "
+              />
+
+              {/* INDEX */}
+              <div
+                className="
+                  text-sm
+                  font-semibold
+                  text-gray-500
+                  w-5
+                  shrink-0
+                "
+              >
+                {index + 1}
+              </div>
+
+              {/* VIDEO BUTTON */}
+              <button
+                onClick={() =>
+                  videoUploadInVideoPlayer(
+                    video.videoUrl,
+                    video?.videoDescription
+                  )
+                }
+                className="
+                  text-left
+                  text-sm
+                  md:text-base
+                  text-[#1c1d1f]
+                  hover:text-purple-700
+                  transition
+                  wrap-break-words
+                  line-clamp-2
+                  cursor-pointer
+                "
+              >
+                {video.videoName}
+              </button>
+            </div>
+
+            {/* DURATION */}
+            <div
+              className="
+                text-xs
+                md:text-sm
+                font-medium
+                text-purple-600
+                whitespace-nowrap
+                shrink-0
+              "
+            >
+              {(
+                video.duration / 60
+              ).toFixed(2)}
+              m
+            </div>
           </div>
-          <h1 className="text-xs font-semibold text-purple-400">
-            {(video.duration / 60).toFixed(2)}
-          </h1>
-        </div>
-      ))}
+        )
+      )}
     </div>
   );
 };

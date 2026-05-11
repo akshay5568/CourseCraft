@@ -43,53 +43,193 @@ export const Learning = () => {
   }, [courseDetails]);
 
   return (
-    <div>
+     <div
+      className="
+        min-h-screen
+        bg-[#f7f9fa]
+        pb-20
+        md:pb-0
+      "
+    >
       <Header />
-      <div>
-        {usersCourses?.length != 0 ? (
-          <div className="p-3">
-            <span className="font-extralight text-xl">
-              Your all purchased courses
-            </span>
-            <div className="flex gap-3 h-fit flex-wrap mt-3">
-              {usersCourses?.map((course, index) => (
+
+      {usersCourses?.length !==
+      0 ? (
+        <div
+          className="
+            max-w-[1400px]
+            mx-auto
+            px-4
+            md:px-8
+            py-8
+          "
+        >
+          {/* HEADER */}
+          <div className="mb-8">
+            <h1
+              className="
+                text-3xl
+                md:text-4xl
+                font-bold
+                text-[#1c1d1f]
+              "
+            >
+              Continue Learning
+            </h1>
+
+            <p
+              className="
+                mt-2
+                text-[#6a6f73]
+                text-sm
+                md:text-base
+              "
+            >
+              Pick up where you
+              left off and continue
+              your learning journey.
+            </p>
+          </div>
+
+          {/* COURSES GRID */}
+          <div
+            className="
+              grid
+              grid-cols-1
+              sm:grid-cols-2
+              lg:grid-cols-3
+              xl:grid-cols-4
+              gap-6
+            "
+          >
+            {usersCourses?.map(
+              (
+                course,
+                index
+              ) => (
                 <Link
-                  onClick={deleteVideoForVideoPlayer}
-                  key={course?._id}
-                  className="border h-70 border-gray-300 rounded-md "
+                  key={
+                    course?._id
+                  }
                   to={`/course/${course?.courseID?._id}`}
+                  onClick={
+                    deleteVideoForVideoPlayer
+                  }
+                  className="
+                    bg-white
+                    border
+                    border-gray-200
+                    rounded-2xl
+                    overflow-hidden
+                    hover:shadow-xl
+                    transition
+                    duration-300
+                    group
+                  "
                 >
-                  <div className="w-75 p-1">
+                  {/* IMAGE */}
+                  <div
+                    className="
+                      overflow-hidden
+                    "
+                  >
                     <img
-                      className="w-full h-40 rounded-md"
-                      src={course.courseID?.thubmnailUrl}
-                      alt=""
+                      className="
+                        w-full
+                        h-48
+                        object-cover
+                        group-hover:scale-105
+                        transition
+                        duration-300
+                      "
+                      src={
+                        course
+                          .courseID
+                          ?.thubmnailUrl
+                      }
+                      alt="course"
                     />
-                    <div className="mt-1">
-                      <h1 className="font-extralight break-all">
-                        {course.courseID?.courseName.substring(0, 50) + "..."}
-                      </h1>
-                    </div>
-                    <span className="">₹{course.courseID?.price}</span>
-                    <br />
-                    <span className="text-sm font-extralight">
-                      {course.courseID?.enrolledStudents.length} students
-                    </span>
                   </div>
-                  <div className="w-full">
-                    <TrackCourseLearning
-                      totalCourseVideos={totalCourseVideos[index]}
-                      totalVideoWatchedByUser={totalVideoWatchedByUser[index]}
-                    />
+
+                  {/* CONTENT */}
+                  <div className="p-4">
+                    {/* TITLE */}
+                    <h1
+                      className="
+                        text-base
+                        md:text-lg
+                        font-semibold
+                        text-[#1c1d1f]
+                        leading-6
+                        line-clamp-2
+                        min-h-[52px]
+                      "
+                    >
+                      {
+                        course
+                          .courseID
+                          ?.courseName
+                      }
+                    </h1>
+
+                    {/* STUDENTS */}
+                    <p
+                      className="
+                        mt-2
+                        text-sm
+                        text-[#6a6f73]
+                      "
+                    >
+                      {
+                        course
+                          .courseID
+                          ?.enrolledStudents
+                          .length
+                      }{" "}
+                      students
+                    </p>
+
+                    {/* PRICE */}
+                    <h2
+                      className="
+                        mt-3
+                        text-lg
+                        font-bold
+                        text-[#1c1d1f]
+                      "
+                    >
+                      ₹
+                      {
+                        course
+                          .courseID
+                          ?.price
+                      }
+                    </h2>
+
+                    {/* PROGRESS */}
+                    <div className="mt-5">
+                      <TrackCourseLearning
+                        totalCourseVideos={
+                          totalCourseVideos[
+                            index
+                          ]
+                        }
+                        totalVideoWatchedByUser={
+                          totalVideoWatchedByUser[
+                            index
+                          ]
+                        }
+                      />
+                    </div>
                   </div>
                 </Link>
-              ))}
-            </div>
+              )
+            )}
           </div>
-        ) : (
-          <EmptyLearning />
-        )}
-      </div>
+        </div>
+      ) : (
+        <EmptyLearning />
+      )}
     </div>
   );
 };

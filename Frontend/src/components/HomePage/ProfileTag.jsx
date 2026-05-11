@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 export const ProfileTag = ({isProfile}) => {
   const user = useSelector((state) => state.User);
   return (
-    <div className="pl-3">
+    <div className="pl-3  max-sm:w-full">
       <div className="flex gap-5">
         <div>
           <span className="w-20 text-white text-xl bg-[#16161d] px-5 py-4 rounded-full">   

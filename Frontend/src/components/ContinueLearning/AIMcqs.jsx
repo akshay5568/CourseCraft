@@ -134,8 +134,8 @@ export const AIMcqs = ({
                         name={qindex}
                         value={option}
                         type="radio"
-                        checked={option === userAnswer[qindex + 1]}
-                        onChange={() => handleOptionSelection(qindex, option)}
+                        checked={option === userAnswer[qindex + 1]} 
+                        onChange={() => handleOptionSelection(qindex, option)}  
                       />
                       {option}
                     </span>
@@ -147,6 +147,8 @@ export const AIMcqs = ({
           <button
             onClick={submitAnswer}
             className="p-2 rounded-md bg-amber-300"
+            disabled={loading === true}
+            style={{backgroundColor:loading && "gray", color:loading && "tomato"}}
           >
             Submit answers
           </button>
@@ -155,7 +157,8 @@ export const AIMcqs = ({
       <button
         className="bg-amber-300 p-2 mt-3 rounded-md"
         onClick={genrateAImcqs}
-        
+        disabled={loading === true}
+        style={{backgroundColor: loading && "gray", color: loading && "tomato"} }
       >
         Genrate AI Mcq's
       </button>

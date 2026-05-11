@@ -1,118 +1,401 @@
 import React from "react";
-import { Bar, Line } from "react-chartjs-2";
-import { PolarArea } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
+
+import {
+  Chart as ChartJs,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Tooltip,
+  Legend,
+} from "chart.js";
+
 import { SiCoursera } from "react-icons/si";
 import { FaMoneyBill } from "react-icons/fa";
 import { PiStudentBold } from "react-icons/pi";
 
-import {
-  Chart as ChartJs,
-  LineElement,
-  PolarAreaController,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  RadialLinearScale,
-  ArcElement,
-  Tooltip,
-  Legend,
-  BarElement,
-} from "chart.js";
 import { useSelector } from "react-redux";
+
 import useGetAllSellerCourses from "../../../Hooks/ForSeller/useGetAllSellerCourses";
 
 ChartJs.register(
-  LineElement,
-  RadialLinearScale,
-  ArcElement,
-  Tooltip,
-  Legend,
   CategoryScale,
-  BarElement,
   LinearScale,
-  PointElement,
-  PolarAreaController
+  BarElement,
+  Tooltip,
+  Legend
 );
 
-export const BarChartForCourseRevenue = ({ sellerID }) => {
-  useGetAllSellerCourses(sellerID);
-  const sellerAllCourse = useSelector((state) => state.SellerAllCourses.course);
-  console.log(sellerAllCourse);
-
-  const allCourseNames = sellerAllCourse.map((course) => course?.courseName);
-  console.log(allCourseNames);
-
-  const revenue = sellerAllCourse.map(
-    (course) => course.price * course.enrolledStudents.length
+export const BarChartForCourseRevenue = ({
+  sellerID,
+}) => {
+  useGetAllSellerCourses(
+    sellerID
   );
+
+  const sellerAllCourse =
+    useSelector(
+      (state) =>
+        state.SellerAllCourses
+          .course
+    );
+
+  const allCourseNames =
+    sellerAllCourse.map(
+      (course) =>
+        course?.courseName
+    );
+
+  const revenue =
+    sellerAllCourse.map(
+      (course) =>
+        course.price *
+        course
+          .enrolledStudents
+          .length
+    );
+
   let sum = 0;
-  for (let i = 0; i < revenue.length; i++) {
+
+  for (
+    let i = 0;
+    i < revenue.length;
+    i++
+  ) {
     sum += revenue[i];
   }
-  console.log(revenue);
 
   let totalStudents = 0;
-  const totalStudentEnrolled = sellerAllCourse.map(
-    (students) => students.enrolledStudents.length
-  );
-  console.log(totalStudentEnrolled);
 
-  for (let i = 0; i < totalStudentEnrolled.length; i++) {
-    totalStudents += totalStudentEnrolled[i];
+  const totalStudentEnrolled =
+    sellerAllCourse.map(
+      (students) =>
+        students
+          .enrolledStudents
+          .length
+    );
+
+  for (
+    let i = 0;
+    i <
+    totalStudentEnrolled.length;
+    i++
+  ) {
+    totalStudents +=
+      totalStudentEnrolled[i];
   }
 
   const chartData = {
     labels: allCourseNames,
+
     datasets: [
       {
-        label: "Total revenue course wise",
+        label:
+          "Course Revenue",
+
         data: revenue,
+
         backgroundColor: [
-          "rgba(255, 99, 132, 0.2)",
-          "rgba(255, 159, 64, 0.2)",
-          "rgba(255, 205, 86, 0.2)",
-          "rgba(75, 192, 192, 0.2)",
-          "rgba(54, 162, 235, 0.2)",
-          "rgba(153, 102, 255, 0.2)",
-          "rgba(201, 203, 207, 0.2)",
+          "#8b5cf6",
+          "#06b6d4",
+          "#f59e0b",
+          "#10b981",
+          "#ef4444",
+          "#3b82f6",
+          "#ec4899",
         ],
-        borderColor: [
-          "rgb(255, 99, 132)",
-          "rgb(255, 159, 64)",
-          "rgb(255, 205, 86)",
-          "rgb(75, 192, 192)",
-          "rgb(54, 162, 235)",
-          "rgb(153, 102, 255)",
-          "rgb(201, 203, 207)",
-        ],
-        borderWidth: 1,
-        fill: false,
-        tension: 0.3,
+
+        borderRadius: 8,
+
+        borderSkipped: false,
       },
     ],
   };
 
+  const options = {
+    responsive: true,
+
+    maintainAspectRatio: false,
+
+    plugins: {
+      legend: {
+        display: false,
+      },
+
+      tooltip: {
+        backgroundColor:
+          "#111827",
+
+        padding: 12,
+
+        cornerRadius: 12,
+      },
+    },
+
+    scales: {
+      x: {
+        ticks: {
+          color: "#4b5563",
+
+          font: {
+            size: 11,
+          },
+        },
+
+        grid: {
+          display: false,
+        },
+      },
+
+      y: {
+        ticks: {
+          color: "#4b5563",
+        },
+
+        grid: {
+          color:
+            "rgba(0,0,0,0.05)",
+        },
+      },
+    },
+  };
+
   return (
-    <div>
-      <div className="mt-5 w-full flex p-3 justify-around gap-3 text-sm text-gray-700 font-extralight">   
-        <div className="bg-[#6ecce1] p-3 rounded-md">
-          <SiCoursera className="m-auto" />
-          <h1>
-            Total Courses :{" "}
-            <span className="font-bold">{allCourseNames.length}</span>
-          </h1>
+    <div className="w-full">
+      {/* TOP STATS */}
+      <div
+        className="
+          grid
+          grid-cols-1
+          sm:grid-cols-2
+          lg:grid-cols-3
+
+          gap-4
+
+          mb-8
+        "
+      >
+        {/* TOTAL COURSES */}
+        <div
+          className="
+            bg-linear-to-r
+            from-cyan-400
+            to-cyan-500
+
+            text-white
+
+            rounded-3xl
+
+            p-5
+
+            shadow-md
+          "
+        >
+          <div
+            className="
+              flex
+              items-center
+              justify-between
+            "
+          >
+            <div>
+              <p className="text-sm opacity-90">
+                Total Courses
+              </p>
+
+              <h1
+                className="
+                  text-3xl
+                  font-bold
+                  mt-2
+                "
+              >
+                {
+                  allCourseNames.length
+                }
+              </h1>
+            </div>
+
+            <div
+              className="
+                bg-white/20
+
+                p-3
+
+                rounded-2xl
+              "
+            >
+              <SiCoursera className="text-2xl" />
+            </div>
+          </div>
         </div>
-        <div className="bg-[#6abc6b] p-3 rounded-md">
-          <FaMoneyBill className="m-auto" />
-          Total revenue genrated : <span className="font-bold">{sum}</span>
+
+        {/* TOTAL REVENUE */}
+        <div
+          className="
+            bg-linear-to-r
+            from-emerald-400
+            to-emerald-500
+
+            text-white
+
+            rounded-3xl
+
+            p-5
+
+            shadow-md
+          "
+        >
+          <div
+            className="
+              flex
+              items-center
+              justify-between
+            "
+          >
+            <div>
+              <p className="text-sm opacity-90">
+                Total Revenue
+              </p>
+
+              <h1
+                className="
+                  text-3xl
+                  font-bold
+                  mt-2
+                "
+              >
+                ₹{sum}
+              </h1>
+            </div>
+
+            <div
+              className="
+                bg-white/20
+
+                p-3
+
+                rounded-2xl
+              "
+            >
+              <FaMoneyBill className="text-2xl" />
+            </div>
+          </div>
         </div>
-        <div className="bg-[#e2b164] p-3 rounded-md">
-          <PiStudentBold className="m-auto" />
-          Total students enrolled :{" "}
-          <span className="font-bold">{totalStudents}</span>
+
+        {/* TOTAL STUDENTS */}
+        <div
+          className="
+            bg-linear-to-r
+            from-orange-400
+            to-orange-500
+
+            text-white
+
+            rounded-3xl
+
+            p-5
+
+            shadow-md
+          "
+        >
+          <div
+            className="
+              flex
+              items-center
+              justify-between
+            "
+          >
+            <div>
+              <p className="text-sm opacity-90">
+                Total Students
+              </p>
+
+              <h1
+                className="
+                  text-3xl
+                  font-bold
+                  mt-2
+                "
+              >
+                {totalStudents}
+              </h1>
+            </div>
+
+            <div
+              className="
+                bg-white/20
+
+                p-3
+
+                rounded-2xl
+              "
+            >
+              <PiStudentBold className="text-2xl" />
+            </div>
+          </div>
         </div>
       </div>
-      <Bar data={chartData} />
+
+      {/* CHART CARD */}
+      <div
+        className="
+          bg-white
+
+          rounded-3xl
+
+          border
+          border-gray-200
+
+          shadow-sm
+
+          p-4
+          sm:p-6
+        "
+      >
+        <div className="mb-6">
+          <h1
+            className="
+              text-xl
+              md:text-2xl
+
+              font-bold
+
+              text-[#1c1d1f]
+            "
+          >
+            Revenue Analytics
+          </h1>
+
+          <p
+            className="
+              mt-2
+
+              text-sm
+
+              text-[#6b7280]
+            "
+          >
+            Revenue generated
+            by each course.
+          </p>
+        </div>
+
+        <div
+          className="
+            w-full
+
+            h-80
+            sm:h-[400px]
+            md:h-[500px]
+          "
+        >
+          <Bar
+            data={chartData}
+            options={options}
+          />
+        </div>
+      </div>
     </div>
   );
 };

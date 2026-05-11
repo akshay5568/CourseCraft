@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router";
+import { FiSearch } from "react-icons/fi";
 
 const SearchBar = () => {
   const allCourses = useSelector((state) => state.CourseDetails.allCourses);
@@ -13,10 +14,31 @@ const SearchBar = () => {
       ?.includes(inputData?.toLowerCase());
   });
   return (
-    <div>
-      <div className="relative">
+    <div className="relative w-full">
+      {/* INPUT */}
+      <div
+        className="
+          flex
+          items-center
+          border
+          border-gray-300
+          rounded-full
+          px-4
+          bg-white
+          focus-within:border-black
+          transition-all
+          duration-200
+          h-12
+        "
+      >
+        {/* ICON */}
+        <FiSearch className="text-gray-500 text-lg mr-3" />
+
+        {/* INPUT */}
         <input
           type="text"
+          placeholder="Search for anything"
+          value={inputData}
           onFocus={() => setSearchBarToggle(true)}
           onBlur={() =>
             setTimeout(() => {
@@ -24,28 +46,73 @@ const SearchBar = () => {
             }, 200)
           }
           onChange={(e) => setInputData(e.target.value)}
-          className="p-3 border border-gray-300 rounded-full w-150 text-xl bg-[#ffffff]"
+          className="
+            w-full
+            outline-none
+            text-sm
+            bg-transparent
+            placeholder:text-gray-500
+          "
         />
-
-        {searchBarToggle && (
-          <div>
-            <div className="absolute z-50 w-150 rounded-md h-50 overflow-scroll bg-[#ffffff] border border-gray-100">
-              {filterCourse.map((course) => {
-                return (
-                  <Link
-                    className="w-full bg-amber-500"
-                    to={`/course/${course?._id}`}
-                  >
-                    <span className="block bg-gray-100 m-1 hover:shadow-2xl border-t border-gray-300 border-b rounded-md p-3 text-sm font-semibold">
-                      {course.courseName}
-                    </span>
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
-        )}
       </div>
+
+      {/* DROPDOWN */}
+      {searchBarToggle && inputData && (
+        <div
+          className="
+            absolute
+            top-[55px]
+            left-0
+            w-full
+            bg-white
+            border
+            border-gray-200
+            rounded-xl
+            shadow-xl
+            z-50
+            max-h-[400px]
+            overflow-y-auto
+            py-2
+          "
+        >
+          {filterCourse.length > 0 ? (
+            filterCourse.map((course) => (
+              <Link
+                key={course?._id}
+                to={`/course/${course?._id}`}
+                className="
+                  flex
+                  items-center
+                  gap-3
+                  px-4
+                  py-3
+                  hover:bg-gray-100
+                  transition
+                "
+              >
+                {/* Search Icon */}
+                <FiSearch className="text-gray-400 text-sm" />
+
+                {/* Course Name */}
+                <span
+                  className="
+                    text-sm
+                    text-[#1c1d1f]
+                    font-medium
+                    line-clamp-1
+                  "
+                >
+                  {course.courseName}
+                </span>
+              </Link>
+            ))
+          ) : (
+            <div className="px-4 py-5 text-sm text-gray-500">
+              No courses found
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };

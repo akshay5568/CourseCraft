@@ -21,109 +21,348 @@ export const FullCoursePage = () => {
   );
 
   return (
-    <div>
+     <div>
       {purechasedcourse?.length > 0 ? (
-        <VideoPlayerPage courseID={filterCourses._id} />
+        <VideoPlayerPage
+          courseID={filterCourses._id}
+        />
       ) : (
         <>
-          <div>
-            <Header />
-          </div>
-          <div className=" bg-[linear-gradient(to_bottom,black_0%,black_40%,white_40%,white_100%)] text-white p-3 h-fit flex gap-3">
-            <div className="w-[60%]  h-screen ml-35 mt-10 bg-transparent p-7">
-              <div className="w-full">
-                <h1 className="w-full text-3xl font-extralight break-all">
-                  {filterCourses?.courseName}
-                </h1>
-                <h1 className="mt-3 w-full font-extralight">
-                  {filterCourses?.description}
-                </h1>
-                <div className="mt-2 text-xs flex items-center gap-2">
-                  <PiStudentBold className="text-sm" />
-                  <h1>{filterCourses?.enrolledStudents?.length} students</h1>
-                </div>
-                <div className="mt-5">
-                  <h1 className="font-extralight text-sm">
-                    Created by{" "}
-                    <span className="text-[#bea0ff] underline">
-                      {filterCourses?.createdBy?.name}
-                    </span>
+          <Header />
+
+          {/* HERO SECTION */}
+          <div className="bg-[#1c1d1f] text-white">
+            <div
+              className="
+                max-w-[1400px]
+                mx-auto
+                px-4
+                md:px-8
+                py-10
+              "
+            >
+              <div
+                className="
+                  flex
+                  flex-col
+                  lg:flex-row
+                  gap-10
+                "
+              >
+                {/* LEFT SIDE */}
+                <div className="flex-1">
+                  {/* TITLE */}
+                  <h1
+                    className="
+                      text-3xl
+                      md:text-4xl
+                      font-bold
+                      leading-tight
+                      break-words
+                    "
+                  >
+                    {filterCourses?.courseName}
                   </h1>
-                  <h1 className="font-extralight mt-2 flex items-center gap-2 text-sm text-[#e8e9f3]">
+
+                  {/* DESCRIPTION */}
+                  <p
+                    className="
+                      mt-5
+                      text-[#d1d7dc]
+                      text-base
+                      md:text-lg
+                      leading-7
+                    "
+                  >
+                    {filterCourses?.description}
+                  </p>
+
+                  {/* STUDENTS */}
+                  <div
+                    className="
+                      mt-5
+                      flex
+                      items-center
+                      gap-2
+                      text-sm
+                    "
+                  >
+                    <PiStudentBold className="text-lg" />
+
                     <span>
-                      <FaCalendarAlt />
+                      {
+                        filterCourses
+                          ?.enrolledStudents
+                          ?.length
+                      }{" "}
+                      students
                     </span>
-                    Last updated {filterCourses?.updatedAt}
-                  </h1>
-                </div>
+                  </div>
 
-                <div className="bg-white w-30 p-2 mt-7 rounded-md text-center">
-                  <FaUsers className="text-black text-2xl m-auto" />
-                  <h5 className="text-black text-sm">
-                    {filterCourses?.enrolledStudents?.length}{" "}
-                    <span className="text-sm font-extralight">learners</span>
-                  </h5>
-                </div>
-              </div>
+                  {/* CREATOR */}
+                  <div className="mt-5">
+                    <h1
+                      className="
+                        text-sm
+                        text-[#d1d7dc]
+                      "
+                    >
+                      Created by{" "}
+                      <span
+                        className="
+                          text-[#c0c4fc]
+                          underline
+                        "
+                      >
+                        {
+                          filterCourses?.createdBy
+                            ?.name
+                        }
+                      </span>
+                    </h1>
 
-              <div className="mt-70 text-black">
-                <h1 className="text-2xl">Course content</h1>
-                <br />
-                <span className="mt-3 text-gray-500 font-extralight text-sm">
-                  {filterCourses?.sectionIds?.length} sections
-                </span>
-                <div className="w-full  border border-gray-300 h-screen mt-3 ">
-                  {filterCourses?.sectionIds.map((section) => (
-                    <div className="w-full bg-[#e7eaee]  p-3 border-b border-t border-gray-300  flex items-center justify-between">
-                      <h1 className="font-extralight text-sm">
-                        {section.sectionName}
-                      </h1>
-                      {purechasedcourse.length > 0 ? (
-                        <h1 className="font-semibold text-xs">
-                          <FaLockOpen />
-                        </h1>
-                      ) : (
-                        <h1 className="font-semibold text-xs">
-                          <FaLock />
-                        </h1>
-                      )}
+                    <h1
+                      className="
+                        mt-3
+                        flex
+                        items-center
+                        gap-2
+                        text-sm
+                        text-[#d1d7dc]
+                      "
+                    >
+                      <FaCalendarAlt />
+
+                      Last updated{" "}
+                      {filterCourses?.updatedAt}
+                    </h1>
+                  </div>
+
+                  {/* LEARNERS */}
+                  <div
+                    className="
+                      mt-8
+                      inline-flex
+                      items-center
+                      gap-3
+                      bg-white
+                      text-black
+                      px-5
+                      py-3
+                      rounded-lg
+                    "
+                  >
+                    <FaUsers className="text-xl" />
+
+                    <div>
+                      <h5 className="font-bold">
+                        {
+                          filterCourses
+                            ?.enrolledStudents
+                            ?.length
+                        }
+                      </h5>
+
+                      <p
+                        className="
+                          text-sm
+                          text-gray-500
+                        "
+                      >
+                        learners
+                      </p>
                     </div>
-                  ))}
+                  </div>
+                </div>
+
+                {/* RIGHT SIDE CARD */}
+                <div
+                  className="
+                    w-full
+                    lg:w-[380px]
+                  "
+                >
+                  <div
+                    className="
+                      bg-white
+                      rounded-xl
+                      overflow-hidden
+                      shadow-xl
+                      text-black
+                      lg:sticky
+                      lg:top-24
+                    "
+                  >
+                    {/* IMAGE */}
+                    <img
+                      src={
+                        filterCourses?.thubmnail
+                          ? filterCourses?.thubmnail
+                          : filterCourses?.thubmnailUrl
+                      }
+                      className="
+                        w-full
+                        h-[220px]
+                        object-cover
+                      "
+                      alt="course image"
+                    />
+
+                    {/* CONTENT */}
+                    <div className="p-6">
+                      {/* PRICE */}
+                      <h1
+                        className="
+                          text-4xl
+                          font-bold
+                          text-[#1c1d1f]
+                        "
+                      >
+                        ₹{filterCourses?.price}
+                      </h1>
+
+                      {/* BUTTONS */}
+                      <div className="mt-6">
+                        <CartBtn
+                          courseId={
+                            filterCourses?._id
+                          }
+                          userId={userData?._id}
+                        />
+
+                        <button
+                          onClick={() =>
+                            payNow(
+                              filterCourses?.price,
+                              id,
+                              userData?._id
+                            )
+                          }
+                          className="
+                            mt-4
+                            w-full
+                            bg-[#a435f0]
+                            hover:bg-[#8710d8]
+                            transition
+                            text-white
+                            py-4
+                            rounded-lg
+                            font-bold
+                            cursor-pointer
+                          "
+                        >
+                          Buy now ₹
+                          {filterCourses?.price}
+                        </button>
+                      </div>
+
+                      {/* GUARANTEE */}
+                      <p
+                        className="
+                          mt-5
+                          text-center
+                          text-sm
+                          text-gray-500
+                        "
+                      >
+                        30-Day Money-Back Guarantee
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
+          </div>
 
-            <div className="w-[25%] h-fit shadow-2xl  mt-10 bg-white rounded-md">
+          {/* COURSE CONTENT */}
+          <div
+            className="
+              max-w-[1400px]
+              mx-auto
+              px-4
+              md:px-8
+              py-10
+            "
+          >
+            <div className="max-w-[850px]">
+              {/* TITLE */}
               <div>
-                <img
-                  src={
-                    filterCourses?.thubmnail
-                      ? filterCourses?.thubmnail
-                      : filterCourses?.thubmnailUrl
-                  }
-                  className="w-full rounded-md"
-                  alt="image"
-                />
-              </div>
-              <div className="w-full p-5 text-black">
-                <h1 className="text-2xl font-extralight">
-                  ₹{filterCourses?.price}
+                <h1
+                  className="
+                    text-3xl
+                    font-bold
+                    text-[#1c1d1f]
+                  "
+                >
+                  Course content
                 </h1>
-                <div className="w-full m-auto">
-                  <CartBtn
-                    courseId={filterCourses?._id}
-                    userId={userData?._id}
-                  />
 
-                  <button
-                    onClick={() =>
-                      payNow(filterCourses?.price, id, userData?._id)
-                    }
-                    className="mt-3 bg-white border text-[#6d29d1] hover:bg-purple-200 cursor-pointer border-[#6d29d1] w-full  text-sm font-semibold rounded-md px-7 py-2"
-                  >
-                    Buy now ₹{filterCourses?.price}
-                  </button>
-                </div>
+                <p
+                  className="
+                    mt-2
+                    text-sm
+                    text-[#6a6f73]
+                  "
+                >
+                  {
+                    filterCourses?.sectionIds
+                      ?.length
+                  }{" "}
+                  sections
+                </p>
+              </div>
+
+              {/* SECTION LIST */}
+              <div
+                className="
+                  mt-6
+                  border
+                  border-gray-200
+                  rounded-xl
+                  overflow-hidden
+                "
+              >
+                {filterCourses?.sectionIds.map(
+                  (section, index) => (
+                    <div
+                      key={index}
+                      className="
+                        flex
+                        items-center
+                        justify-between
+                        px-5
+                        py-4
+                        border-b
+                        border-gray-200
+                        bg-[#f7f9fa]
+                        hover:bg-gray-100
+                        transition
+                      "
+                    >
+                      {/* SECTION NAME */}
+                      <h1
+                        className="
+                          text-sm
+                          md:text-base
+                          font-medium
+                          text-[#1c1d1f]
+                        "
+                      >
+                        {section.sectionName}
+                      </h1>
+
+                      {/* LOCK */}
+                      <div className="text-sm">
+                        {purechasedcourse?.length >
+                        0 ? (
+                          <FaLockOpen />
+                        ) : (
+                          <FaLock />
+                        )}
+                      </div>
+                    </div>
+                  )
+                )}
               </div>
             </div>
           </div>

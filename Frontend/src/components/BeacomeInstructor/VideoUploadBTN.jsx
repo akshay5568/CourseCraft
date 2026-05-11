@@ -67,34 +67,72 @@ export const VideoUploadBTN = ({ id, sectionID }) => {
   useGetCourseData(refresh);
 
   return (
-    <div className="border border-gray-200 p-3 h-fit rounded-md">
-      {uplodingBar && (
-        <div className="absolute inset-0 bg-white/70 flex items-center justify-center">
-          <VideoUpldingLoader />
-        </div>
-      )}
+    <div className="relative w-full rounded-2xl border border-gray-200 bg-white shadow-sm overflow-hidden">
+  
+  {uplodingBar && (
+    <div className="fixed inset-0 z-[100] bg-white/70 flex items-center justify-center">
+      <VideoUpldingLoader />
+    </div>
+  )}
 
-      <form onSubmit={(e) => e.preventDefault()}>
-        <input type="file" accept="video/*" className="border" ref={video} />{" "}
-        <br />
-        <br />
+  {/* Header */}
+  <div className="border-b border-gray-200 px-4 py-4 sm:px-6">
+    <h1 className="text-lg sm:text-xl font-bold text-gray-800">
+      Upload New Video
+    </h1>
+
+    <p className="mt-1 text-xs sm:text-sm text-gray-500">
+      Add lecture videos to your course section.
+    </p>
+  </div>
+
+  {/* Form */}
+  <div className="p-4 sm:p-6">
+    <form
+      onSubmit={(e) => e.preventDefault()}
+      className="space-y-5"
+    >
+      
+      {/* Video Upload */}
+      <div>
+        <label className="block text-sm font-semibold text-gray-700 mb-2">
+          Select Video
+        </label>
+
+        <input
+          type="file"
+          accept="video/*"
+          ref={video}
+          className="w-full rounded-xl border border-dashed border-gray-400 bg-gray-50 p-3 text-sm cursor-pointer"
+        />
+      </div>
+
+      {/* Description */}
+      <div>
+        <label className="block text-sm font-semibold text-gray-700 mb-2">
+          Video Description
+        </label>
+
         <textarea
           required
           value={videoDescription}
           onChange={(e) => setVideoDescription(e.target.value)}
-          className="border w-full"
-          id=""
-          placeholder="Description about video"
+          rows={5}
+          placeholder="Write a short description about this lecture..."
+          className="w-full rounded-xl border border-gray-300 p-3 text-sm sm:text-base resize-none outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200"
         ></textarea>
-        <br />
-        <button
-          className="p-2 bg-amber-300 rounded-md cursor-pointer mt-3"
-          onClick={uploadVideoBTN}
-        >
-          Upload video
-        </button>
-      </form>
-    </div>
+      </div>
+
+      {/* Upload Button */}
+      <button
+        className="w-full rounded-xl bg-purple-600 py-3 text-sm sm:text-base font-semibold text-white hover:bg-purple-700 transition-all duration-200 cursor-pointer"
+        onClick={uploadVideoBTN}
+      >
+        Upload Video
+      </button>
+    </form>
+  </div>
+</div>
   );
 };
 

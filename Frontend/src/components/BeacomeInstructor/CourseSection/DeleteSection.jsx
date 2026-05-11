@@ -35,37 +35,42 @@ export const DeleteSection = ({ sectionID, setRefresh, refresh, courseID }) => {
   };
 
   return (
-    <div className="">
+   <div className="relative">
       {loading && (
-         <div className="absolute inset-0 bg-white/70 flex items-center justify-center">
-             <Loading/>
-         </div>
+        <div className="fixed inset-0 z-50 bg-white/70 flex items-center justify-center">
+          <Loading />
+        </div>
       )}
 
       <button
         onClick={sectiondeletePop}
-        className="text-xs cursor-pointer font-semibold bg-amber-300 p-1 rounded-md"
+        className="text-xs sm:text-sm cursor-pointer font-semibold bg-amber-300 hover:bg-amber-400 px-2 py-1 rounded-md"
       >
         Delete section
       </button>
+
       {sectionDeletePopUp && (
-        <div className="absolute w-100 bg-gray-300 mt-3 p-3 rounded-md">
-          <h1 className="font-semibold">
-            Are you sure to delete this section?
-          </h1>
-          <div className="flex text-xs font-semibold gap-5 mt-3">
-            <button
-              onClick={() => setSectionDeltePopUp(false)}
-              className="bg-amber-400 rounded-md p-1 cursor-pointer"
-            >
-              Cancel
-            </button>
-            <button
-              onClick={deleteSection}
-              className="bg-amber-400 rounded-md p-1 cursor-pointer"
-            >
-              Delete
-            </button>
+        <div className="fixed inset-0 z-40 bg-black/40 flex items-center justify-center px-3">
+          <div className="bg-gray-300 w-full sm:w-[90%] md:w-[70%] lg:w-[30%] rounded-md p-4 shadow-2xl">
+            <h1 className="font-semibold text-sm sm:text-base text-center">
+              Are you sure to delete this section?
+            </h1>
+
+            <div className="flex flex-col sm:flex-row text-sm font-semibold gap-3 mt-5">
+              <button
+                onClick={() => setSectionDeltePopUp(false)}
+                className="bg-amber-400 hover:bg-amber-500 rounded-md p-2 cursor-pointer w-full"
+              >
+                Cancel
+              </button>
+
+              <button
+                onClick={deleteSection}
+                className="bg-red-500 hover:bg-red-600 text-white rounded-md p-2 cursor-pointer w-full"
+              >
+                Delete
+              </button>
+            </div>
           </div>
         </div>
       )}

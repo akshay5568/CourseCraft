@@ -7,47 +7,223 @@ export const Profile = () => {
   const userData = useSelector((state) => state.User);
   const { logoutHandle } = useLogout();
   return (
-    <div>
+     <div className="min-h-screen bg-[#f7f9fa]">
       <Header />
-      <div className="ml-20 mr-20 flex mt-5">
-        <div className="w-60 border border-gray-300 pt-20">
-          <ProfileTag isProfile={true} />
-          <div className="mt-10 text-center ">
-            <button
-              className="font-light cursor-pointer w-full hover:bg-gray-200 p-2"
-              onClick={logoutHandle}
+
+      <div
+        className="
+          max-w-[1400px]
+          mx-auto
+          px-4
+          md:px-8
+          py-8
+        "
+      >
+        <div
+          className="
+            flex
+            flex-col
+            lg:flex-row
+            gap-8
+          "
+        >
+          {/* SIDEBAR */}
+          <div
+            className="
+              lg:w-[300px]
+              bg-white
+              border
+              border-gray-200
+              rounded-xl
+              p-6
+              h-fit
+            "
+          >
+            {/* PROFILE */}
+            <div className="flex flex-col items-center">
+              <ProfileTag isProfile={true} />
+
+              <h2
+                className="
+                  mt-4
+                  text-xl
+                  font-bold
+                  text-[#1c1d1f]
+                "
+              >
+                {userData?.data?.name}
+              </h2>
+
+              <p
+                className="
+                  text-sm
+                  text-[#6a6f73]
+                  mt-1
+                "
+              >
+                {userData?.data?.email}
+              </p>
+            </div>
+
+            {/* MENU */}
+            <div className="mt-8 border-t pt-5">
+              <button
+                onClick={logoutHandle}
+                className="
+                  w-full
+                  text-left
+                  px-4
+                  py-3
+                  rounded-lg
+                  text-red-500
+                  hover:bg-red-50
+                  transition
+                  font-medium
+                "
+              >
+                Logout
+              </button>
+            </div>
+          </div>
+
+          {/* MAIN CONTENT */}
+          <div
+            className="
+              flex-1
+              bg-white
+              border
+              border-gray-200
+              rounded-xl
+              overflow-hidden
+            "
+          >
+            {/* HEADER */}
+            <div
+              className="
+                border-b
+                border-gray-200
+                px-6
+                py-5
+              "
             >
-              Logout
-            </button>
-          </div>
-        </div>
+              <h1
+                className="
+                  text-2xl
+                  font-bold
+                  text-[#1c1d1f]
+                "
+              >
+                Public Profile
+              </h1>
 
-        <div className="w-full border border-gray-300">
-          <div className="text-center border border-gray-300 text-[#2a2b40]">
-            <span className="text-xl font-medium">Public Profile</span>
-            <br />
-            <span className="font-light">Add info about yourself</span>
-          </div>
+              <p
+                className="
+                  text-sm
+                  text-[#6a6f73]
+                  mt-1
+                "
+              >
+                Add information about yourself
+              </p>
+            </div>
 
-          <div className="">
-            <div className="w-150  m-auto">
-              <div className="w-full m-auto">
-                <span className="font-semibold text-sm">Basic</span>
-                <br />
-                <div className="w-full mt-1">
-                  <input
-                    type="text"
-                    className="border border-gray-400 rounded-md w-full p-2 cursor-pointer font-medium m-2 hover:bg-gray-200"
-                    placeholder={userData.data?.name}
-                    disabled
-                  />
-                  <br />
-                  <input
-                    type="text"
-                    className="border border-gray-400 rounded-md w-full p-2 cursor-pointer font-medium m-2 hover:bg-gray-200"
-                    placeholder={userData.data?.email}
-                    disabled
-                  />
+            {/* FORM */}
+            <div className="p-6">
+              <div className="max-w-[700px]">
+                {/* BASIC */}
+                <div>
+                  <h2
+                    className="
+                      text-lg
+                      font-bold
+                      text-[#1c1d1f]
+                      mb-5
+                    "
+                  >
+                    Basic Information
+                  </h2>
+
+                  {/* NAME */}
+                  <div className="mb-5">
+                    <label
+                      className="
+                        block
+                        text-sm
+                        font-medium
+                        mb-2
+                        text-[#1c1d1f]
+                      "
+                    >
+                      Full Name
+                    </label>
+
+                    <input
+                      type="text"
+                      value={userData.data?.name}
+                      disabled
+                      className="
+                        w-full
+                        border
+                        border-gray-300
+                        rounded-lg
+                        px-4
+                        py-3
+                        bg-gray-50
+                        text-[#1c1d1f]
+                        outline-none
+                      "
+                    />
+                  </div>
+
+                  {/* EMAIL */}
+                  <div>
+                    <label
+                      className="
+                        block
+                        text-sm
+                        font-medium
+                        mb-2
+                        text-[#1c1d1f]
+                      "
+                    >
+                      Email Address
+                    </label>
+
+                    <input
+                      type="text"
+                      value={userData.data?.email}
+                      disabled
+                      className="
+                        w-full
+                        border
+                        border-gray-300
+                        rounded-lg
+                        px-4
+                        py-3
+                        bg-gray-50
+                        text-[#1c1d1f]
+                        outline-none
+                      "
+                    />
+                  </div>
+                </div>
+
+                {/* SAVE BUTTON */}
+                <div className="mt-8">
+                  <button
+                    className="
+                      bg-[#a435f0]
+                      hover:bg-[#8710d8]
+                      transition
+                      text-white
+                      px-6
+                      py-3
+                      rounded-lg
+                      font-bold
+                    "
+                  >
+                    Save Changes
+                  </button>
                 </div>
               </div>
             </div>

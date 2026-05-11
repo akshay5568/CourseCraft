@@ -38,24 +38,58 @@ export const VideoDeletePopUp = ({
   useGetCourseData(refresh);
 
   return (
-    <div>
-      {videoDeleteLoading && (
-        <div className="absolute inset-0 bg-white/70 flex items-center justify-center">
-          <Loading />
-        </div>
-      )}
-      <div className="flex gap-3 bg-gray-200 p-3 rounded-md font-extralight text-xs">
-        <button onClick={videoDeleteBTN} className="cursor-pointer">
-          Delete
-        </button>
+    <div className="relative">
+  {videoDeleteLoading && (
+    <div className="fixed inset-0 z-[100] bg-white/70 flex items-center justify-center">
+      <Loading />
+    </div>
+  )}
+
+  <div className="w-full max-w-sm rounded-2xl bg-white border border-gray-200 shadow-2xl overflow-hidden">
+    
+    {/* Header */}
+    <div className="flex items-center justify-between border-b border-gray-200 px-4 py-3">
+      <h2 className="text-sm sm:text-base font-bold text-gray-800">
+        Delete Video
+      </h2>
+
+      <button
+        onClick={() => setDeleteBTNPopUp(!deleteBTNPopUp)}
+        className="h-8 w-8 flex items-center justify-center rounded-full hover:bg-gray-200 transition cursor-pointer"
+      >
+        <RxCross2 className="text-lg text-gray-700" />
+      </button>
+    </div>
+
+    {/* Body */}
+    <div className="px-4 py-5">
+      <p className="text-sm text-gray-600 leading-relaxed">
+        Are you sure you want to permanently delete this video?
+      </p>
+
+      <p className="mt-2 text-xs text-red-500 font-medium">
+        This action cannot be undone.
+      </p>
+
+      {/* Buttons */}
+      <div className="mt-6 flex flex-col sm:flex-row gap-3">
         <button
           onClick={() => setDeleteBTNPopUp(!deleteBTNPopUp)}
-          className="cursor-pointer"
+          className="w-full rounded-xl border border-gray-300 bg-gray-100 py-2.5 text-sm font-semibold text-gray-700 hover:bg-gray-200 transition-all duration-200 cursor-pointer"
         >
-          <RxCross2 />
+          Cancel
+        </button>
+
+        <button
+          onClick={videoDeleteBTN}
+          className="w-full rounded-xl bg-red-500 py-2.5 text-sm font-semibold text-white hover:bg-red-600 transition-all duration-200 cursor-pointer"
+        >
+          Delete Video
         </button>
       </div>
     </div>
+  </div>
+</div>
   );
 };
 export default VideoDeletePopUp;

@@ -20,96 +20,139 @@ export const EditCourseForm = ({
   const [formEmptyError, setFormEmptyError] = useState();
 
   return (
-    <div className="absolute z-40 w-[50%] top-50 left-80 h-fit bg-gray-300 p-5 rounded-md">    
-      {loading && (
-          <div className="absolute inset-0 bg-white/70 flex items-center justify-center">
-              <Loading/>
-          </div>
-      )}
-      <div>
-        <button
-          onClick={() => setisEditTrue(!isEditTrueValue)}
-          className="font-semibold mb-3 cursor-pointer"
-        >
-          ╳
-        </button>
+   <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
+  <div className="relative w-full max-w-2xl rounded-2xl bg-white shadow-2xl overflow-y-auto max-h-[90vh]">
+    
+    {loading && (
+      <div className="absolute inset-0 bg-white/70 flex items-center justify-center z-50">
+        <Loading />
       </div>
-      <div className="">
-        <form onSubmit={(e) => e.preventDefault()}>
-          <label htmlFor="courseName" className="text-sm font-semibold">
-            Enter new course name:
+    )}
+
+    {/* Header */}
+    <div className="flex items-center justify-between border-b border-gray-200 px-5 py-4 sticky top-0 bg-white">
+      <h1 className="text-lg sm:text-2xl font-bold text-gray-800">
+        Edit Course
+      </h1>
+
+      <button
+        onClick={() => setisEditTrue(!isEditTrueValue)}
+        className="h-9 w-9 rounded-full hover:bg-gray-200 text-xl font-bold cursor-pointer transition"
+      >
+        ╳
+      </button>
+    </div>
+
+    {/* Form */}
+    <div className="p-5 sm:p-7">
+      <form onSubmit={(e) => e.preventDefault()} className="space-y-5">
+
+        {/* Course Name */}
+        <div>
+          <label
+            htmlFor="courseName"
+            className="block text-sm font-semibold text-gray-700 mb-2"
+          >
+            Course Name
           </label>
-          <br />
+
           <input
             required
             id="courseName"
             type="text"
             ref={coursName}
-            className="w-full mb-3 border border-black p-2 rounded-md"
+            className="w-full rounded-xl border border-gray-300 p-3 text-sm sm:text-base outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200"
             placeholder="Enter new course name"
           />
-          <label htmlFor="dec" className="text-sm font-semibold">
-            Enter new course Description:
+        </div>
+
+        {/* Description */}
+        <div>
+          <label
+            htmlFor="dec"
+            className="block text-sm font-semibold text-gray-700 mb-2"
+          >
+            Course Description
           </label>
-          <br />
-          <input
+
+          <textarea
             required
             id="dec"
             ref={description}
-            type="text"
-            className="w-full mb-3 border border-black p-2 rounded-md"
-            placeholder="Enter new course Description"
+            rows={4}
+            className="w-full rounded-xl border border-gray-300 p-3 text-sm sm:text-base outline-none resize-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200"
+            placeholder="Enter new course description"
           />
-          <label htmlFor="price" className="text-sm font-semibold">
-            Enter new course Price:
+        </div>
+
+        {/* Price */}
+        <div>
+          <label
+            htmlFor="price"
+            className="block text-sm font-semibold text-gray-700 mb-2"
+          >
+            Course Price
           </label>
-          <br />
+
           <input
             required
             id="price"
             type="number"
             ref={price}
-            className="w-full mb-3 border border-black p-2 rounded-md"
-            placeholder="Enter new course Price"
+            className="w-full rounded-xl border border-gray-300 p-3 text-sm sm:text-base outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200"
+            placeholder="Enter new course price"
           />
-          <label htmlFor="thum" className="text-sm font-semibold">
-            Enter new course thumbnail:
+        </div>
+
+        {/* Thumbnail */}
+        <div>
+          <label
+            htmlFor="thum"
+            className="block text-sm font-semibold text-gray-700 mb-2"
+          >
+            Course Thumbnail
           </label>
-          <br />
+
           <input
             required
             type="file"
             ref={thumbnail}
-            placeholder="Thubmnail"
+            placeholder="Thumbnail"
             name="thumbnail"
-            className="w-full mb-3 border border-black p-2 rounded-md"
+            className="w-full rounded-xl border border-dashed border-gray-400 bg-gray-50 p-3 text-sm cursor-pointer"
           />
-          {formEmptyError && (
-            <span className="text-red-500 test-xs font-bold">
-              {formEmptyError}
-            </span>
-          )}
-          <button
-            onClick={() =>
-              editFormEtnHandller(
-                setFormEmptyError,
-                coursName,
-                price,
-                description,
-                courseId,
-                thumbnail,
-                setLoading,
-                redirect,
-                sellerId
-              )
-            }
-            className="m-auto w-full bg-amber-300 p-2 rounded-md text-sm font-semibold"
-          >
-            Update details
-          </button>
-        </form>
-      </div>
+        </div>
+
+        {/* Error */}
+        {formEmptyError && (
+          <div className="rounded-lg bg-red-100 px-4 py-3 text-sm font-semibold text-red-600">
+            {formEmptyError}
+          </div>
+        )}
+
+        {/* Button */}
+        <button
+          onClick={() =>
+            editFormEtnHandller(
+              setFormEmptyError,
+              coursName,
+              price,
+              description,
+              courseId,
+              thumbnail,
+              setLoading,
+              redirect,
+              sellerId
+            )
+          }
+          className="w-full rounded-xl bg-purple-600 py-3 text-sm sm:text-base font-semibold text-white hover:bg-purple-700 transition-all duration-200 cursor-pointer"
+        >
+          Update Course Details
+        </button>
+      </form>
     </div>
+  </div>
+</div>
   );
 };
 

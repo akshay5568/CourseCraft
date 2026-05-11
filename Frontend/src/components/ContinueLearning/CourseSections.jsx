@@ -17,45 +17,145 @@ export const CourseSections = ({ purechasedcourse }) => {
 
   return (
     <div className="w-full">
-      {purechasedcourse.map((section, index) => {
-        return (
-          <div
-            className="w-full border mt-3 border-gray-300 bg-gray-200"
-            key={index}
-          >
-            <button
-              onClick={() => popHandller(section?._id)}
+      {purechasedcourse.map(
+        (section, index) => {
+          const isOpen =
+            sectionPopUp?.id ===
+              section?._id &&
+            sectionPopUp?.isValid;
+
+          return (
+            <div
               key={index}
-              className="flex w-full text-sm font-semibold p-2 rounded-md  items-center gap-3"
+              className="
+                w-full
+                mb-3
+                border
+                border-gray-200
+                rounded-xl
+                overflow-hidden
+                bg-white
+                shadow-sm
+              "
             >
-              <h1>{index + 1}</h1>
-              <div className="w-full justify-between flex items-center">
-                <h1>{section?.sectionName}</h1>
-                <div className="flex items-center gap-2">
-                  <span className="block text-[#5b5d73] font-extralight text-xs">
-                    {section?.videos?.length} lectures
-                  </span>
-                  {section?._id == sectionPopUp.id ?
-                    (sectionPopUp.isValid ? (
-                      <FaChevronDown className="font-extralight text-xs text-[#5b5d73]" />
-                    ) : (
-                      <FaChevronRight className="font-extralight text-xs text-[#5b5d73]" />
-                    )):  <FaChevronRight className="font-extralight text-xs text-[#5b5d73]" />}
+              {/* SECTION HEADER */}
+              <button
+                onClick={() =>
+                  popHandller(
+                    section?._id
+                  )
+                }
+                className="
+                  w-full
+                  flex
+                  items-center
+                  justify-between
+                  gap-3
+                  px-4
+                  py-4
+                  hover:bg-gray-50
+                  transition
+                  cursor-pointer
+                "
+              >
+                {/* LEFT */}
+                <div
+                  className="
+                    flex
+                    items-center
+                    gap-4
+                    min-w-0
+                  "
+                >
+                  {/* INDEX */}
+                  <div
+                    className="
+                      w-8
+                      h-8
+                      rounded-full
+                      bg-purple-100
+                      text-purple-700
+                      flex
+                      items-center
+                      justify-center
+                      text-sm
+                      font-bold
+                      shrink-0
+                    "
+                  >
+                    {index + 1}
+                  </div>
+
+                  {/* SECTION NAME */}
+                  <div className="text-left">
+                    <h1
+                      className="
+                        text-sm
+                        md:text-base
+                        font-semibold
+                        text-[#1c1d1f]
+                        break-words
+                      "
+                    >
+                      {
+                        section?.sectionName
+                      }
+                    </h1>
+
+                    <span
+                      className="
+                        text-xs
+                        text-[#6a6f73]
+                      "
+                    >
+                      {
+                        section?.videos
+                          ?.length
+                      }{" "}
+                      lectures
+                    </span>
+                  </div>
                 </div>
-              </div>
-            </button>
-            {sectionPopUp?.id == section?._id ? (
-              sectionPopUp.isValid ? (
-                <VideoPopUpSection courseVideos={section?.videos} courseId={section?.courseId} />
-              ) : (
-                ""
-              )
-            ) : (
-              ""
-            )}
-          </div>
-        );
-      })}
+
+                {/* RIGHT */}
+                <div
+                  className="
+                    text-xs
+                    text-[#6a6f73]
+                    shrink-0
+                  "
+                >
+                  {isOpen ? (
+                    <FaChevronDown />
+                  ) : (
+                    <FaChevronRight />
+                  )}
+                </div>
+              </button>
+
+              {/* VIDEO SECTION */}
+              {isOpen && (
+                <div
+                  className="
+                    bg-[#fafafa]
+                    px-2
+                    pb-2
+                  "
+                >
+                  <VideoPopUpSection
+                    courseVideos={
+                      section?.videos
+                    }
+                    courseId={
+                      section?.courseId
+                    }
+                  />
+                </div>
+              )}
+            </div>
+          );
+        }
+      )}
     </div>
   );
 };

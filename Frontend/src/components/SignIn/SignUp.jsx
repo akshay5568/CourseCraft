@@ -17,67 +17,240 @@ export const SignUp = () => {
   const {buttonHandller} = useSignupBtn();
 
   return (
-    <div>
+     <div className="min-h-screen bg-[#f7f9fa]">
       <Header />
-      <div className="w-full flex items-center justify-between">
-        <div className="w-[40%] mt-15 ml-20">
-          <img className="w-full" src={signInLogo} alt="" />
-        </div>
-        <div className="w-[50%] mt-10 ml-20">
-          <h1 className="m-3 text-4xl font-extrabold">
-            Log in to continue your <br />
-            learning journey
-          </h1>
-          <form onSubmit={(e) => e.preventDefault()}>
-            <input
-              ref={name}
-              type="name"
-              className="bg-white p-3 rounded-md w-90 m-3 border border-black hover:bg-gray-100"
-              placeholder="Name"
-            />
-            <input
-              ref={email}
-              type="email"
-              className="bg-white p-3 rounded-md w-90 m-3 border border-black hover:bg-gray-100"
-              placeholder="Email"
-            />
-            <br />
-            <input
-              ref={password}
-              type="password"
-              placeholder="Password"
-              className="bg-white w-90 m-3 p-3 rounded-md border border-black hover:bg-gray-100"
-            />
-            <br />
-            {errorMsg && (
-              <span className="m-3 w-90 font-semibold text-sm text-red-600">
-                {errorMsg}
-              </span>
-            )}
-            <br />
-            <button
-              className=" m-3 bg-purple-300 w-90 p-3 rounded-md cursor-pointer hover:bg-purple-400"
-              onClick={() => buttonHandller(email.current.value,password.current.value,name.current.value,setErrorMsg)}
-            >
-              SignUp
-            </button>
-          </form>
 
-          <div className="m-3 text-center w-90 ">
-            <span className="mb-9 text-sm text-gray-400">
-              ------------OR--------------
-            </span>
-            <GoogleLogin />
+      <div
+        className="
+          max-w-[1400px]
+          mx-auto
+          px-4
+          md:px-8
+          py-10
+        "
+      >
+        <div
+          className="
+            flex
+            flex-col
+            lg:flex-row
+            items-center
+            justify-between
+            gap-12
+          "
+        >
+          {/* LEFT IMAGE */}
+          <div
+            className="
+              w-full
+              lg:w-1/2
+              flex
+              justify-center
+            "
+          >
+            <img
+              src={signInLogo}
+              alt="Sign Up"
+              className="
+                w-full
+                max-w-[550px]
+                object-contain
+              "
+            />
           </div>
 
-          <div className="m-3 text-1xl bg-[#e5e6ea] w-90 p-3 text-center font-semibold mt-10 rounded">
+          {/* RIGHT FORM */}
+          <div
+            className="
+              w-full
+              lg:w-[450px]
+              bg-white
+              border
+              border-gray-200
+              rounded-2xl
+              p-6
+              sm:p-8
+              shadow-sm
+            "
+          >
+            {/* HEADER */}
             <div>
-              <span>
-                Do you have an account?
-                <Link to={"/signin"}>
-                  <span className="text-blue-700 underline ml-1">Sign In</span>
-                </Link>
+              <h1
+                className="
+                  text-3xl
+                  sm:text-4xl
+                  font-bold
+                  text-[#1c1d1f]
+                  leading-tight
+                "
+              >
+                Create your account
+              </h1>
+
+              <p
+                className="
+                  mt-3
+                  text-sm
+                  text-[#6a6f73]
+                "
+              >
+                Start your learning journey today.
+              </p>
+            </div>
+
+            {/* FORM */}
+            <form
+              onSubmit={(e) => e.preventDefault()}
+              className="mt-8"
+            >
+              {/* NAME */}
+              <div className="mb-4">
+                <input
+                  ref={name}
+                  type="text"
+                  placeholder="Full Name"
+                  className="
+                    w-full
+                    border
+                    border-gray-300
+                    rounded-lg
+                    px-4
+                    py-3
+                    outline-none
+                    focus:border-black
+                    transition
+                  "
+                />
+              </div>
+
+              {/* EMAIL */}
+              <div className="mb-4">
+                <input
+                  ref={email}
+                  type="email"
+                  placeholder="Email Address"
+                  className="
+                    w-full
+                    border
+                    border-gray-300
+                    rounded-lg
+                    px-4
+                    py-3
+                    outline-none
+                    focus:border-black
+                    transition
+                  "
+                />
+              </div>
+
+              {/* PASSWORD */}
+              <div className="mb-4">
+                <input
+                  ref={password}
+                  type="password"
+                  placeholder="Password"
+                  className="
+                    w-full
+                    border
+                    border-gray-300
+                    rounded-lg
+                    px-4
+                    py-3
+                    outline-none
+                    focus:border-black
+                    transition
+                  "
+                />
+              </div>
+
+              {/* ERROR */}
+              {errorMsg && (
+                <p
+                  className="
+                    text-sm
+                    text-red-500
+                    mb-4
+                    font-medium
+                  "
+                >
+                  {errorMsg}
+                </p>
+              )}
+
+              {/* BUTTON */}
+              <button
+                onClick={() =>
+                  buttonHandller(
+                    email.current.value,
+                    password.current.value,
+                    name.current.value,
+                    setErrorMsg
+                  )
+                }
+                className="
+                  w-full
+                  bg-[#a435f0]
+                  hover:bg-[#8710d8]
+                  transition
+                  text-white
+                  font-bold
+                  py-3
+                  rounded-lg
+                  cursor-pointer
+                "
+              >
+                Sign Up
+              </button>
+            </form>
+
+            {/* DIVIDER */}
+            <div
+              className="
+                flex
+                items-center
+                gap-3
+                my-6
+              "
+            >
+              <div className="flex-1 h-px bg-gray-200"></div>
+
+              <span
+                className="
+                  text-sm
+                  text-gray-400
+                "
+              >
+                OR
               </span>
+
+              <div className="flex-1 h-px bg-gray-200"></div>
+            </div>
+
+            {/* GOOGLE LOGIN */}
+            <GoogleLogin />
+
+            {/* SIGN IN */}
+            <div
+              className="
+                mt-8
+                text-center
+                text-sm
+                text-[#6a6f73]
+              "
+            >
+              Already have an account?
+
+              <Link
+                to={"/signin"}
+                className="
+                  ml-1
+                  text-purple-700
+                  font-semibold
+                  hover:underline
+                "
+              >
+                Sign In
+              </Link>
             </div>
           </div>
         </div>
