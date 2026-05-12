@@ -1,5 +1,6 @@
 import axios from "axios";
 import { courseDataChecker } from "../../../Backend/utils/EmptyCourseDataChecker";
+import SignIn from "../components/SignIn/SignIn";
 
 export const signInLogo =
   "https://frontends.udemycdn.com/components/auth/desktop-illustration-step-2-x2.webp";
@@ -19,7 +20,8 @@ export const passwordEmailChecker = (email, password) => {
   return null;
 };
 
-export const mainURL = "http://localhost:8080";
+export const mainURL = "https://coursecraft-n206.onrender.com"
+// "http://localhost:8080";
 
 export const EmptyCartImage =
   "https://s.udemycdn.com/browse_components/flyout/empty-shopping-cart-v2-2x.jpg";
@@ -152,8 +154,8 @@ export const DeleteCourseBTN = async (
 };
 
 export const payNow = async (price, id, userID) => {
+  
   const token = localStorage.getItem("jwtToken");
-  console.log(price);
   console.log("Razorpay Key:", "rzp_test_S4aQWrN38Sw5ti");
 
   const res = await axios.get(

@@ -11,6 +11,7 @@ import useUserCarts from "../../Hooks/useUserCarts";
 import useGetAllCourses from "../../Hooks/useGetAllCourses";
 
 export const Cart = () => {
+  
   const userCartData = useSelector((state) => state?.Carts?.carts);
   const [refresh, setRefresh] = useState(0);
   useUserCarts(refresh);

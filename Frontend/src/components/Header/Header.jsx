@@ -9,10 +9,7 @@ import { MdOutlineSchool } from "react-icons/md";
 import { MdPlayCircleFilled } from "react-icons/md";
 import { FaHome } from "react-icons/fa";
 
-
-
 import { FaChalkboardTeacher } from "react-icons/fa";
-
 
 const Header = () => {
   useRefreshSellerHandle();
@@ -84,10 +81,10 @@ const Header = () => {
         {userData.data?.email ? (
           <div className="flex items-center gap-2 sm:gap-4">
             {/* Continue Learning */}
-           <Link to={"/learning"}>
-  {/* DESKTOP */}
-  <div
-    className="
+            <Link to={"/learning"}>
+              {/* DESKTOP */}
+              <div
+                className="
       hidden
       md:flex
       items-center
@@ -99,21 +96,18 @@ const Header = () => {
       py-2
       rounded-lg
     "
-  >
-    <MdPlayCircleFilled className="text-lg" />
+              >
+                <MdPlayCircleFilled className="text-lg" />
 
-    <span className="text-sm font-medium">
-      Continue Learning
-    </span>
-  </div>
+                <span className="text-sm font-medium">Continue Learning</span>
+              </div>
+            </Link>
 
-</Link>
-
-{/* Instructor */}
-{sellerData?._id ? (
-  <Link
-    to={`/seller-home-page/${sellerData?._id}`}
-    className="
+            {/* Instructor */}
+            {sellerData?._id ? (
+              <Link
+                to={`/seller-home-page/${sellerData?._id}`}
+                className="
       flex
       items-center
       justify-center
@@ -125,18 +119,16 @@ const Header = () => {
       text-[#1c1d1f]
       hover:text-purple-700
     "
-  >
-  
-
-    {/* DESKTOP */}
-    <span className="hidden md:block text-sm">
-      Instructor Dashboard
-    </span>
-  </Link>
-) : (
-  <Link
-    to={"/become-instructor"}
-    className="
+              >
+                {/* DESKTOP */}
+                <span className="hidden md:block text-sm">
+                  Instructor Dashboard
+                </span>
+              </Link>
+            ) : (
+              <Link
+                to={"/become-instructor"}
+                className="
       flex
       items-center
       justify-center
@@ -148,16 +140,16 @@ const Header = () => {
       text-[#1c1d1f]
       hover:text-purple-700
     "
-  >
-    {/* MOBILE */}
-    <MdOutlineSchool className="text-[22px] md:hidden" />
+              >
+                {/* MOBILE */}
+                <MdOutlineSchool className="text-[22px] md:hidden" />
 
-    {/* DESKTOP */}
-    <span className="hidden md:block text-sm">
-      Teach on CourseCraft
-    </span>
-  </Link>
-)}
+                {/* DESKTOP */}
+                <span className="hidden md:block text-sm">
+                  Teach on CourseCraft
+                </span>
+              </Link>
+            )}
 
             {/* Cart */}
             <Link
@@ -255,8 +247,8 @@ const Header = () => {
 
       {/* MOBILE BOTTOM NAVBAR */}
 
-<div
-  className="
+      <div
+        className="
     fixed
     bottom-0
     left-0
@@ -271,11 +263,11 @@ const Header = () => {
     z-50
     md:hidden
   "
->
-  {/* HOME */}
-  <Link to={"/"}>
-    <div
-      className="
+      >
+        {/* HOME */}
+        <Link to={"/"}>
+          <div
+            className="
         flex
         flex-col
         items-center
@@ -283,17 +275,18 @@ const Header = () => {
         text-gray-600
         hover:text-purple-700
       "
-    >
-      <FaHome className="text-lg" />
+          >
+            <FaHome className="text-lg" />
 
-      <span>Home</span>
-    </div>
-  </Link>
+            <span>Home</span>
+          </div>
+        </Link>
 
-  {/* LEARNING */}
-  <Link to={"/learning"}>
-    <div
-      className="
+        {/* LEARNING */}
+        {userData.data.name != "JsonWebTokenError" && (
+          <Link to={"/learning"}>
+            <div
+              className="
         flex
         flex-col
         items-center
@@ -301,23 +294,25 @@ const Header = () => {
         text-gray-600
         hover:text-purple-700
       "
-    >
-      <MdPlayCircleFilled className="text-lg" />
+            >
+              <MdPlayCircleFilled className="text-lg" />
 
-      <span>Learning</span>
-    </div>
-  </Link>
+              <span>Learning</span>
+            </div>
+          </Link>
+        )}
 
-  {/* INSTRUCTOR */}
-  <Link
-    to={
-      sellerData?._id
-        ? `/seller-home-page/${sellerData?._id}`
-        : "/become-instructor"
-    }
-  >
-    <div
-      className="
+        {/* INSTRUCTOR */}
+        {userData.data.name != "JsonWebTokenError" && (
+        <Link
+          to={
+            sellerData?._id
+              ? `/seller-home-page/${sellerData?._id}`
+              : "/become-instructor"
+          }
+        >
+          <div
+            className="
         flex
         flex-col
         items-center
@@ -325,17 +320,18 @@ const Header = () => {
         text-gray-600
         hover:text-purple-700
       "
-    >
-      <FaChalkboardTeacher className="text-lg" />
+          >
+            <FaChalkboardTeacher className="text-lg" />
 
-      <span>Teach</span>
-    </div>
-  </Link>
+            <span>Teach</span>
+          </div>
+        </Link>
+          )}
 
-  {/* CART */}
-  <Link to={"/cart"}>
-    <div
-      className="
+        {/* CART */}
+        <Link to={"/cart"}>
+          <div
+            className="
         relative
         flex
         flex-col
@@ -344,12 +340,12 @@ const Header = () => {
         text-gray-600
         hover:text-purple-700
       "
-    >
-      <div className="relative">
-        <FaOpencart className="text-lg" />
+          >
+            <div className="relative">
+              <FaOpencart className="text-lg" />
 
-        <span
-          className="
+              <span
+                className="
             absolute
             -top-2
             -right-3
@@ -359,19 +355,20 @@ const Header = () => {
             rounded-full
             px-1
           "
-        >
-          {cartLength || 0}
-        </span>
-      </div>
+              >
+                {cartLength || 0}
+              </span>
+            </div>
 
-      <span>Cart</span>
-    </div>
-  </Link>
+            <span>Cart</span>
+          </div>
+        </Link>
 
-  {/* PROFILE */}
-  <Link to={"/profile"}>
-    <div
-      className="
+        {/* PROFILE */}
+        {userData.data.name != "JsonWebTokenError" ? (
+          <Link to={"/profile"}>
+            <div
+              className="
         flex
         flex-col
         items-center
@@ -379,13 +376,14 @@ const Header = () => {
         text-gray-600
         hover:text-purple-700
       "
-    >
-      <CgProfile className="text-lg" />
+            >
+              <CgProfile className="text-lg" />
 
-      <span>Profile</span>
-    </div>
-  </Link>
-</div>
+              <span>Profile</span>
+            </div>
+          </Link>
+        ) : <Link className="font-extralight" to={"/signin"}>Sign in</Link>}
+      </div>
     </header>
   );
 };

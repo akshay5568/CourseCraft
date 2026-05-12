@@ -1,11 +1,16 @@
 import axios from 'axios';
-import React from 'react'
+import React, { use, useEffect } from 'react'
 import { mainURL } from '../../Constants/Constant';
 import { useState } from 'react';
 import useUserCarts from '../../Hooks/useUserCarts';
+import { useNavigate } from 'react-router';
+import { useSelector } from 'react-redux';
 
 export const CartBtn = ({courseId,userId}) => {
-      
+    const user = useSelector((state) => state.User);
+    const redirect = useNavigate();
+   
+    if(user.data.name == "JsonWebTokenError") redirect('/signin');
     const [refresh,setRefresh] = useState(0);
 
    const cartAddBtn = async () => {

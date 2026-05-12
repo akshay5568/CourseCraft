@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router";
+import { Link, redirect, useNavigate, useParams } from "react-router";
 import Header from "../Header/Header";
 import { useSelector } from "react-redux";
 import { FaUsers } from "react-icons/fa";
@@ -9,23 +9,28 @@ import { FaLockOpen } from "react-icons/fa";
 import VideoPlayerPage from "../ContinueLearning/VideoPlayerPage.jsx";
 import { FaCalendarAlt } from "react-icons/fa";
 import { PiStudentBold } from "react-icons/pi";
+import SignIn from "../SignIn/SignIn.jsx";
 
 export const FullCoursePage = () => {
   const { id } = useParams();
+  const redirect = useNavigate();
   const courses = useSelector((state) => state?.CourseDetails?.allCourses);
   const userData = useSelector((state) => state?.User?.data);
   const filterCourses = courses.find((course) => course._id === id);
+
+  const payRazorpay = (filterCourses, id, userData) => {
+    if(userData == undefined) return redirect('/signin')
+    payNow(filterCourses,id,userData);
+  };
 
   const purechasedcourse = filterCourses?.enrolledStudents.filter(
     (course) => course == userData._id
   );
 
   return (
-     <div>
+    <div>
       {purechasedcourse?.length > 0 ? (
-        <VideoPlayerPage
-          courseID={filterCourses._id}
-        />
+        <VideoPlayerPage courseID={filterCourses._id} />
       ) : (
         <>
           <Header />
@@ -90,12 +95,7 @@ export const FullCoursePage = () => {
                     <PiStudentBold className="text-lg" />
 
                     <span>
-                      {
-                        filterCourses
-                          ?.enrolledStudents
-                          ?.length
-                      }{" "}
-                      students
+                      {filterCourses?.enrolledStudents?.length} students
                     </span>
                   </div>
 
@@ -114,10 +114,7 @@ export const FullCoursePage = () => {
                           underline
                         "
                       >
-                        {
-                          filterCourses?.createdBy
-                            ?.name
-                        }
+                        {filterCourses?.createdBy?.name}
                       </span>
                     </h1>
 
@@ -132,9 +129,7 @@ export const FullCoursePage = () => {
                       "
                     >
                       <FaCalendarAlt />
-
-                      Last updated{" "}
-                      {filterCourses?.updatedAt}
+                      Last updated {filterCourses?.updatedAt}
                     </h1>
                   </div>
 
@@ -156,11 +151,7 @@ export const FullCoursePage = () => {
 
                     <div>
                       <h5 className="font-bold">
-                        {
-                          filterCourses
-                            ?.enrolledStudents
-                            ?.length
-                        }
+                        {filterCourses?.enrolledStudents?.length}
                       </h5>
 
                       <p
@@ -224,18 +215,16 @@ export const FullCoursePage = () => {
                       {/* BUTTONS */}
                       <div className="mt-6">
                         <CartBtn
-                          courseId={
-                            filterCourses?._id
-                          }
+                          courseId={filterCourses?._id}
                           userId={userData?._id}
                         />
 
                         <button
                           onClick={() =>
-                            payNow(
+                            payRazorpay(
                               filterCourses?.price,
                               id,
-                              userData?._id
+                              userData?._id,
                             )
                           }
                           className="
@@ -251,8 +240,7 @@ export const FullCoursePage = () => {
                             cursor-pointer
                           "
                         >
-                          Buy now ₹
-                          {filterCourses?.price}
+                          Buy now ₹{filterCourses?.price}
                         </button>
                       </div>
 
@@ -304,11 +292,7 @@ export const FullCoursePage = () => {
                     text-[#6a6f73]
                   "
                 >
-                  {
-                    filterCourses?.sectionIds
-                      ?.length
-                  }{" "}
-                  sections
+                  {filterCourses?.sectionIds?.length} sections
                 </p>
               </div>
 
@@ -322,11 +306,10 @@ export const FullCoursePage = () => {
                   overflow-hidden
                 "
               >
-                {filterCourses?.sectionIds.map(
-                  (section, index) => (
-                    <div
-                      key={index}
-                      className="
+                {filterCourses?.sectionIds.map((section, index) => (
+                  <div
+                    key={index}
+                    className="
                         flex
                         items-center
                         justify-between
@@ -338,31 +321,29 @@ export const FullCoursePage = () => {
                         hover:bg-gray-100
                         transition
                       "
-                    >
-                      {/* SECTION NAME */}
-                      <h1
-                        className="
+                  >
+                    {/* SECTION NAME */}
+                    <h1
+                      className="
                           text-sm
                           md:text-base
                           font-medium
                           text-[#1c1d1f]
                         "
-                      >
-                        {section.sectionName}
-                      </h1>
+                    >
+                      {section.sectionName}
+                    </h1>
 
-                      {/* LOCK */}
-                      <div className="text-sm">
-                        {purechasedcourse?.length >
-                        0 ? (
-                          <FaLockOpen />
-                        ) : (
-                          <FaLock />
-                        )}
-                      </div>
+                    {/* LOCK */}
+                    <div className="text-sm">
+                      {purechasedcourse?.length > 0 ? (
+                        <FaLockOpen />
+                      ) : (
+                        <FaLock />
+                      )}
                     </div>
-                  )
-                )}
+                  </div>
+                ))}
               </div>
             </div>
           </div>
