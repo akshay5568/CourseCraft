@@ -17,7 +17,7 @@ export const VideoPopUpSection = ({ courseVideos, courseId }) => {
   useGetPurchasedUserCourses(refResh);
 
   const courseDetails = useSelector((state) => state?.User?.courses).filter(
-    (course) => course.courseID._id == courseId
+    (course) => course?.courseID?._id == courseId
   );
 
   useEffect(() => {

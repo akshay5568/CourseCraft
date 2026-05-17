@@ -4,8 +4,10 @@ import AllCourses from "./AllCourses";
 import PosterAnimated from "./PosterAnimated";   
 import ProfileTag from "./ProfileTag";
 import Recommended from "./Recommended";
+import useGetAllCourses from "../../Hooks/useGetAllCourses";
 
 const HomePage = () => {
+  useGetAllCourses();
   const user = useSelector((state) => state.User);
 
   return (

@@ -10,6 +10,7 @@ import VideoPlayerPage from "../ContinueLearning/VideoPlayerPage.jsx";
 import { FaCalendarAlt } from "react-icons/fa";
 import { PiStudentBold } from "react-icons/pi";
 import Loading from "../ShimmerUI/Loading.jsx";
+import useGetPurchasedUserCourses from "../../Hooks/useGetPurchasedUserCourses.js";       
 
 export const FullCoursePage = () => {
   const { id } = useParams();
