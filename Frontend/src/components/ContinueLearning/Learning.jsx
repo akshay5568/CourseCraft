@@ -7,40 +7,50 @@ import useGetPurchasedUserCourses from "../../Hooks/useGetPurchasedUserCourses";
 import { addVideo } from "../../Slice/VideoPlayerVideo";
 import useVideoDeleteForVideoPlayer from "../../Hooks/useVideoDeleteForVideoPlayer";
 import TrackCourseLearning from "./TrackCourseLearning";
+import Loading from "../ShimmerUI/Loading";
 
 export const Learning = () => {
   const usersCourses = useSelector((state) => state?.User.courses || []);
+  const courseDetails = useSelector((state) => state?.User?.courses);
+
   useGetPurchasedUserCourses();
   const { deleteVideoForVideoPlayer } = useVideoDeleteForVideoPlayer();
+  if(courseDetails?.length == 0) return <Loading/>
+  
+  // const [totalCourseVideos, setTotalCourseVideos] = useState([]);
+  // const [totalVideoWatchedByUser, set] = useState([]);
 
-  console.log(usersCourses);
-  if (!usersCourses) {
-    return (
-      <div>
-        <Header />
-        Loading....
-      </div>
+  // useEffect(() => {
+  //   for (let i = 0; i < courseDetails.length; i++) {
+  //     let totalVideo = 0;
+  //     for (let j = 0; j < courseDetails[i]?.courseID?.sectionIds?.length; j++) {
+  //       totalVideo += courseDetails[i]?.courseID?.sectionIds[j]?.videos.length;
+  //     }
+  //     setTotalCourseVideos((prev) => [...prev, totalVideo]);
+  //   }
+
+  //   for (let i = 0; i < courseDetails.length; i++) {
+  //     let totalWatchedVideos = 0;
+  //     totalWatchedVideos += courseDetails[i].watchedVideosId.length;
+  //     set((prev) => [...prev, totalWatchedVideos]);
+  //   }
+  // }, [courseDetails]);
+
+  const courseProgress = courseDetails.map((course) => {
+  const totalVideos =
+    course?.courseID?.sectionIds?.reduce(
+      (acc, section) => acc + section.videos.length,
+      0
     );
-  }
 
-  const courseDetails = useSelector((state) => state?.User?.courses);
-  const [totalCourseVideos, setTotalCourseVideos] = useState([]);
-  const [totalVideoWatchedByUser, set] = useState([]);
-  useEffect(() => {
-    for (let i = 0; i < courseDetails.length; i++) {
-      let totalVideo = 0;
-      for (let j = 0; j < courseDetails[i]?.courseID?.sectionIds?.length; j++) {
-        totalVideo += courseDetails[i]?.courseID?.sectionIds[j]?.videos.length;
-      }
-      setTotalCourseVideos((prev) => [...prev, totalVideo]);
-    }
+  const watchedVideos =
+    course?.watchedVideosId?.length || 0;
 
-    for (let i = 0; i < courseDetails.length; i++) {
-      let totalWatchedVideos = 0;
-      totalWatchedVideos += courseDetails[i].watchedVideosId.length;
-      set((prev) => [...prev, totalWatchedVideos]);
-    }
-  }, [courseDetails]);
+  return {
+    totalVideos,
+    watchedVideos,
+  };
+});
 
   return (
      <div
@@ -210,14 +220,14 @@ export const Learning = () => {
                     <div className="mt-5">
                       <TrackCourseLearning
                         totalCourseVideos={
-                          totalCourseVideos[
+                          courseProgress[
                             index
-                          ]
+                          ]?.totalVideos
                         }
                         totalVideoWatchedByUser={
-                          totalVideoWatchedByUser[
+                          courseProgress[
                             index
-                          ]
+                          ]?.watchedVideos
                         }
                       />
                     </div>

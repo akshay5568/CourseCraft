@@ -27,7 +27,6 @@ export const VideoDeletePopUp = ({
           videoLink: videoLink,
         },
       });
-      console.log(res.data);
       setRefresh(refresh + 1);
     } catch (error) {
       console.log(error);

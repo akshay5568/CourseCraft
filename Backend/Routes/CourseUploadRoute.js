@@ -115,7 +115,6 @@ router.patch(
 router.post("/section", refreshJWTChecker, async (req, res) => {
   try {
     const { sectionData } = req.body;
-    console.log(sectionData);
     if(sectionData.name == "" && sectionData.desc == "") {
         return res.send("Please fill the all section fill and blank..").status(501);
     }

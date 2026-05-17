@@ -4,7 +4,6 @@ import { CiMenuKebab } from "react-icons/ci";
 import VideoDeletePopUp from "./VideoDeletePopUp";
 
 export const VideoView = ({ courseVideos,sectionID }) => {
-  console.log(courseVideos)
   const [deleteBTNPopUp, setDeleteBTNPopUp] = useState(false);
   return (
     <div className="w-full">

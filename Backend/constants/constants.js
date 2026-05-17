@@ -12,7 +12,6 @@ export const deleteVideoByUrlForCloudnary = async (videoUrl) => {
   //   };
 
   //   const publicId = extractPublicId(videoUrl);
-  console.log(videoUrl);
   const urlObj = new URL(videoUrl);
   let path = urlObj.pathname.split("/upload/")[1];
   // remove version if present
@@ -28,7 +27,6 @@ export const DeleteAllCourseVideosUsingDeleteCourseButton = async (
   const result = [];
   for (let i = 0; i < sectionData.length; i++) {
     const section = await coursesection.findById(sectionData[i]._id);
-    console.log(section);
     for (let j = 0; j < sectionData[i].videos.length; j++) {
       if (sectionData[i].videos[j].public_id) {
         const resultStatus = await cloudinary.uploader

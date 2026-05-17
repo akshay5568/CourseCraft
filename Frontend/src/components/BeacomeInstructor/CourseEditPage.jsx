@@ -18,9 +18,11 @@ import Loading from "../ShimmerUI/Loading";
 export const CourseEditPage = () => {
   const [refresh, setRefresh] = useState(0);
   useGetCourseData(refresh);
-  const CourseDetails = useSelector((state) => state.CourseDetails.details);
+
+  const CourseDetails = useSelector((state) => state.CourseDetails);
   const CourseVideos = useSelector((state) => state.CourseVideo.videos);
   const id = useParams();
+
 
   const [sectionDiv, setSectionDiv] = useState({
     sectionId: "l",
@@ -28,12 +30,12 @@ export const CourseEditPage = () => {
   });
 
   const sectionDropDown = (id, sectionID) => {
-    setSectionDiv({ sectionId: sectionID, isTrue: !sectionDiv.isTrue });
+    setSectionDiv({ sectionId: sectionID, isTrue: !sectionDiv.isTrue });    
   };
 
   const [courseSectionForm, setCourseSectionForm] = useState(false);
   const [isEditTrue, setIsEditTrue] = useState(false);
-
+  if(CourseDetails.loading) return <Loading/>
   return (
     <div className="min-h-screen bg-[#f7f9fa]">
       <SellerHeader />
@@ -86,12 +88,11 @@ export const CourseEditPage = () => {
           </h1>
 
           <div className="space-y-4">
-            {CourseDetails?.sectionIds?.map(
-              (section, index) => {
-                return (
-                  <div
-                    key={section._id}
-                    className="
+            {CourseDetails?.details?.sectionIds?.map((section, index) => {
+              return (
+                <div
+                  key={section._id}
+                  className="
                       border
                       border-gray-200
 
@@ -101,15 +102,10 @@ export const CourseEditPage = () => {
 
                       bg-[#f9fafb]
                     "
-                  >
-                    <button
-                      onClick={() =>
-                        sectionDropDown(
-                          section._id,
-                          section._id
-                        )
-                      }
-                      className="
+                >
+                  <button
+                    onClick={() => sectionDropDown(section._id, section._id)}
+                    className="
                         w-full
 
                         flex
@@ -122,18 +118,18 @@ export const CourseEditPage = () => {
 
                         cursor-pointer
                       "
-                    >
-                      <div
-                        className="
+                  >
+                    <div
+                      className="
                           flex
                           items-center
                           gap-3
 
                           text-left
                         "
-                      >
-                        <span
-                          className="
+                    >
+                      <span
+                        className="
                             text-xs
                             font-semibold
 
@@ -149,13 +145,13 @@ export const CourseEditPage = () => {
                             items-center
                             justify-center
                           "
-                        >
-                          {index + 1}
-                        </span>
+                      >
+                        {index + 1}
+                      </span>
 
-                        <div>
-                          <h1
-                            className="
+                      <div>
+                        <h1
+                          className="
                               text-sm
                               md:text-base
 
@@ -163,49 +159,40 @@ export const CourseEditPage = () => {
 
                               text-[#1c1d1f]
                             "
-                          >
-                            {
-                              section.sectionName
-                            }
-                          </h1>
+                        >
+                          {section.sectionName}
+                        </h1>
 
-                          <p
-                            className="
+                        <p
+                          className="
                               text-xs
 
                               text-gray-500
 
                               mt-1
                             "
-                          >
-                            {
-                              section.videos
-                                .length
-                            }{" "}
-                            lectures
-                          </p>
-                        </div>
+                        >
+                          {section.videos.length} lectures
+                        </p>
                       </div>
+                    </div>
 
-                      <div>
-                        {sectionDiv.sectionId ==
-                        section._id ? (
-                          sectionDiv.isTrue ? (
-                            <IoMdArrowDropdown className="text-xl text-gray-600" />
-                          ) : (
-                            <IoMdArrowDropright className="text-xl text-gray-600" />
-                          )
+                    <div>
+                      {sectionDiv.sectionId == section._id ? (
+                        sectionDiv.isTrue ? (
+                          <IoMdArrowDropdown className="text-xl text-gray-600" />
                         ) : (
                           <IoMdArrowDropright className="text-xl text-gray-600" />
-                        )}
-                      </div>
-                    </button>
+                        )
+                      ) : (
+                        <IoMdArrowDropright className="text-xl text-gray-600" />
+                      )}
+                    </div>
+                  </button>
 
-                    {section._id ==
-                      sectionDiv.sectionId &&
-                      sectionDiv.isTrue && (
-                        <div
-                          className="
+                  {section._id == sectionDiv.sectionId && sectionDiv.isTrue && (
+                    <div
+                      className="
                             border-t
                             border-gray-200
 
@@ -213,9 +200,9 @@ export const CourseEditPage = () => {
 
                             p-4
                           "
-                        >
-                          <div
-                            className="
+                    >
+                      <div
+                        className="
                               flex
                               flex-col
                               md:flex-row
@@ -225,9 +212,9 @@ export const CourseEditPage = () => {
 
                               gap-3
                             "
-                          >
-                            <h1
-                              className="
+                      >
+                        <h1
+                          className="
                                 text-lg
                                 md:text-xl
 
@@ -235,41 +222,27 @@ export const CourseEditPage = () => {
 
                                 text-[#1c1d1f]
                               "
-                            >
-                              {
-                                section.sectionDesc
-                              }
-                            </h1>
+                        >
+                          {section.sectionDesc}
+                        </h1>
 
-                            <DeleteSection
-                              sectionID={
-                                section._id
-                              }
-                              courseID={
-                                CourseDetails._id
-                              }
-                              setRefresh={
-                                setRefresh
-                              }
-                              refresh={
-                                refresh
-                              }
-                            />
-                          </div>
+                        <DeleteSection
+                          sectionID={section._id}
+                          courseID={CourseDetails?.details?._id}
+                          setRefresh={setRefresh}
+                          refresh={refresh}
+                        />
+                      </div>
 
-                          <div className="mt-5">
-                            <VideoView
-                              courseVideos={
-                                section.videos
-                              }
-                              sectionID={
-                                section._id
-                              }
-                            />
-                          </div>
+                      <div className="mt-5">
+                        <VideoView
+                          courseVideos={section.videos}
+                          sectionID={section._id}
+                        />
+                      </div>
 
-                          <div
-                            className="
+                      <div
+                        className="
                               mt-5
 
                               border
@@ -280,22 +253,17 @@ export const CourseEditPage = () => {
 
                               p-3
                             "
-                          >
-                            <VideoUploadBTN
-                              id={
-                                CourseDetails._id
-                              }
-                              sectionID={
-                                section._id
-                              }
-                            />
-                          </div>
-                        </div>
-                      )}
-                  </div>
-                );
-              }
-            )}
+                      >
+                        <VideoUploadBTN
+                          id={CourseDetails?.details._id}
+                          sectionID={section._id}
+                        />
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
 
           {/* CREATE SECTION */}
@@ -327,8 +295,7 @@ export const CourseEditPage = () => {
                   text-[#1c1d1f]
                 "
               >
-                Create section for
-                your course
+                Create section for your course
               </h1>
 
               <button
@@ -351,11 +318,7 @@ export const CourseEditPage = () => {
 
                   transition-all
                 "
-                onClick={() =>
-                  setCourseSectionForm(
-                    !courseSectionForm
-                  )
-                }
+                onClick={() => setCourseSectionForm(!courseSectionForm)}
               >
                 Create Section
               </button>
@@ -364,16 +327,10 @@ export const CourseEditPage = () => {
             {courseSectionForm && (
               <div className="mt-5">
                 <CourseSectionForm
-                  setCourseSectionForm={
-                    setCourseSectionForm
-                  }
-                  courseSectionForm={
-                    courseSectionForm
-                  }
+                  setCourseSectionForm={setCourseSectionForm}
+                  courseSectionForm={courseSectionForm}
                   courseID={id}
-                  setRefresh={
-                    setRefresh
-                  }
+                  setRefresh={setRefresh}
                   refresh={refresh}
                 />
               </div>
@@ -424,9 +381,7 @@ export const CourseEditPage = () => {
               Course Information
             </h1>
 
-            <DeleteCourse
-              courseId={id}
-            />
+            <DeleteCourse courseId={id} />
           </div>
 
           <div
@@ -471,9 +426,7 @@ export const CourseEditPage = () => {
                 "
                 type="text"
                 id="courseName"
-                value={
-                  CourseDetails?.courseName
-                }
+                value={CourseDetails?.details?.courseName}
                 disabled
               />
             </div>
@@ -492,9 +445,7 @@ export const CourseEditPage = () => {
               </label>
 
               <textarea
-                value={
-                  CourseDetails?.description
-                }
+                value={CourseDetails?.details?.description}
                 disabled
                 className="
                   w-full
@@ -554,18 +505,14 @@ export const CourseEditPage = () => {
                   cursor-not-allowed
                 "
                 type="text"
-                value={`₹${CourseDetails?.price}`}
+                value={`₹${CourseDetails?.details?.price}`}
                 disabled
               />
             </div>
 
             {/* EDIT BUTTON */}
             <button
-              onClick={() =>
-                setIsEditTrue(
-                  !isEditTrue
-                )
-              }
+              onClick={() => setIsEditTrue(!isEditTrue)}
               className="
                 mt-3
 
@@ -592,9 +539,7 @@ export const CourseEditPage = () => {
           {/* STUDENTS */}
           <div className="mt-10">
             <EnrolledStudents
-              EnrolledStudents={
-                CourseDetails?.enrolledStudents
-              }
+              EnrolledStudents={CourseDetails?.details?.enrolledStudents}
             />
           </div>
         </div>
@@ -603,12 +548,8 @@ export const CourseEditPage = () => {
       {/* EDIT FORM */}
       {isEditTrue && (
         <EditCourseForm
-          setisEditTrue={
-            setIsEditTrue
-          }
-          isEditTrueValue={
-            isEditTrue
-          }
+          setisEditTrue={setIsEditTrue}
+          isEditTrueValue={isEditTrue}
           courseId={id}
         />
       )}

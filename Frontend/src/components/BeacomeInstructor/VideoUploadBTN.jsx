@@ -12,7 +12,6 @@ export const VideoUploadBTN = ({ id, sectionID }) => {
   const [uplodingBar, setUplodingBar] = useState(false);
   const [videoDescription, setVideoDescription] = useState("");
   const [refresh, setRefresh] = useState(0);
-  console.log(videoDescription);
   const uploadVideoBTN = async () => {
     try {
       setUplodingBar(true);

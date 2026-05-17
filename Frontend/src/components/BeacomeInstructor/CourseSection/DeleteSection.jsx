@@ -25,7 +25,6 @@ export const DeleteSection = ({ sectionID, setRefresh, refresh, courseID }) => {
         courseID: courseID,
       },
     });
-    console.log(res.data);
     setRefresh(refresh + 1);
      } catch (error) {
         console.log(error)

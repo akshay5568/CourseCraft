@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "start": "npx nodemon"
+  },
   "dependencies": {
     "@imagekit/javascript": "^5.1.0",
     "axios": "^1.14.0",

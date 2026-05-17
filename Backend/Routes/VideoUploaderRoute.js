@@ -20,7 +20,6 @@ router.use(
 router.get("/get-sinature", async (req, res) => {
   try {
     const timestamp = Math.floor(Date.now() / 1000);
-    console.log(timestamp);
     const signature = cloudinary.utils.api_sign_request(
       {
         timestamp: timestamp,

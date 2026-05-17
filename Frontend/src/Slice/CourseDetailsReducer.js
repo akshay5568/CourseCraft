@@ -6,6 +6,7 @@ const CourseReducer = createSlice({
     initialState:{
         details:{},
         allCourses:[],
+        loading:true,
     },
     reducers:{
         addCourseDetails:(state,action) => {
@@ -13,10 +14,13 @@ const CourseReducer = createSlice({
         },
         allCoursesForHomePage:(state,action) => {
             state.allCourses = action.payload;   
+        },
+        setLoading:(state,action) => {
+            state.loading = action.payload;
         }
     }
 
 })
 
-export const {addCourseDetails,allCoursesForHomePage} = CourseReducer.actions;
+export const {addCourseDetails,allCoursesForHomePage,setLoading} = CourseReducer.actions;
 export default CourseReducer.reducer;

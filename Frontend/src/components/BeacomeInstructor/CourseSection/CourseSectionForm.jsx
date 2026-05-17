@@ -3,28 +3,38 @@ import React from "react";
 import { useState } from "react";
 import { mainURL } from "../../../Constants/Constant";
 
-export const CourseSectionForm = ({setCourseSectionForm,courseSectionForm,courseID,setRefresh,refresh}) => {
+export const CourseSectionForm = ({
+  setCourseSectionForm,
+  courseSectionForm,
+  courseID,
+  setRefresh,
+  refresh,
+}) => {
   const [sectionData, setSectionData] = useState({
     name: "",
     desc: "",
-    courseID:courseID.id,
+    courseID: courseID.id,
   });
- 
+
   const createSection = async (e) => {
-    if(sectionData.name == "" && sectionData.desc == ""){
-        alert("please fill the proper section details.");
-        return;
+    if (sectionData.name == "" && sectionData.desc == "") {
+      alert("please fill the proper section details.");
+      return;
     }
     e.preventDefault();
-    const token = localStorage.getItem('jwtToken');
-      const res = await axios.post(`${mainURL}/section`, {sectionData},{
-         headers:{
-            Authorization:` Breare ${token}`
-         }
-      })
-      setCourseSectionForm(!courseSectionForm);
-      setRefresh(refresh + 1);
-      console.log(res.data)
+    const token = localStorage.getItem("jwtToken");
+    const res = await axios.post(
+      `${mainURL}/section`,
+      { sectionData },
+      {
+        headers: {
+          Authorization: ` Breare ${token}`,
+        },
+      }
+    );
+    setCourseSectionForm(!courseSectionForm);
+    setRefresh(refresh + 1);
+    console.log(res.data);
   };
 
   return (
@@ -77,9 +87,7 @@ export const CourseSectionForm = ({setCourseSectionForm,courseSectionForm,course
 
             <button
               type="button"
-              onClick={() =>
-                setCourseSectionForm(!courseSectionForm)
-              }
+              onClick={() => setCourseSectionForm(!courseSectionForm)}
               className="cursor-pointer text-sm font-semibold bg-gray-300 hover:bg-gray-400 rounded-md p-2 w-full"
             >
               Cancel

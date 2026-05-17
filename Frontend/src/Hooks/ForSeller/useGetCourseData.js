@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { addCourseDetails } from "../../Slice/CourseDetailsReducer";
+import { addCourseDetails, setLoading } from "../../Slice/CourseDetailsReducer";
 import { addCourseVideos } from "../../Slice/CourseVideoSlice";
 import axios from "axios";
 import { useDispatch } from "react-redux";
@@ -22,6 +22,8 @@ export const useGetCourseData = (refresh) => {
       dispatch(addCourseVideos(courseDetails.data?.videoCourseDetails));
     } catch (e) {
       console.log("Error", e);
+    }finally{
+        dispatch(setLoading(false));
     }
   };
 

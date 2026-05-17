@@ -4,11 +4,15 @@ import { createSlice } from "@reduxjs/toolkit";
 const CourseVideoSlice = createSlice({
     name:"CourseVideo",
     initialState:{
-        videos:[]
+        videos:[],
+        loading:true
     },
     reducers:{
         addCourseVideos:(state,action) => {
             state.videos = action.payload;
+        },
+        setLoading:(state,action) => {
+            state.loading = action.payload;
         }
     }
 })

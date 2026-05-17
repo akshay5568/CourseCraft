@@ -8,14 +8,16 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addSellerCourses } from "../../Slice/SellerAllCourses.js";
 import useGetAllSellerCourses from "../../Hooks/ForSeller/useGetAllSellerCourses.js";
+import Loading from "../ShimmerUI/Loading.jsx";
 export const SellerCoursesAll = () => {
   const { id } = useParams();
 
-  const data = useSelector((state) => state.SellerAllCourses.course);
+  const data = useSelector((state) => state.SellerAllCourses);
+  
   useGetAllSellerCourses(id);
-
+  if(data.loading) return <Loading/>
   return (
-     <div className="min-h-screen bg-[#f7f9fa]">
+    <div className="min-h-screen bg-[#f7f9fa]">
       <SellerHeader />
 
       <div
@@ -67,8 +69,7 @@ export const SellerCoursesAll = () => {
                 text-[#6a6f73]
               "
             >
-              Manage and edit your
-              uploaded courses.
+              Manage and edit your uploaded courses.
             </p>
           </div>
         </div>
@@ -88,11 +89,11 @@ export const SellerCoursesAll = () => {
             mt-8
           "
         >
-          {data?.map((item, index) => {
+          {data?.course?.map((item, index) => {
             return (
               <Link
                 key={index}
-                to={`/course-edit/${data[index]._id}`}
+                to={`/course-edit/${data?.course[index]._id}`}
                 className="
                   group
 
@@ -133,11 +134,7 @@ export const SellerCoursesAll = () => {
                       transition
                       duration-300
                     "
-                    src={
-                      item.thubmnailUrl
-                        ? item.thubmnailUrl
-                        : item.thubmnail
-                    }
+                    src={item.thubmnailUrl ? item.thubmnailUrl : item.thubmnail}
                     alt=""
                   />
                 </div>
@@ -157,10 +154,7 @@ export const SellerCoursesAll = () => {
                       line-clamp-2
                     "
                   >
-                    {item.courseName.substring(
-                      0,
-                      50
-                    )}
+                    {item.courseName.substring(0, 50)}
                   </h1>
 
                   <div
@@ -209,7 +203,7 @@ export const SellerCoursesAll = () => {
         </div>
 
         {/* EMPTY STATE */}
-        {data?.length === 0 && (
+        {data?.course?.length === 0 && (
           <div
             className="
               mt-20
@@ -245,9 +239,7 @@ export const SellerCoursesAll = () => {
                 text-[#6a6f73]
               "
             >
-              Start creating your
-              first course and grow
-              your audience.
+              Start creating your first course and grow your audience.
             </p>
 
             <Link

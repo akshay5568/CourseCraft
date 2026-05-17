@@ -1,4 +1,4 @@
-import { Link, redirect, useNavigate, useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import Header from "../Header/Header";
 import { useSelector } from "react-redux";
 import { FaUsers } from "react-icons/fa";
@@ -9,27 +9,26 @@ import { FaLockOpen } from "react-icons/fa";
 import VideoPlayerPage from "../ContinueLearning/VideoPlayerPage.jsx";
 import { FaCalendarAlt } from "react-icons/fa";
 import { PiStudentBold } from "react-icons/pi";
-import SignIn from "../SignIn/SignIn.jsx";
+import Loading from "../ShimmerUI/Loading.jsx";
 
 export const FullCoursePage = () => {
   const { id } = useParams();
   const redirect = useNavigate();
-  const courses = useSelector((state) => state?.CourseDetails?.allCourses);
+  const courses = useSelector((state) => state?.CourseDetails?.allCourses);   
   const userData = useSelector((state) => state?.User?.data);
-  const filterCourses = courses.find((course) => course._id === id);
+  const filterCourses = courses?.find((course) => course._id === id);
+  if (!userData?.name || !filterCourses) return <Loading />;
 
   const payRazorpay = (filterCourses, id, userData) => {
-    if(userData == undefined) return redirect('/signin')
-    payNow(filterCourses,id,userData);
+    if (userData == undefined) return redirect("/signin");
+    payNow(filterCourses, id, userData);
   };
 
-  const purechasedcourse = filterCourses?.enrolledStudents.filter(
-    (course) => course == userData._id
-  );
+  const isPurchased = filterCourses?.enrolledStudents?.includes(userData?._id);   
 
   return (
     <div>
-      {purechasedcourse?.length > 0 ? (
+      {isPurchased ? (
         <VideoPlayerPage courseID={filterCourses._id} />
       ) : (
         <>
@@ -221,11 +220,7 @@ export const FullCoursePage = () => {
 
                         <button
                           onClick={() =>
-                            payRazorpay(
-                              filterCourses?.price,
-                              id,
-                              userData?._id,
-                            )
+                            payRazorpay(filterCourses?.price, id, userData?._id)
                           }
                           className="
                             mt-4
@@ -336,7 +331,7 @@ export const FullCoursePage = () => {
 
                     {/* LOCK */}
                     <div className="text-sm">
-                      {purechasedcourse?.length > 0 ? (
+                      {isPurchased > 0 ? (
                         <FaLockOpen />
                       ) : (
                         <FaLock />

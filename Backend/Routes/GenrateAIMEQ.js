@@ -9,9 +9,7 @@ const router = express.Router();
 router.post('/genrate-mcq', async (req,res) => {
     try {
         const {transcript} = req.body;
-        console.log("Trans",transcript);
         const mcqs = await genrateMCQ(transcript);
-        console.log(mcqs);
         res.send(mcqs).status(201);
     } catch (error) {
         res.send("Something went wrong").status(401);
@@ -23,14 +21,11 @@ router.post('/genrate-mcq', async (req,res) => {
 router.post("/ai/mcq-answer",refreshJWTChecker, async (req,res) => {           
     try {
         const {userAnswer,AiMcqs,courseID,userID} = req.body;                                                           
-        console.log(userAnswer,AiMcqs,courseID,userID);
         const userAnswer1 = Object.values(userAnswer);
          
         const rightAnswer = AiMcqs.filter((mcq,index) => mcq.answer == userAnswer1[index]);
-        console.log(rightAnswer);
         
         const wrongAnswer = AiMcqs.filter((mcq,index) => mcq.answer != userAnswer1[index]);
-        console.log(wrongAnswer);
 
         const AiMcqsFinalResult =  await AIMcqsSchema.create({
             courseID:courseID,

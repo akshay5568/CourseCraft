@@ -18,9 +18,8 @@ router.delete("/delete-course/:id", refreshJWTChecker, async (req, res) => {
     }
     const courseSectionDeatilas = await coursesection.find({courseId:id});
     await DeleteAllCourseVideosUsingDeleteCourseButton(courseSectionDeatilas,id);   
-    console.log("Deleted")            
+         
     const deltedCourse = await CourseUpload.findByIdAndDelete(id);   
-    console.log("Deleteed coise", deltedCourse)
     res.json("Deleted all the videos");
   } catch (error) {
     res.send("Error", error);

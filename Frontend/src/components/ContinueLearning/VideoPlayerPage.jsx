@@ -7,12 +7,14 @@ import AllUsersMcqs from "./AllUsersMcqs";
 
 export const VideoPlayerPage = ({ courseID }) => {
   const purechasedcourse = useSelector((user) => user.User.courses);
-  const filterCourses = purechasedcourse.filter(
+  const filterCourses = purechasedcourse?.filter(
     (course) => course?.courseID?._id == courseID
   );
   const [refresh, setRefresh] = useState(0);
   const videoUrl = useSelector((state) => state.videoPlayerVideo);
-  console.log(videoUrl)
+
+
+
   return (
    <div className="min-h-screen bg-[#f7f9fa]">
       <Header />
@@ -76,7 +78,7 @@ export const VideoPlayerPage = ({ courseID }) => {
             {/* SECTION LIST */}
             <CourseSections
               purechasedcourse={filterCourses
-                .map(
+                ?.map(
                   (course) =>
                     course?.courseID
                       ?.sectionIds
@@ -87,7 +89,7 @@ export const VideoPlayerPage = ({ courseID }) => {
 
           {/* VIDEO PLAYER */}
           <div className="flex-1">
-            {videoUrl.videoLink ? (
+            {videoUrl?.videoLink ? (
               <div
                 className="
                   bg-white

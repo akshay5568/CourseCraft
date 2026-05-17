@@ -3,18 +3,28 @@ import { useSelector } from "react-redux";
 import ProfileTag from "../HomePage/ProfileTag";
 import useLogout from "../../Hooks/useLogout";
 import { useNavigate } from "react-router";
+import Loading from "../ShimmerUI/Loading";
+import { useEffect } from "react";
 
 export const Profile = () => {
   const userData = useSelector((state) => state.User);
-  console.log(userData)
+  console.log(userData);
   const { logoutHandle } = useLogout();
-  
-  const redirect = useNavigate();
-  if(userData.data.name == "JsonWebTokenError") redirect("/signin");
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    if (userData?.data?.name === "JsonWebTokenError") {
+      navigate("/signin");
+    }
+  }, [userData, navigate]);
+
+  if (!userData || !userData.data) {
+    return <Loading />;
+  }
+  if (userData?.data?.name == "JsonWebTokenError") redirect("/signin");
 
   return (
-     <div className="min-h-screen bg-[#f7f9fa]">
+    <div className="min-h-screen bg-[#f7f9fa]">
       <Header />
 
       <div

@@ -11,7 +11,6 @@ export const AIMcqs = ({
   refresh,
   videoUrl,
 }) => {
-  console.log(videoUrl)
   const [AiMcqs, setAIMcqs] = useState([]);
   const userID = courseDetails[0]?.userID;
   const courseID = courseDetails[0]?.courseID?._id;
@@ -31,7 +30,7 @@ export const AIMcqs = ({
 
 
   const uploadUrl = async (videoUrl) => {
-    console.log(videoUrl)
+
     const response = await axios.post(
       "https://api.assemblyai.com/v2/transcript",
       {
@@ -66,7 +65,6 @@ export const AIMcqs = ({
         throw new Error("Transcription failed");
       }
 
-      console.log("Processing...");
       await new Promise((r) => setTimeout(r, 3000));
     }
   };

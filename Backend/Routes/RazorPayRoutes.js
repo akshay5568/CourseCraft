@@ -69,7 +69,6 @@ router.post("/verify", refreshJWTChecker, async (req, res) => {
 router.get("/users-bought-courses", refreshJWTChecker, async (req, res) => {
   try {
     const userData = req.query;
-    console.log(userData);
     const allPurchasedCourses = await RazorPay.find({
       userID: userData?.userId,
     }).populate({

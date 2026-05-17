@@ -1,7 +1,9 @@
 import { useSelector } from "react-redux";
+import Loading from "../ShimmerUI/Loading";
 
 export const ProfileTag = ({ isProfile }) => {
   const user = useSelector((state) => state.User);
+  // if(!user.data) return <Loading/>
   return (
     <div className="pl-3  max-sm:w-full">
       <div className="flex gap-5">

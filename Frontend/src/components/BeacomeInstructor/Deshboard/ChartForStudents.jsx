@@ -1,50 +1,25 @@
 import React from "react";
 import { Doughnut } from "react-chartjs-2";
 
-import {
-  Chart,
-  ArcElement,
-  Tooltip,
-  Legend,
-} from "chart.js";
+import { Chart, ArcElement, Tooltip, Legend } from "chart.js";
 
 import { useSelector } from "react-redux";
 
 import useGetAllSellerCourses from "../../../Hooks/ForSeller/useGetAllSellerCourses";
+import Loading from "../../ShimmerUI/Loading";
 
-Chart.register(
-  ArcElement,
-  Tooltip,
-  Legend
-);
+Chart.register(ArcElement, Tooltip, Legend);
 
-export const ChartForStudents = ({
-  sellerID,
-}) => {
-  useGetAllSellerCourses(
-    sellerID
+export const ChartForStudents = ({ sellerID }) => {
+  useGetAllSellerCourses(sellerID);
+
+  const sellerAllCourse = useSelector((state) => state.SellerAllCourses);
+  if(sellerAllCourse.loading) return <Loading/>
+  const allCourseNames = sellerAllCourse?.course.map((course) => course?.courseName);
+
+  const students = sellerAllCourse?.course.map(
+    (course) => course.enrolledStudents.length
   );
-
-  const sellerAllCourse =
-    useSelector(
-      (state) =>
-        state.SellerAllCourses
-          .course
-    );
-
-  const allCourseNames =
-    sellerAllCourse.map(
-      (course) =>
-        course?.courseName
-    );
-
-  const students =
-    sellerAllCourse.map(
-      (course) =>
-        course
-          .enrolledStudents
-          .length
-    );
 
   const chartData = {
     labels: allCourseNames,
@@ -67,8 +42,7 @@ export const ChartForStudents = ({
 
         borderWidth: 2,
 
-        borderColor:
-          "#ffffff",
+        borderColor: "#ffffff",
 
         hoverOffset: 10,
       },
@@ -98,8 +72,7 @@ export const ChartForStudents = ({
       },
 
       tooltip: {
-        backgroundColor:
-          "#111827",
+        backgroundColor: "#111827",
 
         padding: 12,
 
@@ -158,8 +131,7 @@ export const ChartForStudents = ({
             text-[#6b7280]
           "
         >
-          Total students enrolled
-          in each course.
+          Total students enrolled in each course.
         </p>
       </div>
 
@@ -177,10 +149,7 @@ export const ChartForStudents = ({
           justify-center
         "
       >
-        <Doughnut
-          data={chartData}
-          options={options}
-        />
+        <Doughnut data={chartData} options={options} />
       </div>
     </div>
   );

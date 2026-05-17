@@ -1,16 +1,15 @@
 import { useSelector } from "react-redux";
 import Header from "../Header/Header";
 import AllCourses from "./AllCourses";
-import ForContuineLearning from "./ForContuineLearning";
-import PosterAnimated from "./PosterAnimated";
+import PosterAnimated from "./PosterAnimated";   
 import ProfileTag from "./ProfileTag";
 import Recommended from "./Recommended";
 
 const HomePage = () => {
   const user = useSelector((state) => state.User);
-  console.log(user)
+
   return (
-    <div className="w-full min-h-screen overflow-x-hidden">
+    <div className="w-full min-h-screen overflow-x-hidden">    
       <Header />
 
       <div
@@ -26,7 +25,7 @@ const HomePage = () => {
         "
       >
         <div className="space-y-6 md:space-y-8">
-          {user.data.name != "JsonWebTokenError" && <ProfileTag/>}
+          {user.data && user.courses.length > 0 && <ProfileTag />}
           <PosterAnimated />
 
           <Recommended />

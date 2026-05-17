@@ -105,7 +105,6 @@ export const courseUploadBTN = async (
       Dec: Dec.current.value,
       sellerData: sellerData,
     };
-    console.log(courseDetails);
     const formData = new FormData();
     formData.append("courseDetails", JSON.stringify(courseDetails));
     formData.append("thumbnail", thumbnail.current.files[0]);
@@ -144,7 +143,7 @@ export const DeleteCourseBTN = async (
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(res);
+
     redirect("/");
   } catch (error) {
     console.log("Error,", error);
@@ -156,7 +155,7 @@ export const DeleteCourseBTN = async (
 export const payNow = async (price, id, userID) => {
   
   const token = localStorage.getItem("jwtToken");
-  console.log("Razorpay Key:", "rzp_test_S4aQWrN38Sw5ti");
+
 
   const res = await axios.get(
     `${mainURL}/create-order?price=${price}&userID=${userID}&courseID=${id}`,
@@ -184,7 +183,6 @@ export const payNow = async (price, id, userID) => {
           },
         }
       );
-      console.log(res1);
       alert("Payment Successful");
     },
   };
