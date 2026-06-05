@@ -1,6 +1,6 @@
 import SellerHeader from "./SellerHeader";
 import { Link, useParams } from "react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import EnrolledStudents from "./EnrolledStudents";
 import EditCourseForm from "./EditCourseForm";
@@ -19,7 +19,18 @@ export const CourseEditPage = () => {
   const [refresh, setRefresh] = useState(0);
   useGetCourseData(refresh);
 
-  const CourseDetails = useSelector((state) => state.CourseDetails);
+  const coursesDetails = useSelector((state) => state.CourseDetails);
+  const [CourseDetails,setCourseDetails] = useState(coursesDetails);
+
+  useEffect(() => {
+      setCourseDetails(coursesDetails);
+  }, [coursesDetails])
+
+  if(!CourseDetails?.details){
+    return <Loading/>
+  }
+  
+
   const CourseVideos = useSelector((state) => state.CourseVideo.videos);
   const id = useParams();
 
@@ -35,7 +46,6 @@ export const CourseEditPage = () => {
 
   const [courseSectionForm, setCourseSectionForm] = useState(false);
   const [isEditTrue, setIsEditTrue] = useState(false);
-  if(CourseDetails.loading) return <Loading/>
   return (
     <div className="min-h-screen bg-[#f7f9fa]">
       <SellerHeader />
